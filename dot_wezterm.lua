@@ -141,5 +141,4 @@ config.colors = {
   quick_select_match_fg = { Color = '#ffffff' },
 }
 
-
 return config

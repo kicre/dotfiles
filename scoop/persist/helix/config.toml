@@ -1,0 +1,13 @@
+theme = "base16_terminal" # 设置主题
+
+[editor]
+line-number = "relative" # 相对行号
+# 高亮显示
+cursorline = true # 高亮显示行
+cursorcolumn = true # 高亮显示列
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
