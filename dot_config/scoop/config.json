@@ -1,7 +1,7 @@
 {
     "aria2-enabled":  false,
     "aria2-warning-enabled":  false,
-    "last_update":  "2024-02-27T07:49:41.6500493+08:00",
+    "last_update":  "2024-02-27T19:13:24.2564289+08:00",
     "proxy":  "127.0.0.1:2080",
     "scoop_branch":  "master",
     "scoop_repo":  "https://github.com/ScoopInstaller/Scoop"
