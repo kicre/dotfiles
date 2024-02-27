@@ -142,3 +142,4 @@ config.colors = {
 }
 
 return config
+
