@@ -1,0 +1,22 @@
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.15.0.0
+  generator: "Weasel::UIStyleSettings"
+  modified_time: "Wed Feb  7 13:29:14 2024"
+  rime_version: 1.8.5
+patch:
+  "app_options/alacritty.exe":
+    ascii_mode: true
+  "app_options/nvim-qt.exe":
+    ascii_mode: true
+  "app_options/putty.exe":
+    ascii_mode: true
+  "app_options/wezterm-gui.exe":
+    ascii_mode: true
+  "app_options/windowsterminal.exe":
+    ascii_mode: true
+  "app_options/wox.exe":
+    ascii_mode: true
+  "style/color_scheme": lost_temple
+  "style/display_tray_ico": false
+  "style/horizontal": true
