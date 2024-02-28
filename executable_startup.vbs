@@ -24,7 +24,7 @@ command6 = "powershell -Command ""& {rclone mount cos:cloud-1319789079 T: --voln
 
 objShell.CurrentDirectory = singBoxDir
 objShell.Run command1, 0, False
-objShell.CurrentDirectory = "C:\Users\kicre"
+objShell.CurrentDirectory = "C:\"
 WScript.Sleep 5000
 objShell.Run command2, 1, False
 objShell.Run command3, 1, True

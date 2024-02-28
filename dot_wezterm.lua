@@ -31,7 +31,7 @@ end
 
 -- 初始大小
 config.initial_cols = 96
-config.initial_rows = 36
+config.initial_rows = 28
 -- Theme
 --function get_appearance()
 --  if wezterm.gui then
