@@ -5,9 +5,9 @@ scoop/
 {{- end }}
 
 {{ if ne .chezmoi.os "linux" }}
-.config/helix/picgo
-.local/share/
-.aria2
+.config/
+.local/
+.aria2/
 {{ end }}
 
 {{ if ne .data.desktop "i3" }}
