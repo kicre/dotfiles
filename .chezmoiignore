@@ -1,12 +1,11 @@
 {{- if ne .chezmoi.os "windows" }}
 start.vbs
-AppData/Roaming/Rime/weasel.custom.yaml
+AppData/
+scoop/
 {{- end }}
 
-{{ if ne .chezmoi.os "darwin" }}
-Library/Application Support/App/file.conf
-{{ end }}
-
 {{ if ne .chezmoi.os "linux" }}
-.config/app/file.conf
+.config/helix/picgo
+.local/share/
+.aria2
 {{ end }}
