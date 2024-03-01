@@ -9,3 +9,8 @@ scoop/
 .local/share/
 .aria2
 {{ end }}
+
+{{ if ne .data.desktop "i3" }}
+.i3
+.config/i3status
+{{end}}
