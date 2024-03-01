@@ -20,7 +20,11 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
         label = 'WSL',
         args = { 'wsl.exe', '--cd', "/home/" }
      } )
-    default_prog = { 'pwsh', '-l' }
+    table.insert( launch_menu, {
+        label = 'PWSH',
+        args = { 'pwsh.exe', '-l'}
+     } )
+    config.default_prog = { 'pwsh', '-l' }
 elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
     table.insert( launch_menu, {
         label = 'Bash',
@@ -30,13 +34,13 @@ elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
         label = 'Zsh',
         args = { 'zsh', '-l' }
      } )
-      default_prog = { 'zsh', '-l' }
+      config.default_prog = { 'zsh', '-l' }
 else
     table.insert( launch_menu, {
         label = 'Zsh',
         args = { 'zsh', '-l' }
      } )
-    default_prog = { 'zsh', '-l' }
+    config.default_prog = { 'zsh', '-l' }
 end
 
 -- 初始大小
