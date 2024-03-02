@@ -9,6 +9,7 @@ scoop/
 .local/
 .aria2/
 .zshrc
+.oh-my-zsh
 {{ end }}
 
 {{ if ne .desktop "i3" }}
