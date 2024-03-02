@@ -23,7 +23,7 @@ bindsym $mod+n border normal
 
 # 自启动软件
 exec --no-startup-id fcitx5 -d # fcitx5 输入法框架
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh #自启 polybar
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh #自启 polybar
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -62,7 +62,7 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-bindsym $mod+F2 exec palemoon
+bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
