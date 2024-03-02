@@ -8,6 +8,7 @@ scoop/
 .config/
 .local/
 .aria2/
+.zshrc
 {{ end }}
 
 {{ if ne .desktop "i3" }}
