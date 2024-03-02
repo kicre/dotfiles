@@ -5,12 +5,13 @@ scoop/
 {{- end }}
 
 {{ if ne .chezmoi.os "linux" }}
-.config/
+.config/*
 !.config/starship.toml
 .local/
 .aria2/
 .zshrc
 .oh-my-zsh/
+.oh-my-zsh/custom/plugins/*
 {{ end }}
 
 {{ if ne .desktop "i3" }}
