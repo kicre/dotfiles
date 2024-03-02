@@ -6,10 +6,11 @@ scoop/
 
 {{ if ne .chezmoi.os "linux" }}
 .config/
+!.config/starship.toml
 .local/
 .aria2/
 .zshrc
-.oh-my-zsh
+.oh-my-zsh/
 {{ end }}
 
 {{ if ne .desktop "i3" }}
