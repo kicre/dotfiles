@@ -1,7 +1,7 @@
 configuration {
-	modi:"window,drun.ssh.combi";
-	theme: "solarized";
+	modi:"window,drun,ssh,combi";
 	icon-theme: "Numix";
 	font: "sarasa SC 12";
-	combi-modi: "window.drun.ssh";
+	combi-modi: "window,drun,ssh";
 }
+@theme "solarized"
