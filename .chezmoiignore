@@ -1,23 +1,24 @@
 {{- if ne .chezmoi.os "windows" }}
 start.vbs
-AppData/
-scoop/
+AppData
+scoop
 {{- end }}
 
 {{ if ne .chezmoi.os "linux" }}
 .config/*
 !.config/starship.toml
-.local/
-.aria2/
+.local
+.aria2
 .zshrc
-.oh-my-zsh/
+.oh-my-zsh
 .oh-my-zsh/custom/plugins
 {{ end }}
 
 {{ if ne .desktop "i3" }}
-.i3/
+.i3
 .config/i3status
 .config/rofi
 {{end}}
 
 .oh-my-zsh/cache
+
