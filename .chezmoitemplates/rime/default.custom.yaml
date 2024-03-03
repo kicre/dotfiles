@@ -14,10 +14,5 @@ patch:
   "menu/page_size": 9
   schema_list:
     - {schema: rime_ice}
-    - {schema: luna_quanpin}
-    - {schema: liangfen}
-    - {schema: melt_eng}
-    - {schema: wubi86}
-    - {schema: wubi_pinyin}
   "switcher/hotkeys": "Control+grave"
   "translator/enable_user_dict": true
