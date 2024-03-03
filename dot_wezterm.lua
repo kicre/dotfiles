@@ -14,17 +14,21 @@ local haswork,work = pcall(require,"work")
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
     table.insert( launch_menu, {
         label = 'Git Bash',
-        args = { 'bash.exe', '-l'}
+        args = { 'bash', '-l'}
+     } )
+    table.insert( launch_menu, {
+        label = 'NuShell',
+        args = { 'nu', '-l'}
      } )
     table.insert( launch_menu, {
         label = 'WSL',
-        args = { 'wsl.exe', '--cd', "/home/" }
+        args = { 'wsl', '--cd', "/home/" }
      } )
     table.insert( launch_menu, {
         label = 'PWSH',
-        args = { 'pwsh.exe', '-l'}
+        args = { 'pwsh', '-l'}
      } )
-    config.default_prog = { 'pwsh', '-l' }
+    config.default_prog = { 'nu', '-l' }
 elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
     table.insert( launch_menu, {
         label = 'Bash',
@@ -75,7 +79,7 @@ config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.font = wezterm.font('等距更纱黑体 SC Nerd Font')
 config.font_size = 12
 config.launch_menu = launch_menu
-config.default_cursor_style = 'BlinkingBar'
+config.default_cursor_style = 'SteadyUnderline'
 config.disable_default_key_bindings = true
 config.keys = keys
 config.mouse_bindings = mouse_bindings
@@ -95,7 +99,7 @@ config.colors = {
   cursor_fg = '#F2E6D4',
 
   -- 当光标样式设置为块时，指定光标边框颜色，或当光标样式设置为竖线或下划线时，指定竖线或横线的颜色
-  cursor_border = '#3E4044',
+  cursor_border = '#FFFDFB',
 
   -- 选定文本的前景色
   selection_fg = '#FFF7ED',
