@@ -11,7 +11,7 @@ scoop/
 .aria2/
 .zshrc
 .oh-my-zsh/
-.oh-my-zsh/custom/plugins/*
+.oh-my-zsh/custom/plugins
 {{ end }}
 
 {{ if ne .desktop "i3" }}
@@ -19,3 +19,5 @@ scoop/
 .config/i3status
 .config/rofi
 {{end}}
+
+.oh-my-zsh/cache
