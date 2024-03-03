@@ -11,3 +11,14 @@ insert = "bar"
 normal = "block"
 select = "underline"
 
+[keys.insert]
+"esc" = [":sh echo $(busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode) > /tmp/rime-state; busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b true", "normal_mode"]
+
+[keys.normal]
+"i" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "insert_mode"]
+"a" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "append_mode"]
+"c" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "change_selection"]
+"o" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "open_below"]
+"I" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "insert_at_line_start"]
+"A" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "insert_at_line_end"]
+"O" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "open_above"]
