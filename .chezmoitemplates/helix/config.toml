@@ -8,7 +8,7 @@ cursorcolumn = true # 高亮显示列
 default-line-ending = "native"
 
 [editor.lsp]
-display-messates = true
+display-messages = true
 auto-signature-help = true
 display-signature-help-docs = true
 
