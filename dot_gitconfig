@@ -1,7 +1,0 @@
-[credential "helperselector"]
-	selected = manager
-[user]
-	email = kicre@gmx.com
-	name = kicre
-[core]
-	autocrlf = input
