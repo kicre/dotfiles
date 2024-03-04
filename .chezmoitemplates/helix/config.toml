@@ -5,12 +5,17 @@ line-number = "relative" # 相对行号
 # 高亮显示
 cursorline = true # 高亮显示行
 cursorcolumn = true # 高亮显示列
-default-line-ending = native
+default-line-ending = "native"
+
+[editor.lsp]
+display-messates = true
+auto-signature-help = true
+display-signature-help-docs = true
 
 [editor.cursor-shape]
 insert = "bar"
-normal = "block"
-select = "underline"
+normal = "underline"
+select = "block"
 
 [keys.insert]
 "esc" = [":sh echo $(busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode) > /tmp/rime-state; busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b true", "normal_mode"]

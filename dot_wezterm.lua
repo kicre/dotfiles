@@ -28,7 +28,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
         label = 'PWSH',
         args = { 'pwsh', '-l'}
      } )
-    config.default_prog = { 'pwsh', '-l' }
+    config.default_prog = { 'nu', '-l' }
 elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
     table.insert( launch_menu, {
         label = 'Bash',
