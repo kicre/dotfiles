@@ -4,4 +4,4 @@
 	email = kicre@gmx.com
 	name = kicre
 [core]
-	autocrlf true
+	autocrlf = true
