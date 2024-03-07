@@ -12,6 +12,7 @@ scoop
 .zshrc
 .oh-my-zsh
 .oh-my-zsh/custom/plugins
+.pip
 {{ end }}
 
 {{ if ne .desktop "i3" }}
