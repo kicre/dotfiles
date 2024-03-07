@@ -15,11 +15,5 @@ scoop
 .pip
 {{ end }}
 
-{{ if ne .desktop "i3" }}
-.i3
-.config/i3status
-.config/rofi
-{{end}}
-
 .oh-my-zsh/cache
 
