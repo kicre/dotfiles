@@ -47,9 +47,6 @@ else
     config.default_prog = { 'zsh', '-l' }
 end
 
--- 初始大小
-config.initial_cols = 96
-config.initial_rows = 28
 -- Theme
 --function get_appearance()
 --  if wezterm.gui then
@@ -73,7 +70,7 @@ config.initial_rows = 28
 config.window_background_opacity = 0.9
 
 -- 取消 Windows 原生标题栏
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+-- config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 --- Default config settings
 config.font = wezterm.font('等距更纱黑体 SC Nerd Font')
