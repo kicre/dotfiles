@@ -83,6 +83,7 @@ config.default_cursor_style = 'SteadyUnderline'
 config.disable_default_key_bindings = true
 config.keys = keys
 config.mouse_bindings = mouse_bindings
+config.enable_tab_bar = false
 
 config.colors = {
 
