@@ -10,8 +10,6 @@ scoop
 .local
 .aria2
 .zshrc
-.oh-my-zsh
-.oh-my-zsh/custom/plugins
 .pip
 {{ end }}
 
