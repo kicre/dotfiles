@@ -77,9 +77,6 @@ config.font = wezterm.font('等距更纱黑体 SC Nerd Font')
 config.font_size = 12
 config.launch_menu = launch_menu
 config.default_cursor_style = 'SteadyUnderline'
-config.disable_default_key_bindings = true
-config.keys = keys
-config.mouse_bindings = mouse_bindings
 config.enable_tab_bar = false
 
 config.colors = {
