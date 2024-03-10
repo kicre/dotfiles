@@ -57,7 +57,7 @@ end
 
 function scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
-    return 'DanQing (base16)'
+    return 'Darcula'
   else
     return 'DanQing Light (base16)'
 	end
