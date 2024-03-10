@@ -47,25 +47,25 @@ else
     config.default_prog = { 'zsh', '-l' }
 end
 
--- Theme
-function get_appearance()
-  if wezterm.gui then
-    return wezterm.gui.get_appearance()
-  end
-  return 'Dark'
-end
+-- -- Theme
+-- function get_appearance()
+--   if wezterm.gui then
+--     return wezterm.gui.get_appearance()
+--   end
+--   return 'Dark'
+-- end
 
-function scheme_for_appearance(appearance)
-  if appearance:find 'Dark' then
-    return 'Darcula'
-  else
-    return 'DanQing Light (base16)'
-	end
-end
+-- function scheme_for_appearance(appearance)
+--   if appearance:find 'Dark' then
+--     return 'Darcula'
+--   else
+--     return 'DanQing Light (base16)'
+-- 	end
+-- end
 
-config.color_scheme = scheme_for_appearance(get_appearance())
+-- config.color_scheme = scheme_for_appearance(get_appearance())
 
--- config.color_scheme = 'Bamboo'
+config.color_scheme = 'Darcula'
 config.window_background_opacity = 0.9
 
 -- 取消 Windows 原生标题栏
