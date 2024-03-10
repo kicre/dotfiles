@@ -9,7 +9,6 @@ scoop
 !.config/starship.toml
 !.config/wezterm
 .local
-.aria2
 .zshrc
 .pip
 {{ end }}
