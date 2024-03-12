@@ -29,7 +29,6 @@
 # https://github.com/XIU2/TrackersListCollection
 #
 
-pwd
 cd .config/aria2
 
 RED_FONT_PREFIX="\033[31m"
