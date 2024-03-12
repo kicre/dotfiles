@@ -17,6 +17,13 @@ insert = "bar"
 normal = "underline"
 select = "block"
 
+[editor.soft-wrap]
+enable = true
+max-wrap = 25 # 增加该值可以降低强制从一个词中间软换行
+max-indent-retain = 0
+# wrap-indicator = ""  # 设置后可以不现实软换行符号
+wrap-at-text-width = false
+
 [keys.insert]
 "esc" = [":sh echo $(busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode) > /tmp/rime-state; busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b true", "normal_mode"]
 
