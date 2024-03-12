@@ -3,7 +3,7 @@
 [note]
 language = "zh"
 default-title = "Untitled"
-filename = "{{id}}-{{slug title}}"
+filename = "{{"{{id}}-{{slug title}}"}}"
 exetension = "md"
 #template = "default.md"
 id-charset = "alphanum"
@@ -17,7 +17,7 @@ author = "kicre"
 #paths = ["journal/weekly", "journal/daily"]
 
 [group.journal.note]
-filename = "{{format-data now}}"
+filename = "{{"{{format-data now}}"}}"
 
 [format.markdown]
 hashtags = true
@@ -31,7 +31,7 @@ shell = "bin/zsh"
 shell = "pwsh"
 {{ end }}
 #pager = "less -FIRX"
-#fzf-preview = "bat -p --color always {-1}"
+#fzf-preview = "bat -p --color always {"-1"}"
 
 [filter]
 recents = "--sort created- --created-after 'last two weeks'"
