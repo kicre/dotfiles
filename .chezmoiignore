@@ -2,7 +2,6 @@
 startup.vbs
 AppData
 scoop
-run_after_aria2_tracker.ps1
 {{- end }}
 
 {{ if ne .chezmoi.os "linux" }}
@@ -13,8 +12,4 @@ run_after_aria2_tracker.ps1
 .local
 .zshrc
 .pip
-run_after_aria2_tracker.sh
 {{ end }}
-
-.config/zsh/oh-my-zsh/cache
-
