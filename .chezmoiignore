@@ -13,3 +13,7 @@ scoop
 .zshrc
 .pip
 {{ end }}
+
+{{ if ne .name "kicre" }}
+.config/rclone
+{{ end }}
