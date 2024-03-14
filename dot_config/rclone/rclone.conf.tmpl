@@ -1,14 +1,14 @@
 [pikpak]
 type = pikpak
-pass = {{ (bitwardenFields "pikpak").pass.value }}
-token = {{ (bitwardenFields "pikpak").token.value }}
+pass = {{ (bitwardenFields "item" "mypikpak.com").pass.value }}
+token = {{ (bitwardenFields "item" "mypikpak.com").token.value }}
 user = kicre@gmx.com
 
 [cos]
 type = s3
 provider = TencentCOS
-access_key_id = {{ (bitwardenFields "cos").access_key_id }}
-secret_access_key = {{ (bitwardenFields "cos").secret_access_key }}
+access_key_id = {{ (bitwardenFields "item" "cloud.tencent.com").access_key_id.value }}
+secret_access_key = {{ (bitwardenFields "item" "cloud.tencent.com").secret_access_key.value }}
 endpoint = cos.ap-beijing.myqcloud.com
 env_auth = true
 
@@ -17,4 +17,4 @@ type = webdav
 url = https://alist.kicre.top/dav
 vendor = other
 user = webdav
-pass = {{ (bitwardenFields "alist").pass_key }}
+pass = {{ (bitwardenFields "item" "alist.kicre.top").pass.value }}
