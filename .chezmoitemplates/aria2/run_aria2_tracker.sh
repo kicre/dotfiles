@@ -29,7 +29,7 @@
 # https://github.com/XIU2/TrackersListCollection
 #
 
-cd .config/aria2
+cd ~/.local/share/chezmoi/.chezmoitemplates/aria2
 
 RED_FONT_PREFIX="\033[31m"
 GREEN_FONT_PREFIX="\033[32m"
