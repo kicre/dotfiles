@@ -4,8 +4,14 @@
 	email = kicre@gmx.com
 	name = kicre
 [core]
-{{ if eq .chezmoi.os "windows" -}}
+{{ if eq .chezmoi.os "windows" }}
 	autocrlf = true
-{{ else -}}
+{{ else }}
 	autocrlf = input
-{{ end -}}
+{{ end }}
+[pull]
+	rebase = false
+[https]
+	proxy = http://127.0.0.1:2080
+[http]
+	proxy = http://127.0.0.1:2080
