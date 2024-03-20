@@ -1,0 +1,23 @@
+[shell]
+{{ if eq .chezmoi.os "windows" }}
+program = "pwsh"
+{{ else }}
+program = "zsh"
+{{end}}
+args = ["-l"]
+
+[font]
+size = 12
+normal = {family = "等距更纱黑体 SC Nerd Font", style = "Regular"}
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[window]
+{{ if eq .chezmoi.os "linux" }}
+decorations = "None"
+{{ end }}
+opacity = 0.9
+dynamic_title = true
+dynamic_padding = true
