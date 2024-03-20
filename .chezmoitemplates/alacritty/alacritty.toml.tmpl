@@ -1,7 +1,7 @@
 [shell]
-{{ if eq .chezmoi.os "windows" }}
+{{- if eq .chezmoi.os "windows" }}
 program = "pwsh"
-{{ else }}
+{{- else }}
 program = "zsh"
 {{end}}
 args = ["-l"]
@@ -15,9 +15,9 @@ history = 10000
 multiplier = 3
 
 [window]
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 decorations = "None"
-{{ end }}
+{{- end }}
 opacity = 0.9
 dynamic_title = true
 dynamic_padding = true

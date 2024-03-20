@@ -4,11 +4,11 @@
 	email = kicre@gmx.com
 	name = kicre
 [core]
-{{ if eq .chezmoi.os "windows" }}
+{{- if eq .chezmoi.os "windows" }}
 	autocrlf = true
 {{ else }}
 	autocrlf = input
-{{ end }}
+{{- end }}
 [pull]
 	rebase = false
 #[https]
