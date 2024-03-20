@@ -65,7 +65,7 @@ end
 
 -- config.color_scheme = scheme_for_appearance(get_appearance())
 
-config.color_scheme = 'Darcula'
+-- config.color_scheme = 'Darcula'
 config.window_background_opacity = 0.9
 
 -- 取消 Windows 原生标题栏
