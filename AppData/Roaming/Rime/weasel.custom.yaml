@@ -20,3 +20,10 @@ patch:
   "style/color_scheme": lost_temple
   "style/display_tray_ico": false
   "style/horizontal": true
+
+  app_options/windowsterminal.exe/vim_mode: true
+  app_options/wezterm-gui.exe/vim_mode: true
+  app_options/alacritty.exe/vim_mode: true
+  app_options/nvim-qt.exe/vim_mode: true
+  app_options/goneovim.exe/vim_mode: true
+  app_options/neovide.exe/vim_mode: true
