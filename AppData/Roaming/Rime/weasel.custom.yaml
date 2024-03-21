@@ -4,6 +4,7 @@ customization:
   generator: "Weasel::UIStyleSettings"
   modified_time: "Wed Feb  7 13:29:14 2024"
   rime_version: 1.8.5
+
 patch:
   "app_options/alacritty.exe":
     ascii_mode: true
@@ -17,6 +18,9 @@ patch:
     ascii_mode: true
   "app_options/wox.exe":
     ascii_mode: true
+  "app_options/code.exe":
+    ascii_mode: true
+
   "style/color_scheme": lost_temple
   "style/display_tray_ico": false
   "style/horizontal": true
