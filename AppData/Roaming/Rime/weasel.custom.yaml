@@ -27,3 +27,4 @@ patch:
   app_options/nvim-qt.exe/vim_mode: true
   app_options/goneovim.exe/vim_mode: true
   app_options/neovide.exe/vim_mode: true
+  app_options/code.exe/vim_mode: true
