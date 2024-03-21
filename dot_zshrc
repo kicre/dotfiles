@@ -13,6 +13,6 @@ compinit
 
 source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions-master/zsh-autosuggestions.zsh
-fpath = (~/.config/zsh/plugins/zsh-completions/zsh-completions-master/src $fpath)
+#fpath = (~/.config/zsh/plugins/zsh-completions/zsh-completions-master/src $fpath)
 
 eval "$(starship init zsh)"
