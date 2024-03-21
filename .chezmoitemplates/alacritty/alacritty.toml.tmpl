@@ -19,5 +19,8 @@ multiplier = 3
 decorations = "None"
 {{- end }}
 opacity = 0.9
-# dynamic_title = true
+title = "Alacritty"
+{{- if eq .chezmoi.os "windows" }}
+dynamic_title = false
+{{- end }}
 dynamic_padding = true
