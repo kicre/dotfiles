@@ -1,0 +1,23 @@
+[language-server.typst-lsp]
+command = "typst-lsp"
+
+[[language]]
+name = "typst"
+scope = "source.typst"
+file-types = ["typst", "typ"]
+indent = { tab-width = 2, unit = "  " }
+comment-token = "//"
+injection-regex = "typ(st)?"
+roots = ["typst.toml"]
+language-servers = [ "typst-lsp" ]
+
+[language.auto-pairs]
+'(' = ')'	
+'{' = '}'
+'[' = ']'
+'$' = '$'
+'"' = '"'
+
+[[grammar]]name = "typst"
+source.git = "https://github.com/uben0/tree-sitter-typst"
+source.rev = "master"
