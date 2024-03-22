@@ -1,3 +1,5 @@
+# typst
+
 [language-server.typst-lsp]
 command = "typst-lsp"
 
@@ -18,6 +20,33 @@ language-servers = [ "typst-lsp" ]
 '$' = '$'
 '"' = '"'
 
-[[grammar]]name = "typst"
-source.git = "https://github.com/uben0/tree-sitter-typst"
-source.rev = "master"
+#mdpls
+
+[[language]]
+name = "markdown"
+language-servers = ["marksman", "mdpls"]
+
+[language-server.mdpls]
+command = "mdpls"
+config = { markdown.preview.auto = true, markdown.preview.browser = "firefox" }
+
+#matlab
+
+[language-server.matlab-ls]
+command = "matlab-language-server"
+args = ["--stdio"]
+
+[language-server.matlab-ls.config.MATLAB]
+indexWorkspace = false
+#installPath = "/PATH/TO/MATLAB/INSTALLATION"
+matlabConnectionTiming = "onStart"
+telemetry = false
+
+[[language]]
+name = "matlab"
+scope = "source.m"
+file-types = ["m"]
+language-servers = ["matlab-ls"]
+comment-token = "%"
+shebangs = ["octave-cli", "matlab"]
+indent = { tab-width = 2, unit = "  " }
