@@ -46,3 +46,11 @@ lucky = "zk list --quiet --format full --sort random --limit 1"
 [lsp.diagnostics]
 wiki-title = "hint"
 dead-link = "error"
+
+# COMMAND ALIASES
+[alias]
+journal = 'zk new --no-input "journal"'
+draft = 'zk new --no-input "draft" --title "$argv"'
+inbox = 'zk new --interactive "inbox" --title "$argv"'
+snippet = 'zk new --interactive "snippet" --title "$argv"'
+todo = 'zk edit TODO.md'
