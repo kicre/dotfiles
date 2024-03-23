@@ -29,8 +29,7 @@ source.rev = "master"
 
 [[language]]
 name = "markdown"
-#language-servers = [ "markdown-oxide", "mdpls", "ltex-ls" ]
-language-servers = [ "markdown-oxide", "ltex-ls" ]
+language-servers = [ "marksman", "mdpls", "ltex-ls" ]
 
 [language-server.mdpls]
 command = "mdpls"
