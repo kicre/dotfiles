@@ -1,0 +1,22 @@
+patch:
+  "app_options/alacritty":
+    ascii_mote: true
+  "app_options/wezterm":
+    ascii_mote: true
+  "app_options/kitty":
+    ascii_mote: true
+  "app_options/code":
+    ascii_mote: true
+  "app_options/vim":
+    ascii_mote: true
+  "app_options/gvim":
+    ascii_mote: true
+  "app_options/nvim-qt":
+    ascii_mote: true
+  "app_options/neovide":
+    ascii_mote: true
+  "app_options/helix":
+    ascii_mote: true
+  "app_options/goneovim":
+    ascii_mote: true
+
