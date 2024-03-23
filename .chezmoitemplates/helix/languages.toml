@@ -20,6 +20,11 @@ language-servers = [ "typst-lsp" ]
 '$' = '$'
 '"' = '"'
 
+[[grammar]]
+name = "typst"
+source.git = "https://github.com/uben0/tree-sitter-typst"
+source.rev = "master"
+
 #markdown
 
 [[language]]
