@@ -20,11 +20,11 @@ language-servers = [ "typst-lsp" ]
 '$' = '$'
 '"' = '"'
 
-#mdpls
+#markdown
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "mdpls"]
+language-servers = [ "markdown-oxide", "mdpls", "ltex-ls" ]
 
 [language-server.mdpls]
 command = "mdpls"
