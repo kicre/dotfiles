@@ -33,7 +33,7 @@ language-servers = [ "marksman", "mdpls", "ltex-ls" ]
 
 [language-server.mdpls]
 command = "mdpls"
-config = { markdown.preview.auto = true, markdown.preview.browser = "firefox" }
+config = { markdown.preview.auto = true, markdown.preview.browser = "falkon" }
 
 #matlab
 
