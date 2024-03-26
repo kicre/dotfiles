@@ -16,3 +16,15 @@ url = "https://github.com/zsh-users/zsh-completions/archive/master.tar.gz"
 exact = true
 striComponents = 1
 refreshPeriod = "168h"
+[".config/alacritty/themes"]
+type = "archive"
+url = "https://github.com/alacritty/alacritty-theme/archive/master.tar.gz"
+exact = true
+striComponents = 1
+refreshPeriod = "168h"
+["AppData/Roaming/alacritty/themes"]
+type = "archive"
+url = "https://github.com/alacritty/alacritty-theme/archive/master.tar.gz"
+exact = true
+striComponents = 1
+refreshPeriod = "168h"

@@ -57,15 +57,15 @@ end
 
 -- function scheme_for_appearance(appearance)
 --   if appearance:find 'Dark' then
---     return 'Darcula'
+--     return 'flexoki-dark'
 --   else
---     return 'DanQing Light (base16)'
+--     return 'flexoki-light'
 -- 	end
 -- end
 
 -- config.color_scheme = scheme_for_appearance(get_appearance())
 
-config.color_scheme = 'arcoiris'
+config.color_scheme = 'flexoki-dark'
 config.window_background_opacity = 0.9
 
 -- 取消 Windows 原生标题栏
