@@ -29,7 +29,7 @@ source.rev = "master"
 
 [[language]]
 name = "markdown"
-language-servers = [ "marksman", "mdpls", "ltex-ls" ]
+language-servers = [ "marksman", "zk", "mdpls", "ltex-ls" ]
 
 [language-server.mdpls]
 command = "mdpls"
