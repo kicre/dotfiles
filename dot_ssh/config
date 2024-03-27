@@ -1,0 +1,13 @@
+Host *
+	ServerAliveInterval 30
+	#!!EnableDragFile Yes
+	#!!EnableZmodem Yes
+
+Host Megalayer
+	Hostname 154.91.255.63
+	Port 19080
+	User kicre
+	
+Host hk-2c4g
+	Hostname 149.104.27.157
+	User kicre
