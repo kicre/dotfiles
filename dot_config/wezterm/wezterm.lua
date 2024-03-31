@@ -67,6 +67,7 @@ end
 
 config.color_scheme = 'flexoki-dark'
 config.window_background_opacity = 0.9
+enable_wayland = false
 
 -- 取消 Windows 原生标题栏
 -- config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
