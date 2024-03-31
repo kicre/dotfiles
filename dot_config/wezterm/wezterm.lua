@@ -47,33 +47,30 @@ else
     config.default_prog = { 'zsh', '-l' }
 end
 
--- -- Theme
--- function get_appearance()
---   if wezterm.gui then
---     return wezterm.gui.get_appearance()
---   end
---   return 'Dark'
--- end
+-- Theme
+function get_appearance()
+  if wezterm.gui then
+    return wezterm.gui.get_appearance()
+  end
+  return 'Dark'
+end
 
--- function scheme_for_appearance(appearance)
---   if appearance:find 'Dark' then
---     return 'flexoki-dark'
---   else
---     return 'flexoki-light'
--- 	end
--- end
+function scheme_for_appearance(appearance)
+  if appearance:find 'Dark' then
+    return 'flexoki-dark'
+  else
+    return 'flexoki-light'
+	end
+end
 
--- config.color_scheme = scheme_for_appearance(get_appearance())
+config.color_scheme = scheme_for_appearance(get_appearance())
 
-config.color_scheme = 'flexoki-dark'
+-- config.color_scheme = 'flexoki-dark'
 config.window_background_opacity = 0.9
 enable_wayland = false
 
--- 取消 Windows 原生标题栏
--- config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-
 --- Default config settings
-config.font = wezterm.font('等距更纱黑体 SC Nerd Font')
+config.font = wezterm.font('等距更纱黑体 SC Nerd Font',{weight = "Regular"})
 config.font_size = 12
 config.launch_menu = launch_menu
 config.default_cursor_style = 'SteadyUnderline'
