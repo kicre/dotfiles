@@ -1,6 +1,12 @@
+{{ if eq .chezmoi.os "windows" }}
 import = [
-	"./themes/alacritty-theme-master/themes/flexoki.toml"
+	"~/.config/alacritty/themes/alacritty-theme-master/themes/flexoki.toml"
 ]
+{{ else }}
+import = [
+	"~/AppData/Roaming/alacritty/themes/alacritty-theme-master/themes/flexoki.toml"
+]
+{{ end }}
 
 [shell]
 {{- if eq .chezmoi.os "windows" }}
