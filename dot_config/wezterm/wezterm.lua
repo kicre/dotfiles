@@ -67,7 +67,13 @@ config.color_scheme = scheme_for_appearance(get_appearance())
 
 -- config.color_scheme = 'flexoki-dark'
 config.window_background_opacity = 0.9
-enable_wayland = false
+config.enable_wayland = false
+config.window_padding = {
+    left = '0',
+    right = '0',
+    top = '0',
+    bottom = '0',
+}
 
 --- Default config settings
 config.font = wezterm.font('等距更纱黑体 SC Nerd Font',{weight = "Regular"})
