@@ -76,7 +76,7 @@ config.window_padding = {
 }
 
 --- Default config settings
-config.font = wezterm.font('等距更纱黑体 SC Nerd Font',{weight = "Regular"})
+config.font = wezterm.font('Sarasa Fixed SC Nerd Font',{weight = "Regular"})
 config.font_size = 12
 config.launch_menu = launch_menu
 config.default_cursor_style = 'SteadyUnderline'
