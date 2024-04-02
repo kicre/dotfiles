@@ -11,9 +11,9 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
-source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions-master/zsh-autosuggestions.zsh
-#fpath = (~/.config/zsh/plugins/zsh-completions/zsh-completions-master/src $fpath)
+source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#fpath = (~/.config/zsh/plugins/zsh-completions/src $fpath)
 
 # Set starxhip
 eval "$(starship init zsh)"
