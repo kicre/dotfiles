@@ -2,7 +2,7 @@
 
 [[language]]
 name = "markdown"
-language-servers = [ "markdown-oxide", "marksman", "zk", "mdpls", "ltex-ls" ]
+language-servers = [ "marksman", "markdown-oxide", "zk", "mdpls", "ltex-ls" ]
 
 [language-server.mdpls]
 command = "mdpls"
