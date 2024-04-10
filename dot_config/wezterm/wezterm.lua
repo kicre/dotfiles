@@ -29,6 +29,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
         args = { 'pwsh', '-l'}
      } )
     config.default_prog = { 'pwsh', '-l' }
+    config.color_scheme_dirs = {'~/.config/wezterm/colors'}
 elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
     table.insert( launch_menu, {
         label = 'Bash',
@@ -57,9 +58,9 @@ end
 
 function scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
-    return 'flexoki-dark'
+    return 'Flexoki Dark'
   else
-    return 'flexoki-light'
+    return 'Flexoki Light'
 	end
 end
 
