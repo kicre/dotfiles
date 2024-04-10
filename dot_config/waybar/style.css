@@ -1,12 +1,14 @@
+@import "flexoki-full.css";
+
 * {
   transition: none;
   box-shadow: none;
 }
 
 #waybar {
-	font-family: '等距更纱黑体 SC Nerd Font', sans-serif;
-	font-size: 1em;
-	font-weight: 400;
+  font-family: '等距更纱黑体 SC Nerd Font', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
   color: @base04;
   background: @base01;
 }
@@ -21,8 +23,7 @@
   color: @base05;
 }
 
-#workspaces button.visible {
-}
+#workspaces button.visible {}
 
 #workspaces button.active {
   border-radius: 4px;
@@ -48,7 +49,21 @@
   border-left: none;
 }
 
-#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-updates, #custom-weather, #custom-mail, #clock, #temperature, #language{
+#mode,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#backlight,
+#custom-storage,
+#custom-updates,
+#custom-weather,
+#custom-mail,
+#clock,
+#temperature,
+#language {
   margin: 4px 2px;
   padding: 0 6px;
   background-color: @base02;
@@ -76,12 +91,12 @@
 
 #window {
   font-size: 0.9em;
-	font-weight: 400;
-	font-family: sans-serif;
+  font-weight: 400;
+  font-family: sans-serif;
 }
 
 #language {
-	font-size: 0.9em;
-	font-weight: 500;
-	letter-spacing: -1px;
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: -1px;
 }

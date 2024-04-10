@@ -21,8 +21,8 @@ eval "$(starship init zsh)"
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
-alias ls = 'lsd'      # ls ==> lsd
-alias cat = 'bat'     # bat ==> cat
+alias ls='lsd'      # ls ==> lsd
+alias cat='bat'     # bat ==> cat
 
 # yazi
 function yy() {
