@@ -21,5 +21,15 @@ eval "$(starship init zsh)"
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
-alias ls = 'lsd'
-alias cat = 'bat'
+alias ls = 'lsd'      # ls ==> lsd
+alias cat = 'bat'     # bat ==> cat
+
+# yazi
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
