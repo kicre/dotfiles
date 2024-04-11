@@ -11,3 +11,7 @@ Host Megalayer
 Host hk-2c4g
 	Hostname 149.104.27.157
 	User kicre
+
+Host tenc-bk
+	Hostname 101.42.4.219
+	User kicre
