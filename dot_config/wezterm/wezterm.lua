@@ -57,10 +57,10 @@ function get_appearance()
 end
 
 function scheme_for_appearance(appearance)
-  if appearance:find 'Dark' then
-    return 'Flexoki Dark'
-  else
+  if appearance:find 'Light' then
     return 'Flexoki Light'
+  else
+    return 'Flexoki Dark'
 	end
 end
 
