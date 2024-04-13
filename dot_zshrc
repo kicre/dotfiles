@@ -23,6 +23,7 @@ eval "$(fzf --bash)"
 
 alias ls='lsd'      # ls ==> lsd
 alias cat='bat'     # bat ==> cat
+alias ssh='tssh'     # tssh ==> ssh
 
 # yazi
 function yy() {
