@@ -1,6 +1,6 @@
 {
   "log": {
-    "level": "debug",
+    "level": "info",
     "timestamp": true
   },
   "experimental": {
@@ -27,7 +27,7 @@
       {
         "tag": "google",
         "address": "https://8.8.8.8/dns-query",
-        "detour": "proxy"
+        "detour": "Proxy"
       },
       {
         "tag": "tx",
@@ -44,14 +44,6 @@
       }
     ],
     "rules": [
-      {
-        "domain": [
-          "ghproxy.com",
-          "cdn.jsdelivr.net",
-          "testingcf.jsdelivr.net"
-        ],
-        "server": "fakeip"
-      },
       {
         "rule_set": "geosite-category-ads-all",
         "server": "block"
@@ -71,7 +63,7 @@
       },
       {
         "clash_mode": "global",
-        "server": "fakeip"
+        "server": "google"
       },
       {
         "inbound": "tun",
@@ -87,8 +79,8 @@
         "server": "google"
       }
     ],
-    "final": "tx",
-    "independent_cache": true
+    "independent_cache": true,
+    "strategy": "prefer_ipv4"
   },
   "inbounds": [
     {
@@ -97,24 +89,16 @@
       "listen": "127.0.0.1",
       "listen_port": 7890,
       "sniff": true
-    },
-    {
-      "tag": "loop-in",
-      "type": "mixed",
-      "listen": "127.0.0.1",
-      "listen_port": 7891,
-      "sniff": true,
-      "domain_strategy": "prefer_ipv4"
     }
   ],
   "outbounds": [
     {
-      "tag": "proxy",
+      "tag": "Proxy",
       "type": "selector",
       "outbounds": [
         "auto",
         "direct",
-        "剩余流量：1.99TB",
+        "剩余流量：1.93TB",
         "过期时间：2024-12-01",
         "1 忘记登录需联系客服",
         "1 此计划禁止工作室使用 禁止任何商业使用",
@@ -228,14 +212,14 @@
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
         "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
         "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
         "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/0 DELLR650 F01",
@@ -374,14 +358,9 @@
       "tag": "Bahamut",
       "type": "selector",
       "outbounds": [
-        "HongKong",
         "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ],
-      "default": "TaiWan"
+        "Proxy"
+      ]
     },
     {
       "tag": "Spotify",
@@ -393,7 +372,8 @@
         "Japan",
         "America",
         "Others"
-      ]
+      ],
+      "default": "America"
     },
     {
       "tag": "TikTok",
@@ -405,7 +385,7 @@
         "Japan",
         "America"
       ],
-      "default": "Singapore"
+      "default": "Japan"
     },
     {
       "tag": "NETFLIX",
@@ -486,22 +466,21 @@
       "tag": "Global",
       "type": "selector",
       "outbounds": [
-        "direct",
         "HongKong",
         "TaiWan",
         "Singapore",
         "Japan",
         "America",
-        "Others"
-      ],
-      "default": "HongKong"
+        "Others",
+        "direct"
+      ]
     },
     {
       "tag": "China",
       "type": "selector",
       "outbounds": [
         "direct",
-        "proxy"
+        "Proxy"
       ]
     },
     {
@@ -555,8 +534,7 @@
         "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/14 DELLR6515 F17",
         "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/15 DELLR6515 F18",
         "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/16 DELLR6515 F19",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20",
-        "proxy"
+        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20"
       ]
     },
     {
@@ -582,8 +560,7 @@
         "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/2 DL360G11 F13",
         "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/3 DL360G11 F14",
         "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/4 DL360G11 F15",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/5 DL360G11 F16",
-        "proxy"
+        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/5 DL360G11 F16"
       ]
     },
     {
@@ -599,8 +576,7 @@
         "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/6 DELLR650 F07",
         "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/7 DELLR650 F08",
         "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/8 DELLR660 F09",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/9 DELLR660 F10",
-        "proxy"
+        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/9 DELLR660 F10"
       ]
     },
     {
@@ -626,8 +602,7 @@
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/0 DELLR650 F05",
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08",
-        "proxy"
+        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08"
       ]
     },
     {
@@ -644,14 +619,14 @@
         "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/7 DELLR650 F08",
         "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F09",
         "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F10",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
         "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
         "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/0 DELLR660 F01",
@@ -663,15 +638,14 @@
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/6 DELLR650 F07",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
-        "proxy"
+        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10"
       ]
     },
     {
       "tag": "Others",
       "type": "selector",
       "outbounds": [
-        "剩余流量：1.99TB",
+        "剩余流量：1.93TB",
         "过期时间：2024-12-01",
         "1 忘记登录需联系客服",
         "1 此计划禁止工作室使用 禁止任何商业使用",
@@ -735,8 +709,7 @@
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10",
-        "目前暂不提供试用接入 请付费后使用",
-        "proxy"
+        "目前暂不提供试用接入 请付费后使用"
       ]
     },
     {
@@ -855,14 +828,14 @@
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
         "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
-        "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
+        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
         "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
         "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
         "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/0 DELLR650 F01",
@@ -944,13 +917,7 @@
       "tag": "block"
     },
     {
-      "tag": "loop",
-      "type": "socks",
-      "server": "127.0.0.1",
-      "server_port": 7891
-    },
-    {
-      "tag": "剩余流量：1.99TB",
+      "tag": "剩余流量：1.93TB",
       "type": "shadowsocks",
       "server": "ace-taffy.com",
       "server_port": 10086,
@@ -1862,7 +1829,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
+      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
       "type": "shadowsocks",
       "server": "ru03.kkp.wtf",
       "server_port": 49308,
@@ -1870,7 +1837,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
+      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
       "type": "shadowsocks",
       "server": "ru04.kkp.wtf",
       "server_port": 49308,
@@ -1878,7 +1845,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
+      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
       "type": "shadowsocks",
       "server": "ru05.kkp.wtf",
       "server_port": 49308,
@@ -1886,7 +1853,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
+      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
       "type": "shadowsocks",
       "server": "ru06.kkp.wtf",
       "server_port": 49308,
@@ -1894,7 +1861,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
+      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
       "type": "shadowsocks",
       "server": "ru07.kkp.wtf",
       "server_port": 49308,
@@ -1902,7 +1869,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
+      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
       "type": "shadowsocks",
       "server": "ru08.kkp.wtf",
       "server_port": 49308,
@@ -1910,7 +1877,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
+      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
       "type": "shadowsocks",
       "server": "ru09.kkp.wtf",
       "server_port": 49308,
@@ -1918,7 +1885,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "🇷🇺 Russia Moscow раион Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
+      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
       "type": "shadowsocks",
       "server": "ru10.kkp.wtf",
       "server_port": 49308,
@@ -2432,20 +2399,20 @@
   ],
   "route": {
     "auto_detect_interface": true,
-    "final": "proxy",
+    "final": "Proxy",
     "rules": [
       {
-        "protocol": "dns",
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
         "outbound": "dns-out"
-      },
-      {
-        "port": 53,
-        "outbound": "dns-out"
-      },
-      {
-        "network": "udp",
-        "port": 443,
-        "outbound": "block"
       },
       {
         "rule_set": "geosite-category-ads-all",
@@ -2457,7 +2424,7 @@
       },
       {
         "clash_mode": "global",
-        "outbound": "proxy"
+        "outbound": "Proxy"
       },
       {
         "domain": [
@@ -2473,54 +2440,40 @@
         "outbound": "OpenAI"
       },
       {
-        "rule_set": "geosite-youtube",
+        "rule_set": [
+          "geosite-youtube",
+          "geoip-google",
+          "geosite-google",
+          "geosite-github"
+        ],
         "outbound": "Google"
-      },
-      {
-        "rule_set": "geoip-google",
-        "outbound": "Google"
-      },
-      {
-        "rule_set": "geosite-google",
-        "outbound": "Google"
-      },
-      {
-        "rule_set": "geosite-github",
-        "outbound": "Google"
-      },
-      {
-        "rule_set": "geoip-telegram",
-        "outbound": "Telegram"
-      },
-      {
-        "rule_set": "geosite-telegram",
-        "outbound": "Telegram"
-      },
-      {
-        "rule_set": "geoip-twitter",
-        "outbound": "Twitter"
-      },
-      {
-        "rule_set": "geosite-twitter",
-        "outbound": "Twitter"
-      },
-      {
-        "rule_set": "geoip-facebook",
-        "outbound": "Facebook"
       },
       {
         "rule_set": [
-          "geosite-facebook",
-          "geosite-instagram"
+          "geoip-telegram",
+          "geosite-telegram"
+        ],
+        "outbound": "Telegram"
+      },
+      {
+        "rule_set": [
+          "geoip-twitter",
+          "geosite-twitter"
+        ],
+        "outbound": "Twitter"
+      },
+      {
+        "rule_set": [
+          "geoip-facebook",
+          "geosite-facebook"
         ],
         "outbound": "Facebook"
       },
       {
-        "rule_set": "geoip-bilibili",
-        "outbound": "BiliBili"
-      },
-      {
-        "rule_set": "geosite-bilibili",
+        "rule_set": [
+          "geoip-bilibili",
+          "geosite-bilibili"
+        ],
         "outbound": "BiliBili"
       },
       {
@@ -2536,11 +2489,10 @@
         "outbound": "TikTok"
       },
       {
-        "rule_set": "geoip-netflix",
-        "outbound": "NETFLIX"
-      },
-      {
-        "rule_set": "geosite-netflix",
+        "rule_set": [
+          "geoip-netflix",
+          "geosite-netflix"
+        ],
         "outbound": "NETFLIX"
       },
       {
@@ -2548,11 +2500,11 @@
         "outbound": "Disney+"
       },
       {
-        "rule_set": "geosite-apple",
-        "outbound": "Apple"
-      },
-      {
-        "rule_set": "geosite-amazon",
+        "rule_set": [
+          "geoip-apple",
+          "geosite-apple",
+          "geosite-amazon"
+        ],
         "outbound": "Apple"
       },
       {
@@ -2564,11 +2516,10 @@
         "outbound": "Games"
       },
       {
-        "rule_set": "geosite-hbo",
-        "outbound": "Streaming"
-      },
-      {
-        "rule_set": "geosite-primevideo",
+        "rule_set": [
+          "geosite-hbo",
+          "geosite-primevideo"
+        ],
         "outbound": "Streaming"
       },
       {
@@ -2584,19 +2535,11 @@
         "outbound": "direct"
       },
       {
-        "rule_set": "geoip-cn",
-        "outbound": "China"
-      },
-      {
-        "rule_set": "geosite-cn",
-        "outbound": "China"
-      },
-      {
-        "inbound": [
-          "tun",
-          "mixed"
+        "rule_set": [
+          "geoip-cn",
+          "geosite-cn"
         ],
-        "outbound": "loop"
+        "outbound": "China"
       }
     ],
     "rule_set": [
@@ -2710,13 +2653,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/facebook.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-instagram",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/instagram.srs",
         "download_detour": "direct"
       },
       {
