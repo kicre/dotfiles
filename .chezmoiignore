@@ -2,7 +2,7 @@
 startup.vbs
 AppData
 scoop
-Documents/PowerShell/Microsoft.PowerShell_profile.ps1
+Documents/PowerShell
 {{- end }}
 
 {{ if ne .chezmoi.os "linux" }}
