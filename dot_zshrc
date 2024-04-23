@@ -15,7 +15,7 @@ source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 #fpath = (~/.config/zsh/plugins/zsh-completions/src $fpath)
 
-# Set starxhip
+# Set starship
 eval "$(starship init zsh)"
 
 # Set up fzf key bindings and fuzzy completion
