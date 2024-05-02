@@ -93,7 +93,7 @@
         "spacing": 0
     },
     "clock": {
-        // "timezone": "America/New_York",
+        // "timezone": "Asia/Shanghai",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
     },

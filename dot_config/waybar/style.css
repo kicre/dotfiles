@@ -9,8 +9,8 @@
   font-family: '等距更纱黑体 SC Nerd Font', sans-serif;
   font-size: 1em;
   font-weight: 400;
-  color: @base04;
-  background: @base01;
+  color: @base-150;
+  background: transparent;
 }
 
 #workspaces {
@@ -19,15 +19,15 @@
 
 #workspaces button {
   margin: 4px 0;
-  padding: 0 4px;
-  color: @base05;
+  padding: 0 2px;
+  color: @base-200;
 }
 
 #workspaces button.visible {}
 
 #workspaces button.active {
   border-radius: 4px;
-  background-color: @base02;
+  background-color: @base-900;
 }
 
 #workspaces button.urgent {
@@ -37,12 +37,12 @@
 #tray {
   margin: 4px 4px 4px 4px;
   border-radius: 4px;
-  background-color: @base02;
+  background-color: @base-800;
 }
 
 #tray * {
   padding: 0 6px;
-  border-left: 1px solid @base00;
+  border-left: 1px solid @base-500;
 }
 
 #tray *:first-child {
@@ -66,17 +66,17 @@
 #language {
   margin: 4px 2px;
   padding: 0 6px;
-  background-color: @base02;
+  background-color: @base-900;
   border-radius: 4px;
   min-width: 20px;
 }
 
 #pulseaudio.muted {
-  color: @base0F;
+  color: @paper;
 }
 
 #pulseaudio.bluetooth {
-  color: @base0C;
+  color: @base-850;
 }
 
 #clock {
@@ -86,7 +86,7 @@
 }
 
 #temperature.critical {
-  color: @base0F;
+  color: @black;
 }
 
 #window {
