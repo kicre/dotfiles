@@ -38,6 +38,10 @@
   margin-left: 0.3em;
 }
 
+#bluetooth {
+  padding-right: 0.2em;
+}
+
 #cpu,
 #memory,
 #language,
