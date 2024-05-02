@@ -1,102 +1,51 @@
 @import "flexoki-full.css";
 
+@define-color foreground @paper;
+@define-color foreground-inactive @base-500;
+@define-color background @base-900;
+@define-color background-alt @base-850;
+
 * {
-  transition: none;
-  box-shadow: none;
+  font-family: Sarasa Fixed SC Nerd Font;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
 }
 
 #waybar {
-  font-family: '等距更纱黑体 SC Nerd Font', sans-serif;
-  font-size: 1em;
-  font-weight: 400;
-  color: @base-150;
-  background: transparent;
-}
-
-#workspaces {
-  margin: 0 4px;
+  color: @foreground;
+  background-color: @background;
 }
 
 #workspaces button {
-  margin: 4px 0;
-  padding: 0 2px;
-  color: @base-200;
+  padding-left: 1em;
+  padding-right: 1.3em;
 }
 
-#workspaces button.visible {}
+#workspaces button.empty {
+  color: @foreground-inactive;
+}
 
 #workspaces button.active {
-  border-radius: 4px;
-  background-color: @base-900;
+  background-color: @background-alt;
+  border-radius: 3px;
 }
 
-#workspaces button.urgent {
-  color: rgba(238, 46, 36, 1);
+#wireplumber,
+#bat,
+#tray,
+#usage,
+#net {
+  background-color: @background-alt;
+  border-radius: 3px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-left: 0.3em;
 }
 
-#tray {
-  margin: 4px 4px 4px 4px;
-  border-radius: 4px;
-  background-color: @base-800;
-}
-
-#tray * {
-  padding: 0 6px;
-  border-left: 1px solid @base-500;
-}
-
-#tray *:first-child {
-  border-left: none;
-}
-
-#mode,
 #battery,
-#cpu,
 #memory,
-#network,
-#pulseaudio,
-#idle_inhibitor,
-#backlight,
-#custom-storage,
-#custom-updates,
-#custom-weather,
-#custom-mail,
-#clock,
-#temperature,
-#language {
-  margin: 4px 2px;
-  padding: 0 6px;
-  background-color: @base-900;
-  border-radius: 4px;
-  min-width: 20px;
-}
-
-#pulseaudio.muted {
-  color: @paper;
-}
-
-#pulseaudio.bluetooth {
-  color: @base-850;
-}
-
-#clock {
-  margin-left: 0px;
-  margin-right: 4px;
-  background-color: transparent;
-}
-
-#temperature.critical {
-  color: @black;
-}
-
-#window {
-  font-size: 0.9em;
-  font-weight: 400;
-  font-family: sans-serif;
-}
-
-#language {
-  font-size: 0.9em;
-  font-weight: 500;
-  letter-spacing: -1px;
+#language,
+#network {
+  margin-right: 0.8em;
 }
