@@ -38,9 +38,12 @@
   margin-left: 0.3em;
 }
 
-#battery,
+#cpu,
 #memory,
 #language,
-#network {
+#network,
+#backlight,
+#battery,
+#backlight {
   margin-right: 0.8em;
 }
