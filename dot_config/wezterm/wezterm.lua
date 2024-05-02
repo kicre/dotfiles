@@ -82,6 +82,9 @@ config.font_size = 12
 config.launch_menu = launch_menu
 config.default_cursor_style = 'SteadyUnderline'
 config.enable_tab_bar = false
+--- window size
+config.initial_cols = 96
+config.initial_rows = 32
 
 return config
 
