@@ -22,7 +22,7 @@
 }
 
 #workspaces button.active {
-  base-900-color: @base-850;
+  background-color: @base-850;
   border-radius: 3px;
 }
 
@@ -31,7 +31,7 @@
 #tray,
 #usage,
 #net {
-  base-900-color: @base-850;
+  background-color: @base-850;
   border-radius: 3px;
   padding-left: 0.5em;
   padding-right: 0.5em;
