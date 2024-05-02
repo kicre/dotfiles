@@ -1,10 +1,5 @@
 @import "flexoki-full.css";
 
-@define-color foreground @paper;
-@define-color foreground-inactive @base-500;
-@define-color background @base-900;
-@define-color background-alt @base-850;
-
 * {
   font-family: Sarasa Fixed SC Nerd Font;
   font-size: 16px;
@@ -13,8 +8,8 @@
 }
 
 #waybar {
-  color: @foreground;
-  background-color: @background;
+  color: @paper;
+  base-900-color: @base-900;
 }
 
 #workspaces button {
@@ -23,11 +18,11 @@
 }
 
 #workspaces button.empty {
-  color: @foreground-inactive;
+  color: @base-500;
 }
 
 #workspaces button.active {
-  background-color: @background-alt;
+  base-900-color: @base-850;
   border-radius: 3px;
 }
 
@@ -36,7 +31,7 @@
 #tray,
 #usage,
 #net {
-  background-color: @background-alt;
+  base-900-color: @base-850;
   border-radius: 3px;
   padding-left: 0.5em;
   padding-right: 0.5em;
