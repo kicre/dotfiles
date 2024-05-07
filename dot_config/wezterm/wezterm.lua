@@ -75,7 +75,7 @@ config.window_padding = {
     top = '0',
     bottom = '0',
 }
-
+--郭德纲
 --- Default config settings
 config.font = wezterm.font('Sarasa Fixed SC Nerd Font',{weight = "Regular"})
 config.font_size = 12
