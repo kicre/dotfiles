@@ -1,12 +1,6 @@
-{{ if eq .chezmoi.os "windows" }}
 import = [
 	"Flexoki.toml"
-]
-{{ else }}
-import = [
-	"~/.config/alacritty/themes/themes/flexoki.toml"
-]
-{{ end }}
+	]
 
 [shell]
 {{- if eq .chezmoi.os "windows" }}
