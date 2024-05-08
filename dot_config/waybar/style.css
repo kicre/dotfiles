@@ -3,8 +3,6 @@
 * {
   font-family: Sarasa Fixed SC Nerd Font;
   font-size: 16px;
-  padding: 0;
-  margin: 0;
 }
 
 #waybar {
@@ -13,8 +11,8 @@
 }
 
 #workspaces button {
-  padding-left: 0.3em;
-  padding-right: 0.3em;
+  margin: 0 0;
+  padding: 0 0.3em;
 }
 
 #workspaces button.empty {
@@ -26,28 +24,17 @@
   border-radius: 3px;
 }
 
-#wireplumber,
-#bat,
-#tray,
-#usage,
-#net {
-  background-color: @base-850;
-  border-radius: 3px;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  margin-left: 0.3em;
-}
-
-#bluetooth {
-  padding-right: 0.2em;
-}
-
 #cpu,
 #memory,
-#language,
-#network,
+#temperature,
+#wireplumber,
 #backlight,
 #battery,
-#backlight {
-  margin-right: 0.8em;
+#network,
+#bluetooth,
+#tray {
+  background-color: @base-800;
+  margin: 0 0.1em;
+  padding: 0 0.5em;
+  border-radius: 5px;
 }

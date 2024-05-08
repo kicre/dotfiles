@@ -4,34 +4,19 @@
     "height": 24,
     "spacing": 5,
 
-    "modules-left": ["hyprland/workspaces", "group/usage"],
+    "modules-left": ["hyprland/workspaces", "cpu", "memory", "temperature"],
     "modules-center": ["clock"],
-    "modules-right": ["wireplumber", "group/bat", "group/net", "tray"],
-
-    "group/usage": {
-        "orientation": "horizontal",
-        "modules": ["cpu", "memory", "temperature"]
-    },
-
-    "group/bat": {
-        "orientation": "horizontal",
-        "modules": ["backlight", "battery"]
-    },
-
-    "group/net": {
-        "orientation": "horizontal",
-        "modules": ["hyprland/language", "network", "bluetooth"]
-    },
+    "modules-right": ["wireplumber", "backlight", "battery", "network", "bluetooth", "tray"],
 
     "hyprland/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
         "format-icons": {
-            "1": "",
-            "2": "󰈹",
-            "3": "󰨞",
-            "4": "",
-            "5": "",
+            "1": " ",
+            "2": "󰈹 ",
+            "3": "󰨞 ",
+            "4": " ",
+            "5": " ",
         },
         "icon-size": 50,
         "sort-by-number": true,
@@ -48,10 +33,10 @@
         "format": "{:%m-%d | %H:%M}",
         "tooltip-format": "<tt><small>{calendar}</tt>",
         "calendar": {
-          "format": {
-            "months": "<span color='#ffead3'><b>{}</b></span>",
-            "today": "<span color='#ff6699'><b>{}</b></span>"
-          }
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b>{}</b></span>"
+            }
         }
     },
 
@@ -81,17 +66,17 @@
 
     "memory": {
         "interval": 30,
-        "format": "  {percentage}%"
+        "format": " {percentage}%"
     },
 
     "temperature": {
-        "format": "  {temperatureC}°C"
+        "format": " {temperatureC}°C"
     },
 
     "network": {
         "format": "",
         "format-ethernet": "󰈀 ",
-        "format-wifi": "{icon} ",
+        "format-wifi": "{icon}",
         "format-disconnected": "󰤫 ",
         "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
@@ -101,15 +86,11 @@
 
     "bluetooth": {
         "format": "󰂯",
-        "format-disabled": "󰂲 ",
-        "format-connected": "󰂱 ",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱",
         "tooltip-format": "{controller_alias}\t{controller_address}",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
-    },
-
-    "hyprland/language": {
-        "format": "{short}"
     },
 
     "tray": {
