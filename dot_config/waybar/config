@@ -27,11 +27,11 @@
         "format": "{icon}",
         "on-click": "activate",
         "format-icons": {
-            "1": "\uf489",
-            "2": "\udb80\ude39",
-            "3": "\udb82\ude1e",
-            "4": "\uf001",
-            "5": "\ue217",
+            "1": "",
+            "2": "󰈹",
+            "3": "󰨞",
+            "4": "",
+            "5": "",
         },
         "icon-size": 50,
         "sort-by-number": true,
@@ -56,7 +56,8 @@
     },
 
     "wireplumber": {
-        "format": "\udb81\udd7e  {volume}%",
+        "format": "{icon} {volume}%",
+        "format-icons": [" ", " ", " "],
         "max-volume": 100,
         "scroll-step": 5
     },
@@ -64,43 +65,44 @@
     "battery": {
         // "bat": "BAT1",
         "interval": 60,
-        "format": "{icon}  {capacity}%",
-        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+        "format": "{icon} {capacity}%",
+        "format-icons": [" ", " ", " ", " ", " "]
     },
 
     "backlight": {
-        "format": "\udb80\udcdf  {percent}%"
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞 ","󰃟 ","󰃝 ","󰃠 "]
     },
 
     "cpu": { 
       "interval": 10, 
-      "format": "\uf4bc  {usage}%" 
+      "format": "  {usage}%" 
     },
 
     "memory": {
         "interval": 30,
-        "format": "\uefc5  {percentage}%"
+        "format": "  {percentage}%"
     },
 
     "temperature": {
-        "format": " {temperatureC}°C"
+        "format": "  {temperatureC}°C"
     },
 
     "network": {
         "format": "",
-        "format-ethernet": "\udb83\udc9d ",
+        "format-ethernet": "󰈀 ",
         "format-wifi": "{icon} ",
-        "format-disconnected": "\udb83\udc9c ",
-        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "format-disconnected": "󰤫 ",
+        "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
     },
 
     "bluetooth": {
-        "format": "\udb80\udcaf",
-        "format-disabled": "\udb80\udcb2",
-        "format-connected": "\udb80\udcb1",
+        "format": "󰂯",
+        "format-disabled": "󰂲 ",
+        "format-connected": "󰂱 ",
         "tooltip-format": "{controller_alias}\t{controller_address}",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
