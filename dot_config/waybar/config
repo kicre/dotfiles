@@ -44,7 +44,9 @@
         "format": "{icon} {volume}%",
         "format-icons": [" ", " ", " "],
         "max-volume": 100,
-        "scroll-step": 5
+        "scroll-step": 5,
+        "on-click": "bash alsamixer",
+        "on-click-right": "helvum"
     },
 
     "battery": {
@@ -82,6 +84,7 @@
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
+        // "on-click": "nm-applet"
     },
 
     "bluetooth": {
