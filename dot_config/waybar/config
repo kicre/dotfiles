@@ -5,39 +5,59 @@
     "spacing": 5,
 
     "modules-left": ["hyprland/workspaces", "cpu", "memory", "temperature"],
-    "modules-center": ["clock"],
-    "modules-right": ["wireplumber", "backlight", "battery", "network", "bluetooth", "tray"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["wireplumber", "backlight", "battery", "network", "bluetooth", "tray","clock"],
 
     "hyprland/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
-        "format-icons": {
-            "1": " ",
-            "2": "󰈹 ",
-            "3": "󰨞 ",
-            "4": " ",
-            "5": " ",
-        },
         "icon-size": 50,
         "sort-by-number": true,
-        "persistent-workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": [],
-        }
+        "window-rewrite-default": " ",
+        "window-rewrite": {
+            "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+            "class<firefox>": "", // Windows whose classes are "firefox"
+            "class<firefox> title<.*github.*>": "", // Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+            "foot": "", // Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+            "code": "󰨞",
+        },
     },
 
+"hyprland/window": {
+    "format": "👉 {}",
+    "rewrite": {
+        "(.*) — Mozilla Firefox": "🌎 $1",
+        "(.*) - fish": "> [$1]"
+        "(.*) - bash": "> [$1]"
+        "(.*) - zsh": "> [$1]"
+    },
+    "separate-outputs": true
+}
+
     "clock": {
-        "format": "{:%m-%d | %H:%M}",
-        "tooltip-format": "<tt><small>{calendar}</tt>",
+        "format": "{:%H:%M}",
+        "format-alt": "{:L%A, %B %d, %Y (%R)}  ",
+        "tooltip-format": "\n<span size='9pt'>{calendar}</span>",
         "calendar": {
+            "mode"          : "year",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
             "format": {
-                "months": "<span color='#ffead3'><b>{}</b></span>",
-                "today": "<span color='#ff6699'><b>{}</b></span>"
+                "months":     "<span color='#ffead3'><b>{}</b></span>",
+                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
             }
-        }
+        },
+        "actions":  {
+                "on-click-right": "mode",
+                "on-click-forward": "tz_up",
+                "on-click-backward": "tz_down",
+                "on-scroll-up": "shift_up",
+                "on-scroll-down": "shift_down"
+        }        
     },
 
     "wireplumber": {

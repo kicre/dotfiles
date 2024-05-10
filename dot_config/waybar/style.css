@@ -24,6 +24,27 @@
   border-radius: 3px;
 }
 
+#window {
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+window#waybar.wezterm {
+  background-color: @purple-600;
+  color: @paper;
+}
+
+window#waybar.firefox {
+  background-color: @red-600;
+  color: @black;
+}
+
+/* make window module transparent when no windows present */
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
 #cpu,
 #memory,
 #temperature,
