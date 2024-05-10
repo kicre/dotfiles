@@ -23,20 +23,20 @@
         },
     },
 
-"hyprland/window": {
-    "format": "👉 {}",
-    "rewrite": {
-        "(.*) — Mozilla Firefox": "🌎 $1",
-        "(.*) - fish": "> [$1]"
-        "(.*) - bash": "> [$1]"
-        "(.*) - zsh": "> [$1]"
+    "hyprland/window": {
+        "format": "👉 {}",
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "🌎 $1",
+            "(.*) - fish": "> [$1]",
+            "(.*) - bash": "> [$1]",
+            "(.*) - zsh": "> [$1]"
+        },
+        "separate-outputs": true
     },
-    "separate-outputs": true
-}
 
     "clock": {
         "format": "{:%H:%M}",
-        "format-alt": "{:L%A, %B %d, %Y (%R)}  ",
+        "format-alt": "{:L%A, %B %d, %Y (%R)} 󱛡 ",
         "tooltip-format": "\n<span size='9pt'>{calendar}</span>",
         "calendar": {
             "mode"          : "year",
@@ -65,7 +65,7 @@
         "format-icons": [" ", " ", " "],
         "max-volume": 100,
         "scroll-step": 5,
-        "on-click": "bash alsamixer",
+        // "on-click": "bash alsamixer",
         "on-click-right": "helvum"
     },
 
@@ -108,18 +108,18 @@
     },
 
     "bluetooth": {
-        "format": "󰂯 {status}",
+        "format": "󰂯",
         "format-disabled": "󰂲",
         "format-connected": "󰂱 {device_alias}",
-        	"format-connected-battery": " {device_alias} {device_battery_percentage}%",
-        	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-        	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+        "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        // "tooltip-format": "{controller_alias}\t{controller_address}",
+        // "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        // "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
     },
 
     "tray": {
