@@ -68,7 +68,7 @@ end
 
 config.color_scheme = 'Flexoki Dark'
 config.window_background_opacity = 0.9
-config.enable_wayland = false
+-- config.enable_wayland = false
 config.window_padding = {
     left = '0',
     right = '0',
