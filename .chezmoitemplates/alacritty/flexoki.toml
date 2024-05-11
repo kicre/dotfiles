@@ -1,44 +1,44 @@
 # Default colors
 [colors.primary]
-background = '#p3:100F0F'
-foreground = '#p3:CECDC3'
-dim_foreground = '#p3:FFFCF0'
-bright_foreground = '#p3:FFFCF0'
+background = '#100F0F'
+foreground = '#CECDC3'
+dim_foreground = '#F2F0E5'
+bright_foreground = '#E6E4D9'
 
 # Cursor colors
 [colors.cursor]
-text = '#p3:CECDC3'
-cursor = '#p3:100F0F'
+text = '#100F0F'
+cursor = '#CECDC3'
 
 # Normal colors
 [colors.normal]
-black = '#p3:100F0F'
-red = '#p3:AF3029'
-green = '#p3:66800B'
-yellow = '#p3:AD8301'
-blue = '#p3:205EA6'
-magenta = '#p3:A02F6F'
-cyan = '#p3:24837B'
-white = '#p3:CECDC3'
+black = '#100F0F'
+red = '#AF3029'
+green = '#66800B'
+yellow = '#AD8301'
+blue = '#205EA6'
+magenta = '#A02F6F'
+cyan = '#24837B'
+white = '#CECDC3'
 
 # Bright colors
 [colors.bright]
-black = '#p3:575653'
-red = '#p3:D14D41'
-green = '#p3:879A39'
-yellow = '#p3:D0A215'
-blue = '#p3:4385BE'
-magenta = '#p3:CE5D97'
-cyan = '#p3:3AA99F'
-white = '#p3:FFFCF0'
+black = '#575653'
+red = '#D14D41'
+green = '#879A39'
+yellow = '#D0A215'
+blue = '#4385BE'
+magenta = '#CE5D97'
+cyan = '#3AA99F'
+white = '#FFFCF0'
 
 # Dim colors
 [colors.dim]
-black = '#p3:100F0F'
-red = '#p3:AF3029'
-green = '#p3:66800B'
-yellow = '#p3:AD8301'
-blue = '#p3:205EA6'
-magenta = '#p3:A02F6F'
-cyan = '#p3:24837B'
-white = '#p3:CECDC3'
+black = '#100F0F'
+red = '#AF3029'
+green = '#66800B'
+yellow = '#AD8301'
+blue = '#205EA6'
+magenta = '#A02F6F'
+cyan = '#24837B'
+white = '#CECDC3'

@@ -1,5 +1,9 @@
 import = [
-	"Flexoki.toml"
+{{- if eq .chezmoi.os "windows" }}
+	"~/AppData/Roaming/alacritty/flexoki.toml"
+{{- else }}
+	"~/.config/alacritty/flexoki.toml"
+{{- end }}
 ]
 
 [shell]
