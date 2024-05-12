@@ -6,6 +6,15 @@ line-number = "relative" # 相对行号
 # cursorcolumn = true # 高亮显示列
 default-line-ending = "native" # 行末换行符
 
+[editor.statusline]
+left = ["mode", "spinner", "read-only-indicator", "file-modification-indicator"]
+center = ["file-base-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = " "
+mode.insert = "󰏪 "
+mode.select = " "
+
 [editor.lsp]
 display-messages = true
 auto-signature-help = true
@@ -15,6 +24,23 @@ display-signature-help-docs = true
 insert = "bar"
 normal = "underline"
 select = "block"
+
+[editor.whitespace]
+render = "all"
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+tab = "→"
+newline = "⏎"
+tabpad = "·" # tab空格会显示： "→···" (依赖于tab宽度)
+
+[editor.indent-guides]
+render = true
+character = "╎" # 一些工作正常的符号: "▏", "┆", "┊", "⸽"
+skip-levels = 1
+
+[editor.gutters]
+layout = ["diff", "diagnostics", "line-numbers", "spacer"]
 
 [editor.soft-wrap]
 enable = true
