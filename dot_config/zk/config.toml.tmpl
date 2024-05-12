@@ -36,11 +36,6 @@ shell = "pwsh"
 [filter]
 recents = "--sort created- --created-after 'last two weeks'"
 
-[alias]
-edlast = "zk edit --limit 1 --sort modified- $@"
-#recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
-lucky = "zk list --quiet --format full --sort random --limit 1"
-
 [lsp]
 
 [lsp.diagnostics]
@@ -54,3 +49,7 @@ draft = 'zk new --no-input "draft" --title "$argv"'
 inbox = 'zk new --interactive "inbox" --title "$argv"'
 snippet = 'zk new --interactive "snippet" --title "$argv"'
 todo = 'zk edit TODO.md'
+edlast = "zk edit --limit 1 --sort modified- $@"
+recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
+lucky = "zk list --quiet --format full --sort random --limit 1"
+
