@@ -11,9 +11,6 @@ command = "zk"
 command = "mdpls"
 config = { markdown.preview.auto = true, markdown.preview.browser = "firefox" }
 
-# [language-server.ltex-ls]
-# command = "C:\\Users\\kicre\\port\\ltex-ls\\bin\\ltex-ls.bat"
-
 [language-server.ltex-ls.config.ltex.dictionary]
 "zh-CN" = ["Tp-Note","Zettelkasten"]
 
