@@ -50,7 +50,7 @@ wrap-indicator = ""  # 设置后可以不现实软换行符号
 wrap-at-text-width = false
 
 [keys.normal]
-C-g = [":new", ":insert-output gitui", ":buffer-close!", ":redraw"]
+C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
 {{- if eq .chezmoi.os "linux" }} 
 "i" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "insert_mode"]
 "a" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "append_mode"]
