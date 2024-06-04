@@ -98,7 +98,7 @@
       "outbounds": [
         "auto",
         "direct",
-        "剩余流量：1.93TB",
+        "剩余流量：1.82TB",
         "过期时间：2024-12-01",
         "1 忘记登录需联系客服",
         "1 此计划禁止工作室使用 禁止任何商业使用",
@@ -282,7 +282,8 @@
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
-        "目前暂不提供试用接入 请付费后使用"
+        "目前暂不提供试用接入 请付费后使用",
+        "纯IPV6接入"
       ]
     },
     {
@@ -645,7 +646,7 @@
       "tag": "Others",
       "type": "selector",
       "outbounds": [
-        "剩余流量：1.93TB",
+        "剩余流量：1.82TB",
         "过期时间：2024-12-01",
         "1 忘记登录需联系客服",
         "1 此计划禁止工作室使用 禁止任何商业使用",
@@ -709,7 +710,8 @@
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10",
-        "目前暂不提供试用接入 请付费后使用"
+        "目前暂不提供试用接入 请付费后使用",
+        "纯IPV6接入"
       ]
     },
     {
@@ -898,7 +900,8 @@
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
-        "目前暂不提供试用接入 请付费后使用"
+        "目前暂不提供试用接入 请付费后使用",
+        "纯IPV6接入"
       ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
@@ -917,7 +920,7 @@
       "tag": "block"
     },
     {
-      "tag": "剩余流量：1.93TB",
+      "tag": "剩余流量：1.82TB",
       "type": "shadowsocks",
       "server": "ace-taffy.com",
       "server_port": 10086,
@@ -2392,6 +2395,14 @@
       "tag": "目前暂不提供试用接入 请付费后使用",
       "type": "shadowsocks",
       "server": "59.43.23.14",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "纯IPV6接入",
+      "type": "shadowsocks",
+      "server": "2001:e42:102:1513:160:16:74:189",
       "server_port": 49308,
       "method": "aes-256-cfb",
       "password": "vkw3hk"
