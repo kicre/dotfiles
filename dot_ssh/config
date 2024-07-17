@@ -3,6 +3,10 @@ Host *
 	#!!EnableDragFile Yes
 	#!!EnableZmodem Yes
 
+Host github.com
+	Hostname ssh.github.com
+	Port 443
+
 Host Megalayer
 	Hostname 154.91.255.63
 	Port 19080
