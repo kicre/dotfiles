@@ -1,911 +1,827 @@
 {
   "log": {
+    "disabled": false,
     "level": "info",
     "timestamp": true
   },
   "experimental": {
-    "clash_api": {
-      "external_controller": "127.0.0.1:9090",
-      "external_ui": "ui",
-      "secret": "",
-      "external_ui_download_url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
-      "external_ui_download_detour": "direct",
-      "default_mode": "rule"
-    },
     "cache_file": {
       "enabled": true,
+      "path": "cache.db",
+      "cache_id": "my_profile2",
       "store_fakeip": true
+    },
+    "clash_api": {
+      "external_ui": "ui",
+      "external_controller": "0.0.0.0:9090",
+      "external_ui_download_detour": "Proxy",
+      "default_mode": "rule"
     }
   },
   "dns": {
-    "fakeip": {
-      "enabled": true,
-      "inet4_range": "198.18.0.0/15",
-      "inet6_range": "fc00::/18"
-    },
     "servers": [
       {
         "tag": "google",
-        "address": "https://8.8.8.8/dns-query",
+        "address": "tls://8.8.8.8",
         "detour": "Proxy"
       },
       {
-        "tag": "tx",
-        "address": "https://120.53.53.53/dns-query",
+        "tag": "fallback",
+        "address": "8.8.8.8",
+        "address_resolver": "google",
+        "detour": "Proxy"
+      },
+      {
+        "tag": "local-dns",
+        "address": "223.5.5.5",
         "detour": "direct"
       },
       {
-        "tag": "fakeip",
+        "tag": "fakeip-dns",
         "address": "fakeip"
       },
       {
-        "tag": "block",
+        "tag": "block-dns",
         "address": "rcode://success"
       }
     ],
     "rules": [
       {
-        "rule_set": "geosite-category-ads-all",
-        "server": "block"
-      },
-      {
         "outbound": "any",
-        "server": "tx",
-        "disable_cache": true
+        "server": "local-dns"
       },
       {
-        "rule_set": "geosite-cn",
-        "server": "tx"
-      },
-      {
-        "clash_mode": "direct",
-        "server": "tx"
-      },
-      {
-        "clash_mode": "global",
-        "server": "google"
-      },
-      {
-        "inbound": "tun",
-        "query_type": [
-          "A",
-          "AAAA"
+        "rule_set": [
+          "Youtube0"
         ],
-        "server": "fakeip",
-        "rewrite_ttl": 1
+        "server": "fakeip-dns"
       },
       {
-        "rule_set": "geosite-geolocation-!cn",
-        "server": "google"
+        "rule_set": [
+          "Telegram1"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Github0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Openai0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Games0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Netflix0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Google0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Direct1"
+        ],
+        "server": "local-dns"
+      },
+      {
+        "source_ip_cidr": [
+          "149.104.27.157",
+          "154.91.255.63"
+        ],
+        "server": "local-dns"
+      },
+      {
+        "query_type": [
+          "A"
+        ],
+        "rewrite_ttl": 1,
+        "server": "fakeip-dns"
       }
     ],
-    "independent_cache": true,
-    "strategy": "prefer_ipv4"
+    "strategy": "ipv4_only",
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15"
+    }
   },
   "inbounds": [
     {
-      "tag": "mixed",
       "type": "mixed",
-      "listen": "127.0.0.1",
-      "listen_port": 7890,
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 8888,
       "sniff": true
+    },
+    {
+      "type": "tproxy",
+      "tag": "tproxy-in",
+      "listen": "::",
+      "listen_port": 9888,
+      "sniff_override_destination": true,
+      "sniff": true
+    },
+    {
+      "type": "direct",
+      "listen": "::",
+      "listen_port": 53,
+      "sniff": true,
+      "tag": "dns-in"
     }
   ],
+  "route": {
+    "rule_set": [
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Youtube0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/youtube.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Telegram0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/telegram.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Telegram1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/telegram.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Github0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/github.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Openai0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/openai.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Games0",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-games.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Netflix0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/netflix.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Netflix1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo-lite/geoip/netflix.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Google0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/google.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Direct0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/cn.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🇭🇰 香港",
+        "tag": "Direct1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/cn.srs"
+      }
+    ],
+    "rules": [
+      {
+        "protocol": "dns",
+        "outbound": "dns-out"
+      },
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 853
+          },
+          {
+            "network": "udp",
+            "port": 443
+          },
+          {
+            "protocol": "stun"
+          }
+        ],
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "Youtube0"
+        ],
+        "outbound": "Youtube"
+      },
+      {
+        "rule_set": [
+          "Telegram0",
+          "Telegram1"
+        ],
+        "outbound": "Telegram"
+      },
+      {
+        "rule_set": [
+          "Github0"
+        ],
+        "outbound": "Github"
+      },
+      {
+        "rule_set": [
+          "Openai0"
+        ],
+        "outbound": "Openai"
+      },
+      {
+        "rule_set": [
+          "Games0"
+        ],
+        "outbound": "Games"
+      },
+      {
+        "rule_set": [
+          "Netflix0",
+          "Netflix1"
+        ],
+        "outbound": "Netflix"
+      },
+      {
+        "rule_set": [
+          "Google0"
+        ],
+        "outbound": "Google"
+      },
+      {
+        "rule_set": [
+          "Direct0",
+          "Direct1"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "ip_cidr": [
+          "149.104.27.157",
+          "154.91.255.63"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      }
+    ],
+    "auto_detect_interface": true,
+    "final": "Proxy"
+  },
   "outbounds": [
     {
       "tag": "Proxy",
-      "type": "selector",
       "outbounds": [
-        "auto",
-        "direct",
-        "剩余流量：1.82TB",
-        "过期时间：2024-12-01",
-        "1 忘记登录需联系客服",
-        "1 此计划禁止工作室使用 禁止任何商业使用",
-        "1 请使用全局代理访问官网，非全局会拦截报1020",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/0 DELLR650 F01",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/1 DELLR650 F02",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/2 DELLR650 F03",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/3 DELLR650 F04",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/4 DELLR650 F05",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/5 DELLR650 F06",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/6 DELLR650 F07",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/7 DELLR650 F08",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F09",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F10",
-        "🇨🇦 Canada Quebec Montreal Beauharnois 10GE0/0/23 F01",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/24 DELLR650 F02",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/25 DELLR650 F03",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/26DELLR6515 F04",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/27 DELLR6515 F05",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/28 DELLR6515 F06",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/29 DELLR6525 F07",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/30 DELLR650 F08",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/31 DELLR6615 F09",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/32 DELLR6515 F10",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/10 DELLR640 F08",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/11 DELLR640 F09",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/12 DELLR640 F10",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/3 DELLR640 F01",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/4 DELLR640 F02",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/5 DELLR640 F03",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/6 DELLR640 F04",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/7 DELLR640 F05",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/8 DELLR640 F06",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/9 DELLR640 F07",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/10 DELLR650 F02",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/11 DELLR650 F03",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/12 DELLR650 F04",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/13 DELLR650 F05",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/14 DELLR650 F06",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/15 DELLR650 F07",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/16 DELLR650 F08",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/17 DELLR650 F09",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/18 DELLR650 F10",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/9 DELLR650 F01",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 10GE0/0/23 DELLR6515 F39",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 10GE0/0/27 DELLR640 F40",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/0 DELLR650 F31",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/1 DELLR650 F32",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/2 DELLR650 F33",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/3 DELLR650 F34",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/4 DELLR650 F35",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/5 DELLR650 F36",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/6 DELLR650 F37",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/7 DELLR650 F38",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/13 DELLR660 F21",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/14 DELLR660 F22",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/15 DELLR660 F23",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/16 DELLR660 F24",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/17 DELLR660 F25",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/18 DELLR660 F26",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/19 DELLR660 F27",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/20 DELLR660 F28",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/21 DELLR660 F29",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/22 DELLR660 F30",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/0 DELLR650 F05",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/1 DELLR650 F06",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/2 DELLR650 F07",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/3 DELLR650 F08",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/4 DELLR650 F09",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/5 DELLR650 F10",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/6 DELLR650 F11",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/7 DELLR650 F12",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/0 DELLR660  F01",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/1 DELLR660 F02",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/2 DELLR6625 F03",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/3 DELLR6615 F04",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/10 DELLR6515 F13",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/11 DELLR6515 F14",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/12 DELLR650 F15",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/13 DELLR650 F16",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/14 DELLR6515 F17",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/15 DELLR6515 F18",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/16 DELLR6515 F19",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/0 DELLR630 F01",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/1 DELLR630 F02",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/2 DELLR630 F03",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/3 DELLR620 F04",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/4 DELLR640 F05",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/5 DELLR650 F06",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/6 DELLR630 F07",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/7 DELLR630 F08",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/8 DELLR630 F09",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 25GE0/0/10 DELLR650 F19",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 25GE0/0/15 DELLR650 F20",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/0 DELLR6515 F15",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/1 DELLR650 F16",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/2 DELLR660 F17",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/3 DELLR650 F18",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/0 DELLR660 F09",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/1 DELLR660 F10",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/2 DELLR650 F11",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/3 DELLR660 F12",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/4 DELLR660 F13",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/5 DELLR660 F14",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/0 DELLR660 F01",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/1 DELLR660 F02",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/2 DELLR660 F03",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/3 DELLR660 F04",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/0 DELLR650 F05",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/0 DELLR650 F01",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/1 DELLR650 F02",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/2 DELLR650 F03",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/3 DELLR650 F04",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/4 DELLR660 F05",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/5 DELLR660 F06",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/6 DELLR650 F07",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/7 DELLR650 F08",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/8 DELLR660 F09",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/9 DELLR660 F10",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/0 DELLR650 F01",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/1 DELLR650 F02",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/2 DELLR650 F03",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/3 DELLR650 F04",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/4 DELLR650 F05",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/5 DELLR650 F06",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/6 DELLR650 F07",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/7 DELLR6515 F08",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/8 DELLR6515 F09",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/9 DELLR6515 F10",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/0 DL360G10 F17",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/1 DL360G10 F18",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/2 DL360G10 F19",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/3 DL360G10 F20",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/0 DELLR640 F01",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/1 DELLR650 F02",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/2 DELLR650 F03",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/3 DELLR650 F04",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/0 DELLR640 F05",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/1 DELLR640 F06",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/2 DELLC6520#1 F07",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/3 DELLC6520#2 F08",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/4 DELLC6520#3 F09",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/5 DELLC6520#4 F10",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/0 DL360G11 F11",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/1 DL360G11 F12",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/2 DL360G11 F13",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/3 DL360G11 F14",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/4 DL360G11 F15",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/5 DL360G11 F16",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/10 DELLR640 F01",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/11 DELLR640 F02",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/12 DELLR640 F03",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/13 DELLR640 F04",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/14 DELLR640 F05",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/15 DELLR650 F06",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/16 DELLR650 F07",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/0 DELLR660 F01",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/1 DELLR660 F02",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/2 DELLR660 F03",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/3 DELLR660 F04",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/4 DELLR660 F05",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/5 DELLR660 F06",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/6 DELLR650 F07",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
-        "目前暂不提供试用接入 请付费后使用",
-        "纯IPV6接入"
-      ]
-    },
-    {
-      "tag": "OpenAI",
-      "type": "selector",
-      "outbounds": [
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
       ],
-      "default": "America"
+      "interrupt_exist_connections": true,
+      "type": "selector"
     },
     {
-      "tag": "Google",
-      "type": "selector",
+      "tag": "Youtube",
       "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
     },
     {
       "tag": "Telegram",
-      "type": "selector",
       "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Twitter",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Facebook",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "BiliBili",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "HongKong",
-        "TaiWan"
-      ]
-    },
-    {
-      "tag": "Bahamut",
-      "type": "selector",
-      "outbounds": [
-        "TaiWan",
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "Spotify",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
       ],
-      "default": "America"
+      "interrupt_exist_connections": true,
+      "type": "selector"
     },
     {
-      "tag": "TikTok",
-      "type": "selector",
+      "tag": "Github",
       "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America"
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
       ],
-      "default": "Japan"
+      "interrupt_exist_connections": true,
+      "type": "selector"
     },
     {
-      "tag": "NETFLIX",
-      "type": "selector",
+      "tag": "Openai",
       "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Disney+",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Apple",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Microsoft",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
     },
     {
       "tag": "Games",
-      "type": "selector",
       "outbounds": [
-        "direct",
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Streaming",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others"
-      ]
-    },
-    {
-      "tag": "Global",
-      "type": "selector",
-      "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Singapore",
-        "Japan",
-        "America",
-        "Others",
-        "direct"
-      ]
-    },
-    {
-      "tag": "China",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "Proxy"
-      ]
-    },
-    {
-      "tag": "AdBlock",
-      "type": "selector",
-      "outbounds": [
-        "block",
-        "direct"
-      ]
-    },
-    {
-      "tag": "HongKong",
-      "type": "selector",
-      "outbounds": [
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 10GE0/0/23 DELLR6515 F39",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 10GE0/0/27 DELLR640 F40",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/0 DELLR650 F31",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/1 DELLR650 F32",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/2 DELLR650 F33",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/3 DELLR650 F34",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/4 DELLR650 F35",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/5 DELLR650 F36",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/6 DELLR650 F37",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/7 DELLR650 F38",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/13 DELLR660 F21",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/14 DELLR660 F22",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/15 DELLR660 F23",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/16 DELLR660 F24",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/17 DELLR660 F25",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/18 DELLR660 F26",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/19 DELLR660 F27",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/20 DELLR660 F28",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/21 DELLR660 F29",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/22 DELLR660 F30",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/0 DELLR650 F05",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/1 DELLR650 F06",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/2 DELLR650 F07",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/3 DELLR650 F08",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/4 DELLR650 F09",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/5 DELLR650 F10",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/6 DELLR650 F11",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/7 DELLR650 F12",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/0 DELLR660  F01",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/1 DELLR660 F02",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/2 DELLR6625 F03",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/3 DELLR6615 F04",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/10 DELLR6515 F13",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/11 DELLR6515 F14",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/12 DELLR650 F15",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/13 DELLR650 F16",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/14 DELLR6515 F17",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/15 DELLR6515 F18",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/16 DELLR6515 F19",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20"
-      ]
-    },
-    {
-      "tag": "TaiWan",
-      "type": "selector",
-      "outbounds": [
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/0 DL360G10 F17",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/1 DL360G10 F18",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/2 DL360G10 F19",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/3 DL360G10 F20",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/0 DELLR640 F01",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/1 DELLR650 F02",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/2 DELLR650 F03",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/3 DELLR650 F04",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/0 DELLR640 F05",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/1 DELLR640 F06",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/2 DELLC6520#1 F07",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/3 DELLC6520#2 F08",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/4 DELLC6520#3 F09",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/5 DELLC6520#4 F10",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/0 DL360G11 F11",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/1 DL360G11 F12",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/2 DL360G11 F13",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/3 DL360G11 F14",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/4 DL360G11 F15",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/5 DL360G11 F16"
-      ]
-    },
-    {
-      "tag": "Singapore",
-      "type": "selector",
-      "outbounds": [
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/0 DELLR650 F01",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/1 DELLR650 F02",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/2 DELLR650 F03",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/3 DELLR650 F04",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/4 DELLR660 F05",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/5 DELLR660 F06",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/6 DELLR650 F07",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/7 DELLR650 F08",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/8 DELLR660 F09",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/9 DELLR660 F10"
-      ]
-    },
-    {
-      "tag": "Japan",
-      "type": "selector",
-      "outbounds": [
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 25GE0/0/10 DELLR650 F19",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 25GE0/0/15 DELLR650 F20",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/0 DELLR6515 F15",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/1 DELLR650 F16",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/2 DELLR660 F17",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/3 DELLR650 F18",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/0 DELLR660 F09",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/1 DELLR660 F10",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/2 DELLR650 F11",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/3 DELLR660 F12",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/4 DELLR660 F13",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/5 DELLR660 F14",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/0 DELLR660 F01",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/1 DELLR660 F02",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/2 DELLR660 F03",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/3 DELLR660 F04",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/0 DELLR650 F05",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08"
-      ]
-    },
-    {
-      "tag": "America",
-      "type": "selector",
-      "outbounds": [
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/0 DELLR650 F01",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/1 DELLR650 F02",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/2 DELLR650 F03",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/3 DELLR650 F04",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/4 DELLR650 F05",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/5 DELLR650 F06",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/6 DELLR650 F07",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/7 DELLR650 F08",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F09",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F10",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/0 DELLR660 F01",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/1 DELLR660 F02",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/2 DELLR660 F03",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/3 DELLR660 F04",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/4 DELLR660 F05",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/5 DELLR660 F06",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/6 DELLR650 F07",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10"
-      ]
-    },
-    {
-      "tag": "Others",
-      "type": "selector",
-      "outbounds": [
-        "剩余流量：1.82TB",
-        "过期时间：2024-12-01",
-        "1 忘记登录需联系客服",
-        "1 此计划禁止工作室使用 禁止任何商业使用",
-        "1 请使用全局代理访问官网，非全局会拦截报1020",
-        "🇨🇦 Canada Quebec Montreal Beauharnois 10GE0/0/23 F01",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/24 DELLR650 F02",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/25 DELLR650 F03",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/26DELLR6515 F04",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/27 DELLR6515 F05",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/28 DELLR6515 F06",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/29 DELLR6525 F07",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/30 DELLR650 F08",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/31 DELLR6615 F09",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/32 DELLR6515 F10",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/10 DELLR640 F08",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/11 DELLR640 F09",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/12 DELLR640 F10",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/3 DELLR640 F01",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/4 DELLR640 F02",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/5 DELLR640 F03",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/6 DELLR640 F04",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/7 DELLR640 F05",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/8 DELLR640 F06",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/9 DELLR640 F07",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/10 DELLR650 F02",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/11 DELLR650 F03",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/12 DELLR650 F04",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/13 DELLR650 F05",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/14 DELLR650 F06",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/15 DELLR650 F07",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/16 DELLR650 F08",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/17 DELLR650 F09",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/18 DELLR650 F10",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/9 DELLR650 F01",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/0 DELLR630 F01",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/1 DELLR630 F02",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/2 DELLR630 F03",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/3 DELLR620 F04",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/4 DELLR640 F05",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/5 DELLR650 F06",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/6 DELLR630 F07",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/7 DELLR630 F08",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/8 DELLR630 F09",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/0 DELLR650 F01",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/1 DELLR650 F02",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/2 DELLR650 F03",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/3 DELLR650 F04",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/4 DELLR650 F05",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/5 DELLR650 F06",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/6 DELLR650 F07",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/7 DELLR6515 F08",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/8 DELLR6515 F09",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/9 DELLR6515 F10",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/10 DELLR640 F01",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/11 DELLR640 F02",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/12 DELLR640 F03",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/13 DELLR640 F04",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/14 DELLR640 F05",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/15 DELLR650 F06",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/16 DELLR650 F07",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10",
-        "目前暂不提供试用接入 请付费后使用",
-        "纯IPV6接入"
-      ]
-    },
-    {
-      "tag": "auto",
-      "type": "urltest",
-      "outbounds": [
-        "1 忘记登录需联系客服",
-        "1 此计划禁止工作室使用 禁止任何商业使用",
-        "1 请使用全局代理访问官网，非全局会拦截报1020",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/0 DELLR650 F01",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/1 DELLR650 F02",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/2 DELLR650 F03",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/3 DELLR650 F04",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/4 DELLR650 F05",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/5 DELLR650 F06",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/6 DELLR650 F07",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/7 DELLR650 F08",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F09",
-        "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F10",
-        "🇨🇦 Canada Quebec Montreal Beauharnois 10GE0/0/23 F01",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/24 DELLR650 F02",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/25 DELLR650 F03",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/26DELLR6515 F04",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/27 DELLR6515 F05",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/28 DELLR6515 F06",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/29 DELLR6525 F07",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/30 DELLR650 F08",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/31 DELLR6615 F09",
-        "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/32 DELLR6515 F10",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/10 DELLR640 F08",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/11 DELLR640 F09",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/12 DELLR640 F10",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/3 DELLR640 F01",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/4 DELLR640 F02",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/5 DELLR640 F03",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/6 DELLR640 F04",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/7 DELLR640 F05",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/8 DELLR640 F06",
-        "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/9 DELLR640 F07",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/10 DELLR650 F02",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/11 DELLR650 F03",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/12 DELLR650 F04",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/13 DELLR650 F05",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/14 DELLR650 F06",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/15 DELLR650 F07",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/16 DELLR650 F08",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/17 DELLR650 F09",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/18 DELLR650 F10",
-        "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/9 DELLR650 F01",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 10GE0/0/23 DELLR6515 F39",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 10GE0/0/27 DELLR640 F40",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/0 DELLR650 F31",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/1 DELLR650 F32",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/2 DELLR650 F33",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/3 DELLR650 F34",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/4 DELLR650 F35",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/5 DELLR650 F36",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/6 DELLR650 F37",
-        "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/7 DELLR650 F38",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/13 DELLR660 F21",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/14 DELLR660 F22",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/15 DELLR660 F23",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/16 DELLR660 F24",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/17 DELLR660 F25",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/18 DELLR660 F26",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/19 DELLR660 F27",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/20 DELLR660 F28",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/21 DELLR660 F29",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/22 DELLR660 F30",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/0 DELLR650 F05",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/1 DELLR650 F06",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/2 DELLR650 F07",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/3 DELLR650 F08",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/4 DELLR650 F09",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/5 DELLR650 F10",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/6 DELLR650 F11",
-        "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/7 DELLR650 F12",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/0 DELLR660  F01",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/1 DELLR660 F02",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/2 DELLR6625 F03",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/3 DELLR6615 F04",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/10 DELLR6515 F13",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/11 DELLR6515 F14",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/12 DELLR650 F15",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/13 DELLR650 F16",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/14 DELLR6515 F17",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/15 DELLR6515 F18",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/16 DELLR6515 F19",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/0 DELLR630 F01",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/1 DELLR630 F02",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/2 DELLR630 F03",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/3 DELLR620 F04",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/4 DELLR640 F05",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/5 DELLR650 F06",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/6 DELLR630 F07",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/7 DELLR630 F08",
-        "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/8 DELLR630 F09",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 25GE0/0/10 DELLR650 F19",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 25GE0/0/15 DELLR650 F20",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/0 DELLR6515 F15",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/1 DELLR650 F16",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/2 DELLR660 F17",
-        "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/3 DELLR650 F18",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/0 DELLR660 F09",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/1 DELLR660 F10",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/2 DELLR650 F11",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/3 DELLR660 F12",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/4 DELLR660 F13",
-        "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/5 DELLR660 F14",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/0 DELLR660 F01",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/1 DELLR660 F02",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/2 DELLR660 F03",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/3 DELLR660 F04",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/0 DELLR650 F05",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
-        "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
-        "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/0 DELLR650 F01",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/1 DELLR650 F02",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/2 DELLR650 F03",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/3 DELLR650 F04",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/4 DELLR660 F05",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/5 DELLR660 F06",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/6 DELLR650 F07",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/7 DELLR650 F08",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/8 DELLR660 F09",
-        "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/9 DELLR660 F10",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/0 DELLR650 F01",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/1 DELLR650 F02",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/2 DELLR650 F03",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/3 DELLR650 F04",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/4 DELLR650 F05",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/5 DELLR650 F06",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/6 DELLR650 F07",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/7 DELLR6515 F08",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/8 DELLR6515 F09",
-        "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/9 DELLR6515 F10",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/0 DL360G10 F17",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/1 DL360G10 F18",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/2 DL360G10 F19",
-        "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/3 DL360G10 F20",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/0 DELLR640 F01",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/1 DELLR650 F02",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/2 DELLR650 F03",
-        "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/3 DELLR650 F04",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/0 DELLR640 F05",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/1 DELLR640 F06",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/2 DELLC6520#1 F07",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/3 DELLC6520#2 F08",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/4 DELLC6520#3 F09",
-        "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/5 DELLC6520#4 F10",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/0 DL360G11 F11",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/1 DL360G11 F12",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/2 DL360G11 F13",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/3 DL360G11 F14",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/4 DL360G11 F15",
-        "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/5 DL360G11 F16",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/10 DELLR640 F01",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/11 DELLR640 F02",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/12 DELLR640 F03",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/13 DELLR640 F04",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/14 DELLR640 F05",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/15 DELLR650 F06",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/16 DELLR650 F07",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
-        "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/0 DELLR660 F01",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/1 DELLR660 F02",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/2 DELLR660 F03",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/3 DELLR660 F04",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/4 DELLR660 F05",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/5 DELLR660 F06",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/6 DELLR650 F07",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
-        "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
-        "目前暂不提供试用接入 请付费后使用",
-        "纯IPV6接入"
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
       ],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Netflix",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Google",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "🇭🇰 香港",
+      "outbounds": [
+        "Hong Kong Chai Wan MEGA-i 10GE0/0/23 DELLR6515 F39",
+        "Hong Kong Chai Wan MEGA-i 10GE0/0/27 DELLR640 F40",
+        "Hong Kong Chai Wan MEGA-i 40GE0/0/0 DELLR650 F31",
+        "Hong Kong Chai Wan MEGA-i 40GE0/0/1 DELLR650 F32",
+        "Hong Kong Chai Wan MEGA-i 40GE0/0/2 DELLR650 F33",
+        "Hong Kong Chai Wan MEGA-i 40GE0/0/3 DELLR650 F34",
+        "Hong Kong Chai Wan MEGA-i 40GE0/0/4 DELLR650 F35",
+        "Hong Kong Chai Wan MEGA-i 40GE0/0/5 DELLR650 F36",
+        "Hong Kong Chai Wan MEGA-i 40GE0/0/6 DELLR650 F37",
+        "Hong Kong Chai Wan MEGA-i 40GE0/0/7 DELLR650 F38",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/13 DELLR660 F21",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/14 DELLR660 F22",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/15 DELLR660 F23",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/16 DELLR660 F24",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/17 DELLR660 F25",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/18 DELLR660 F26",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/19 DELLR660 F27",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/20 DELLR660 F28",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/21 DELLR660 F29",
+        "Hong Kong Sha Tin EQHK4 25GE0/0/22 DELLR660 F30",
+        "Hong Kong Sha Tin EQHK4 40GE0/0/0 DELLR650 F05",
+        "Hong Kong Sha Tin EQHK4 40GE0/0/1 DELLR650 F06",
+        "Hong Kong Sha Tin EQHK4 40GE0/0/2 DELLR650 F07",
+        "Hong Kong Sha Tin EQHK4 40GE0/0/3 DELLR650 F08",
+        "Hong Kong Sha Tin EQHK4 40GE0/0/4 DELLR650 F09",
+        "Hong Kong Sha Tin EQHK4 40GE0/0/5 DELLR650 F10",
+        "Hong Kong Sha Tin EQHK4 40GE0/0/6 DELLR650 F11",
+        "Hong Kong Sha Tin EQHK4 40GE0/0/7 DELLR650 F12",
+        "Hong Kong Tsuen Wan EQHK1 100GE0/0/0 DELLR660  F01",
+        "Hong Kong Tsuen Wan EQHK1 100GE0/0/1 DELLR660 F02",
+        "Hong Kong Tsuen Wan EQHK1 100GE0/0/2 DELLR6625 F03",
+        "Hong Kong Tsuen Wan EQHK1 100GE0/0/3 DELLR6615 F04",
+        "Hong Kong Tsuen Wan EQHK1 25GE0/0/10 DELLR6515 F13",
+        "Hong Kong Tsuen Wan EQHK1 25GE0/0/11 DELLR6515 F14",
+        "Hong Kong Tsuen Wan EQHK1 25GE0/0/12 DELLR650 F15",
+        "Hong Kong Tsuen Wan EQHK1 25GE0/0/13 DELLR650 F16",
+        "Hong Kong Tsuen Wan EQHK1 25GE0/0/14 DELLR6515 F17",
+        "Hong Kong Tsuen Wan EQHK1 25GE0/0/15 DELLR6515 F18",
+        "Hong Kong Tsuen Wan EQHK1 25GE0/0/16 DELLR6515 F19",
+        "Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇯🇵 日本",
+      "outbounds": [
+        "Japan Osaka Nishi Ward EQOS1 25GE0/0/10 DELLR650 F19",
+        "Japan Osaka Nishi Ward EQOS1 25GE0/0/15 DELLR650 F20",
+        "Japan Osaka Nishi Ward EQOS1 40GE0/0/0 DELLR6515 F15",
+        "Japan Osaka Nishi Ward EQOS1 40GE0/0/1 DELLR650 F16",
+        "Japan Osaka Nishi Ward EQOS1 40GE0/0/2 DELLR660 F17",
+        "Japan Osaka Nishi Ward EQOS1 40GE0/0/3 DELLR650 F18",
+        "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/0 DELLR660 F09",
+        "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/1 DELLR660 F10",
+        "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/2 DELLR650 F11",
+        "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/3 DELLR660 F12",
+        "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/4 DELLR660 F13",
+        "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/5 DELLR660 F14",
+        "Japan Tokyo Ōta City EQTY1 100GE0/0/0 DELLR660 F01",
+        "Japan Tokyo Ōta City EQTY1 100GE0/0/1 DELLR660 F02",
+        "Japan Tokyo Ōta City EQTY1 100GE0/0/2 DELLR660 F03",
+        "Japan Tokyo Ōta City EQTY1 100GE0/0/3 DELLR660 F04",
+        "Japan Tokyo Ōta City EQTY1 40GE0/0/0 DELLR650 F05",
+        "Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
+        "Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
+        "Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇰🇷韩国",
+      "outbounds": [
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/0 DELLR650 F01",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/1 DELLR650 F02",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/2 DELLR650 F03",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/3 DELLR650 F04",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/4 DELLR650 F05",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/5 DELLR650 F06",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/6 DELLR650 F07",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/7 DELLR6515 F08",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/8 DELLR6515 F09",
+        "South Korea Seoul Mapo-gu EQSL1 40GE0/0/9 DELLR6515 F10"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇹🇼台湾",
+      "outbounds": [
+        "Taiwan Hsinchu Zhubei 1GE0/0/0 DL360G10 F17",
+        "Taiwan Hsinchu Zhubei 1GE0/0/1 DL360G10 F18",
+        "Taiwan Hsinchu Zhubei 1GE0/0/2 DL360G10 F19",
+        "Taiwan Hsinchu Zhubei 1GE0/0/3 DL360G10 F20",
+        "Taiwan New Taipei Xinzhuang 10GE0/0/0 DELLR640 F01",
+        "Taiwan New Taipei Xinzhuang 10GE0/0/1 DELLR650 F02",
+        "Taiwan New Taipei Xinzhuang 10GE0/0/2 DELLR650 F03",
+        "Taiwan New Taipei Xinzhuang 10GE0/0/3 DELLR650 F04",
+        "Taiwan Taipei Xinyi 10GE0/0/0 DELLR640 F05",
+        "Taiwan Taipei Xinyi 10GE0/0/1 DELLR640 F06",
+        "Taiwan Taipei Xinyi 10GE0/0/2 DELLC6520#1 F07",
+        "Taiwan Taipei Xinyi 10GE0/0/3 DELLC6520#2 F08",
+        "Taiwan Taipei Xinyi 10GE0/0/4 DELLC6520#3 F09",
+        "Taiwan Taipei Xinyi 10GE0/0/5 DELLC6520#4 F10",
+        "Taiwan Zhongli Renmei 10GE0/0/0 DL360G11 F11",
+        "Taiwan Zhongli Renmei 10GE0/0/1 DL360G11 F12",
+        "Taiwan Zhongli Renmei 10GE0/0/2 DL360G11 F13",
+        "Taiwan Zhongli Renmei 10GE0/0/3 DL360G11 F14",
+        "Taiwan Zhongli Renmei 10GE0/0/4 DL360G11 F15",
+        "Taiwan Zhongli Renmei 10GE0/0/5 DL360G11 F16"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇺🇸 美国",
+      "outbounds": [
+        "Australia Sydney Mascot EQSY1 25GE0/0/0 DELLR650 F01",
+        "Australia Sydney Mascot EQSY1 25GE0/0/1 DELLR650 F02",
+        "Australia Sydney Mascot EQSY1 25GE0/0/2 DELLR650 F03",
+        "Australia Sydney Mascot EQSY1 25GE0/0/3 DELLR650 F04",
+        "Australia Sydney Mascot EQSY1 25GE0/0/4 DELLR650 F05",
+        "Australia Sydney Mascot EQSY1 25GE0/0/5 DELLR650 F06",
+        "Australia Sydney Mascot EQSY1 25GE0/0/6 DELLR650 F07",
+        "Australia Sydney Mascot EQSY1 25GE0/0/7 DELLR650 F08",
+        "Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F09",
+        "Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F10",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
+        "United States Washington Seattle EQSE2 100GE0/0/0 DELLR660 F01",
+        "United States Washington Seattle EQSE2 100GE0/0/1 DELLR660 F02",
+        "United States Washington Seattle EQSE2 100GE0/0/2 DELLR660 F03",
+        "United States Washington Seattle EQSE2 100GE0/0/3 DELLR660 F04",
+        "United States Washington Seattle EQSE2 100GE0/0/4 DELLR660 F05",
+        "United States Washington Seattle EQSE2 100GE0/0/5 DELLR660 F06",
+        "United States Washington Seattle EQSE2 100GE0/0/6 DELLR650 F07",
+        "United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
+        "United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
+        "United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇸🇬新加坡",
+      "outbounds": [
+        "Singapore Central Queenstown EQSG1 100GE0/0/0 DELLR650 F01",
+        "Singapore Central Queenstown EQSG1 100GE0/0/1 DELLR650 F02",
+        "Singapore Central Queenstown EQSG1 100GE0/0/2 DELLR650 F03",
+        "Singapore Central Queenstown EQSG1 100GE0/0/3 DELLR650 F04",
+        "Singapore Central Queenstown EQSG1 100GE0/0/4 DELLR660 F05",
+        "Singapore Central Queenstown EQSG1 100GE0/0/5 DELLR660 F06",
+        "Singapore Central Queenstown EQSG1 100GE0/0/6 DELLR650 F07",
+        "Singapore Central Queenstown EQSG1 100GE0/0/7 DELLR650 F08",
+        "Singapore Central Queenstown EQSG1 100GE0/0/8 DELLR660 F09",
+        "Singapore Central Queenstown EQSG1 100GE0/0/9 DELLR660 F10"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇦🇺澳大利亚",
+      "outbounds": [
+        "Australia Sydney Mascot EQSY1 25GE0/0/0 DELLR650 F01",
+        "Australia Sydney Mascot EQSY1 25GE0/0/1 DELLR650 F02",
+        "Australia Sydney Mascot EQSY1 25GE0/0/2 DELLR650 F03",
+        "Australia Sydney Mascot EQSY1 25GE0/0/3 DELLR650 F04",
+        "Australia Sydney Mascot EQSY1 25GE0/0/4 DELLR650 F05",
+        "Australia Sydney Mascot EQSY1 25GE0/0/5 DELLR650 F06",
+        "Australia Sydney Mascot EQSY1 25GE0/0/6 DELLR650 F07",
+        "Australia Sydney Mascot EQSY1 25GE0/0/7 DELLR650 F08",
+        "Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F09",
+        "Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F10",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/23 F01",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/24 DELLR650 F02",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/25 DELLR650 F03",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/26DELLR6515 F04",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/27 DELLR6515 F05",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/28 DELLR6515 F06",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/29 DELLR6525 F07",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/30 DELLR650 F08",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/31 DELLR6615 F09",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/32 DELLR6515 F10",
+        "French Hauts-de-France Gravelines 25GE0/0/10 DELLR640 F08",
+        "French Hauts-de-France Gravelines 25GE0/0/11 DELLR640 F09",
+        "French Hauts-de-France Gravelines 25GE0/0/12 DELLR640 F10",
+        "French Hauts-de-France Gravelines 25GE0/0/3 DELLR640 F01",
+        "French Hauts-de-France Gravelines 25GE0/0/4 DELLR640 F02",
+        "French Hauts-de-France Gravelines 25GE0/0/5 DELLR640 F03",
+        "French Hauts-de-France Gravelines 25GE0/0/6 DELLR640 F04",
+        "French Hauts-de-France Gravelines 25GE0/0/7 DELLR640 F05",
+        "French Hauts-de-France Gravelines 25GE0/0/8 DELLR640 F06",
+        "French Hauts-de-France Gravelines 25GE0/0/9 DELLR640 F07"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇷🇺俄罗斯",
+      "outbounds": [
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
+        "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇬🇧英国",
+      "outbounds": [
+        "United Kingdom London Borough of Bexley Erith 10GE0/0/10 DELLR640 F01",
+        "United Kingdom London Borough of Bexley Erith 10GE0/0/11 DELLR640 F02",
+        "United Kingdom London Borough of Bexley Erith 10GE0/0/12 DELLR640 F03",
+        "United Kingdom London Borough of Bexley Erith 10GE0/0/13 DELLR640 F04",
+        "United Kingdom London Borough of Bexley Erith 10GE0/0/14 DELLR640 F05",
+        "United Kingdom London Borough of Bexley Erith 10GE0/0/15 DELLR650 F06",
+        "United Kingdom London Borough of Bexley Erith 10GE0/0/16 DELLR650 F07",
+        "United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
+        "United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
+        "United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇨🇦加拿大",
+      "outbounds": [
+        "Canada Quebec Montreal Beauharnois 10GE0/0/23 F01",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/24 DELLR650 F02",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/25 DELLR650 F03",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/26DELLR6515 F04",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/27 DELLR6515 F05",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/28 DELLR6515 F06",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/29 DELLR6525 F07",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/30 DELLR650 F08",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/31 DELLR6615 F09",
+        "Canada Quebec Montreal Beauharnois 10GE0/0/32 DELLR6515 F10"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇫🇷法国",
+      "outbounds": [
+        "French Hauts-de-France Gravelines 25GE0/0/10 DELLR640 F08",
+        "French Hauts-de-France Gravelines 25GE0/0/11 DELLR640 F09",
+        "French Hauts-de-France Gravelines 25GE0/0/12 DELLR640 F10",
+        "French Hauts-de-France Gravelines 25GE0/0/3 DELLR640 F01",
+        "French Hauts-de-France Gravelines 25GE0/0/4 DELLR640 F02",
+        "French Hauts-de-France Gravelines 25GE0/0/5 DELLR640 F03",
+        "French Hauts-de-France Gravelines 25GE0/0/6 DELLR640 F04",
+        "French Hauts-de-France Gravelines 25GE0/0/7 DELLR640 F05",
+        "French Hauts-de-France Gravelines 25GE0/0/8 DELLR640 F06",
+        "French Hauts-de-France Gravelines 25GE0/0/9 DELLR640 F07"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇩🇪德国",
+      "outbounds": [
+        "German Hessen Limburg an der Lahn 10GE0/0/10 DELLR650 F02",
+        "German Hessen Limburg an der Lahn 10GE0/0/11 DELLR650 F03",
+        "German Hessen Limburg an der Lahn 10GE0/0/12 DELLR650 F04",
+        "German Hessen Limburg an der Lahn 10GE0/0/13 DELLR650 F05",
+        "German Hessen Limburg an der Lahn 10GE0/0/14 DELLR650 F06",
+        "German Hessen Limburg an der Lahn 10GE0/0/15 DELLR650 F07",
+        "German Hessen Limburg an der Lahn 10GE0/0/16 DELLR650 F08",
+        "German Hessen Limburg an der Lahn 10GE0/0/17 DELLR650 F09",
+        "German Hessen Limburg an der Lahn 10GE0/0/18 DELLR650 F10",
+        "German Hessen Limburg an der Lahn 10GE0/0/9 DELLR650 F01"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇮🇳印度",
+      "outbounds": [
+        "India Mumbai Andheri East EQMB1 10GE0/0/0 DELLR630 F01",
+        "India Mumbai Andheri East EQMB1 10GE0/0/1 DELLR630 F02",
+        "India Mumbai Andheri East EQMB1 10GE0/0/2 DELLR630 F03",
+        "India Mumbai Andheri East EQMB1 10GE0/0/3 DELLR620 F04",
+        "India Mumbai Andheri East EQMB1 10GE0/0/4 DELLR640 F05",
+        "India Mumbai Andheri East EQMB1 10GE0/0/5 DELLR650 F06",
+        "India Mumbai Andheri East EQMB1 10GE0/0/6 DELLR630 F07",
+        "India Mumbai Andheri East EQMB1 10GE0/0/7 DELLR630 F08",
+        "India Mumbai Andheri East EQMB1 10GE0/0/8 DELLR630 F09"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "type": "direct",
+      "tag": "➜ Direct"
     },
     {
       "type": "direct",
@@ -920,1857 +836,1864 @@
       "tag": "block"
     },
     {
-      "tag": "剩余流量：1.82TB",
-      "type": "shadowsocks",
+      "tag": "剩余流量：1.51TB",
       "server": "ace-taffy.com",
       "server_port": 10086,
+      "type": "shadowsocks",
       "method": "chacha20-ietf",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
       "tag": "过期时间：2024-12-01",
-      "type": "shadowsocks",
       "server": "ace-taffy.com",
       "server_port": 10086,
+      "type": "shadowsocks",
       "method": "chacha20-ietf",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
       "tag": "1 忘记登录需联系客服",
-      "type": "shadowsocks",
       "server": "59.43.180.34",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
       "tag": "1 此计划禁止工作室使用 禁止任何商业使用",
-      "type": "shadowsocks",
       "server": "114.152.162.31",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
       "tag": "1 请使用全局代理访问官网，非全局会拦截报1020",
-      "type": "shadowsocks",
       "server": "116.236.15.3",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/0 DELLR650 F01",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/0 DELLR650 F01",
       "server": "au01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/1 DELLR650 F02",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/1 DELLR650 F02",
       "server": "au02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/2 DELLR650 F03",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/2 DELLR650 F03",
       "server": "au03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/3 DELLR650 F04",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/3 DELLR650 F04",
       "server": "au04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/4 DELLR650 F05",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/4 DELLR650 F05",
       "server": "au05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/5 DELLR650 F06",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/5 DELLR650 F06",
       "server": "au06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/6 DELLR650 F07",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/6 DELLR650 F07",
       "server": "au07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/7 DELLR650 F08",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/7 DELLR650 F08",
       "server": "au08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F09",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F09",
       "server": "au09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F10",
-      "type": "shadowsocks",
+      "tag": "Australia Sydney Mascot EQSY1 25GE0/0/8 DELLR650 F10",
       "server": "au10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇨🇦 Canada Quebec Montreal Beauharnois 10GE0/0/23 F01",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/23 F01",
       "server": "ca01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/24 DELLR650 F02",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/24 DELLR650 F02",
       "server": "ca02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/25 DELLR650 F03",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/25 DELLR650 F03",
       "server": "ca03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/26DELLR6515 F04",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/26DELLR6515 F04",
       "server": "ca04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/27 DELLR6515 F05",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/27 DELLR6515 F05",
       "server": "ca05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/28 DELLR6515 F06",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/28 DELLR6515 F06",
       "server": "ca06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/29 DELLR6525 F07",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/29 DELLR6525 F07",
       "server": "ca09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/30 DELLR650 F08",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/30 DELLR650 F08",
       "server": "ca08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/31 DELLR6615 F09",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/31 DELLR6615 F09",
       "server": "ca09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 Canada Quebec Montreal Beauharnois 10GE0/0/32 DELLR6515 F10",
-      "type": "shadowsocks",
+      "tag": "Canada Quebec Montreal Beauharnois 10GE0/0/32 DELLR6515 F10",
       "server": "ca10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/10 DELLR640 F08",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/10 DELLR640 F08",
       "server": "fr08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/11 DELLR640 F09",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/11 DELLR640 F09",
       "server": "fr09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/12 DELLR640 F10",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/12 DELLR640 F10",
       "server": "fr10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/3 DELLR640 F01",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/3 DELLR640 F01",
       "server": "fr01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/4 DELLR640 F02",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/4 DELLR640 F02",
       "server": "fr02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/5 DELLR640 F03",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/5 DELLR640 F03",
       "server": "fr03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/6 DELLR640 F04",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/6 DELLR640 F04",
       "server": "fr04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/7 DELLR640 F05",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/7 DELLR640 F05",
       "server": "fr05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/8 DELLR640 F06",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/8 DELLR640 F06",
       "server": "fr06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 French Hauts-de-France Gravelines 25GE0/0/9 DELLR640 F07",
-      "type": "shadowsocks",
+      "tag": "French Hauts-de-France Gravelines 25GE0/0/9 DELLR640 F07",
       "server": "fr07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/10 DELLR650 F02",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/10 DELLR650 F02",
       "server": "ge02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/11 DELLR650 F03",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/11 DELLR650 F03",
       "server": "ge03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/12 DELLR650 F04",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/12 DELLR650 F04",
       "server": "ge04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/13 DELLR650 F05",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/13 DELLR650 F05",
       "server": "ge05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/14 DELLR650 F06",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/14 DELLR650 F06",
       "server": "ge06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/15 DELLR650 F07",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/15 DELLR650 F07",
       "server": "ge07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/16 DELLR650 F08",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/16 DELLR650 F08",
       "server": "ge08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/17 DELLR650 F09",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/17 DELLR650 F09",
       "server": "ge09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/18 DELLR650 F10",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/18 DELLR650 F10",
       "server": "ge10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇩🇪 German Hessen Limburg an der Lahn 10GE0/0/9 DELLR650 F01",
-      "type": "shadowsocks",
+      "tag": "German Hessen Limburg an der Lahn 10GE0/0/9 DELLR650 F01",
       "server": "ge01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 10GE0/0/23 DELLR6515 F39",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 10GE0/0/23 DELLR6515 F39",
       "server": "hk39.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 10GE0/0/27 DELLR640 F40",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 10GE0/0/27 DELLR640 F40",
       "server": "hk40.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/0 DELLR650 F31",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 40GE0/0/0 DELLR650 F31",
       "server": "hk31.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/1 DELLR650 F32",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 40GE0/0/1 DELLR650 F32",
       "server": "hk32.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/2 DELLR650 F33",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 40GE0/0/2 DELLR650 F33",
       "server": "hk33.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/3 DELLR650 F34",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 40GE0/0/3 DELLR650 F34",
       "server": "hk34.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/4 DELLR650 F35",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 40GE0/0/4 DELLR650 F35",
       "server": "hk35.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/5 DELLR650 F36",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 40GE0/0/5 DELLR650 F36",
       "server": "hk36.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/6 DELLR650 F37",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 40GE0/0/6 DELLR650 F37",
       "server": "hk37.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Chai Wan MEGA-i 40GE0/0/7 DELLR650 F38",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Chai Wan MEGA-i 40GE0/0/7 DELLR650 F38",
       "server": "hk38.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/13 DELLR660 F21",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/13 DELLR660 F21",
       "server": "hk21.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/14 DELLR660 F22",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/14 DELLR660 F22",
       "server": "hk22.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/15 DELLR660 F23",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/15 DELLR660 F23",
       "server": "hk23.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/16 DELLR660 F24",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/16 DELLR660 F24",
       "server": "hk24.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/17 DELLR660 F25",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/17 DELLR660 F25",
       "server": "hk25.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/18 DELLR660 F26",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/18 DELLR660 F26",
       "server": "hk26.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/19 DELLR660 F27",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/19 DELLR660 F27",
       "server": "hk27.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/20 DELLR660 F28",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/20 DELLR660 F28",
       "server": "hk28.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/21 DELLR660 F29",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/21 DELLR660 F29",
       "server": "hk29.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 25GE0/0/22 DELLR660 F30",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 25GE0/0/22 DELLR660 F30",
       "server": "hk30.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/0 DELLR650 F05",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 40GE0/0/0 DELLR650 F05",
       "server": "hk05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/1 DELLR650 F06",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 40GE0/0/1 DELLR650 F06",
       "server": "hk06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/2 DELLR650 F07",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 40GE0/0/2 DELLR650 F07",
       "server": "hk07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/3 DELLR650 F08",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 40GE0/0/3 DELLR650 F08",
       "server": "hk08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/4 DELLR650 F09",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 40GE0/0/4 DELLR650 F09",
       "server": "hk09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/5 DELLR650 F10",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 40GE0/0/5 DELLR650 F10",
       "server": "hk10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/6 DELLR650 F11",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 40GE0/0/6 DELLR650 F11",
       "server": "hk11.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Sha Tin EQHK4 40GE0/0/7 DELLR650 F12",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Sha Tin EQHK4 40GE0/0/7 DELLR650 F12",
       "server": "hk12.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/0 DELLR660  F01",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 100GE0/0/0 DELLR660  F01",
       "server": "hk01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/1 DELLR660 F02",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 100GE0/0/1 DELLR660 F02",
       "server": "hk02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/2 DELLR6625 F03",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 100GE0/0/2 DELLR6625 F03",
       "server": "hk03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 100GE0/0/3 DELLR6615 F04",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 100GE0/0/3 DELLR6615 F04",
       "server": "hk04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/10 DELLR6515 F13",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 25GE0/0/10 DELLR6515 F13",
       "server": "hk13.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/11 DELLR6515 F14",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 25GE0/0/11 DELLR6515 F14",
       "server": "hk14.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/12 DELLR650 F15",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 25GE0/0/12 DELLR650 F15",
       "server": "hk15.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/13 DELLR650 F16",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 25GE0/0/13 DELLR650 F16",
       "server": "hk16.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/14 DELLR6515 F17",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 25GE0/0/14 DELLR6515 F17",
       "server": "hk17.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/15 DELLR6515 F18",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 25GE0/0/15 DELLR6515 F18",
       "server": "hk18.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/16 DELLR6515 F19",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 25GE0/0/16 DELLR6515 F19",
       "server": "hk19.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20",
-      "type": "shadowsocks",
+      "tag": "Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20",
       "server": "hk20.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/0 DELLR630 F01",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/0 DELLR630 F01",
       "server": "in01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/1 DELLR630 F02",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/1 DELLR630 F02",
       "server": "in02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/2 DELLR630 F03",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/2 DELLR630 F03",
       "server": "in03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/3 DELLR620 F04",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/3 DELLR620 F04",
       "server": "in04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/4 DELLR640 F05",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/4 DELLR640 F05",
       "server": "in05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/5 DELLR650 F06",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/5 DELLR650 F06",
       "server": "in06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/6 DELLR630 F07",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/6 DELLR630 F07",
       "server": "in07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/7 DELLR630 F08",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/7 DELLR630 F08",
       "server": "in08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇮🇳 India Mumbai Andheri East EQMB1 10GE0/0/8 DELLR630 F09",
-      "type": "shadowsocks",
+      "tag": "India Mumbai Andheri East EQMB1 10GE0/0/8 DELLR630 F09",
       "server": "in09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Osaka Nishi Ward EQOS1 25GE0/0/10 DELLR650 F19",
-      "type": "shadowsocks",
+      "tag": "Japan Osaka Nishi Ward EQOS1 25GE0/0/10 DELLR650 F19",
       "server": "jp19.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Osaka Nishi Ward EQOS1 25GE0/0/15 DELLR650 F20",
-      "type": "shadowsocks",
+      "tag": "Japan Osaka Nishi Ward EQOS1 25GE0/0/15 DELLR650 F20",
       "server": "jp20.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/0 DELLR6515 F15",
-      "type": "shadowsocks",
+      "tag": "Japan Osaka Nishi Ward EQOS1 40GE0/0/0 DELLR6515 F15",
       "server": "jp15.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/1 DELLR650 F16",
-      "type": "shadowsocks",
+      "tag": "Japan Osaka Nishi Ward EQOS1 40GE0/0/1 DELLR650 F16",
       "server": "jp16.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/2 DELLR660 F17",
-      "type": "shadowsocks",
+      "tag": "Japan Osaka Nishi Ward EQOS1 40GE0/0/2 DELLR660 F17",
       "server": "jp17.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Osaka Nishi Ward EQOS1 40GE0/0/3 DELLR650 F18",
-      "type": "shadowsocks",
+      "tag": "Japan Osaka Nishi Ward EQOS1 40GE0/0/3 DELLR650 F18",
       "server": "jp18.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/0 DELLR660 F09",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/0 DELLR660 F09",
       "server": "jp09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/1 DELLR660 F10",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/1 DELLR660 F10",
       "server": "jp10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/2 DELLR650 F11",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/2 DELLR650 F11",
       "server": "jp11.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/3 DELLR660 F12",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/3 DELLR660 F12",
       "server": "jp12.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/4 DELLR660 F13",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/4 DELLR660 F13",
       "server": "jp13.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Higashishinagawa EQTY8 100GE0/0/5 DELLR660 F14",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Higashishinagawa EQTY8 100GE0/0/5 DELLR660 F14",
       "server": "jp14.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/0 DELLR660 F01",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Ōta City EQTY1 100GE0/0/0 DELLR660 F01",
       "server": "jp01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/1 DELLR660 F02",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Ōta City EQTY1 100GE0/0/1 DELLR660 F02",
       "server": "jp02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/2 DELLR660 F03",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Ōta City EQTY1 100GE0/0/2 DELLR660 F03",
       "server": "jp03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Ōta City EQTY1 100GE0/0/3 DELLR660 F04",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Ōta City EQTY1 100GE0/0/3 DELLR660 F04",
       "server": "jp04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/0 DELLR650 F05",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Ōta City EQTY1 40GE0/0/0 DELLR650 F05",
       "server": "jp05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Ōta City EQTY1 40GE0/0/1 DELLR650 F06",
       "server": "jp06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Ōta City EQTY1 40GE0/0/2 DELLR650 F07",
       "server": "jp07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇯🇵 Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08",
-      "type": "shadowsocks",
+      "tag": "Japan Tokyo Ōta City EQTY1 40GE0/0/3 DELLR650 F08",
       "server": "jp08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/2 DELLR630 F03",
       "server": "ru03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/3 DELLR630 F04",
       "server": "ru04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/4 DELLR620 F05",
       "server": "ru05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/5 DELLR620 F06",
       "server": "ru06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/6 DELLR620 F07",
       "server": "ru07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/7 DELLR620 F08",
       "server": "ru08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/8 DELLR620 F09",
       "server": "ru09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/9 DELLR620 F10",
       "server": "ru10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/0 DELLR620 F01",
       "server": "ru01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇷🇺 Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
-      "type": "shadowsocks",
+      "tag": "Russia Moscow район Западное Дегунино DataLine Дата-центр NORD 10GE0/0/1 DELLR620 F02",
       "server": "ru02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/0 DELLR650 F01",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/0 DELLR650 F01",
       "server": "sgp01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/1 DELLR650 F02",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/1 DELLR650 F02",
       "server": "sgp02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/2 DELLR650 F03",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/2 DELLR650 F03",
       "server": "sgp03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/3 DELLR650 F04",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/3 DELLR650 F04",
       "server": "sgp04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/4 DELLR660 F05",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/4 DELLR660 F05",
       "server": "sgp05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/5 DELLR660 F06",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/5 DELLR660 F06",
       "server": "sgp060.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/6 DELLR650 F07",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/6 DELLR650 F07",
       "server": "sgp07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/7 DELLR650 F08",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/7 DELLR650 F08",
       "server": "sgp08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/8 DELLR660 F09",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/8 DELLR660 F09",
       "server": "sgp09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇸🇬 Singapore Central Queenstown EQSG1 100GE0/0/9 DELLR660 F10",
-      "type": "shadowsocks",
+      "tag": "Singapore Central Queenstown EQSG1 100GE0/0/9 DELLR660 F10",
       "server": "sgp10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/0 DELLR650 F01",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/0 DELLR650 F01",
       "server": "kr01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/1 DELLR650 F02",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/1 DELLR650 F02",
       "server": "kr02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/2 DELLR650 F03",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/2 DELLR650 F03",
       "server": "kr03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/3 DELLR650 F04",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/3 DELLR650 F04",
       "server": "kr04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/4 DELLR650 F05",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/4 DELLR650 F05",
       "server": "kr05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/5 DELLR650 F06",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/5 DELLR650 F06",
       "server": "kr06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/6 DELLR650 F07",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/6 DELLR650 F07",
       "server": "kr07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/7 DELLR6515 F08",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/7 DELLR6515 F08",
       "server": "kr08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/8 DELLR6515 F09",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/8 DELLR6515 F09",
       "server": "kr09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇰🇷 South Korea Seoul Mapo-gu EQSL1 40GE0/0/9 DELLR6515 F10",
-      "type": "shadowsocks",
+      "tag": "South Korea Seoul Mapo-gu EQSL1 40GE0/0/9 DELLR6515 F10",
       "server": "kr10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/0 DL360G10 F17",
-      "type": "shadowsocks",
+      "tag": "Taiwan Hsinchu Zhubei 1GE0/0/0 DL360G10 F17",
       "server": "tw17.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/1 DL360G10 F18",
-      "type": "shadowsocks",
+      "tag": "Taiwan Hsinchu Zhubei 1GE0/0/1 DL360G10 F18",
       "server": "tw18.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/2 DL360G10 F19",
-      "type": "shadowsocks",
+      "tag": "Taiwan Hsinchu Zhubei 1GE0/0/2 DL360G10 F19",
       "server": "tw18.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Hsinchu Zhubei 1GE0/0/3 DL360G10 F20",
-      "type": "shadowsocks",
+      "tag": "Taiwan Hsinchu Zhubei 1GE0/0/3 DL360G10 F20",
       "server": "tw20.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/0 DELLR640 F01",
-      "type": "shadowsocks",
+      "tag": "Taiwan New Taipei Xinzhuang 10GE0/0/0 DELLR640 F01",
       "server": "tw01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/1 DELLR650 F02",
-      "type": "shadowsocks",
+      "tag": "Taiwan New Taipei Xinzhuang 10GE0/0/1 DELLR650 F02",
       "server": "tw02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/2 DELLR650 F03",
-      "type": "shadowsocks",
+      "tag": "Taiwan New Taipei Xinzhuang 10GE0/0/2 DELLR650 F03",
       "server": "tw03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan New Taipei Xinzhuang 10GE0/0/3 DELLR650 F04",
-      "type": "shadowsocks",
+      "tag": "Taiwan New Taipei Xinzhuang 10GE0/0/3 DELLR650 F04",
       "server": "tw04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/0 DELLR640 F05",
-      "type": "shadowsocks",
+      "tag": "Taiwan Taipei Xinyi 10GE0/0/0 DELLR640 F05",
       "server": "tw05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/1 DELLR640 F06",
-      "type": "shadowsocks",
+      "tag": "Taiwan Taipei Xinyi 10GE0/0/1 DELLR640 F06",
       "server": "tw06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/2 DELLC6520#1 F07",
-      "type": "shadowsocks",
+      "tag": "Taiwan Taipei Xinyi 10GE0/0/2 DELLC6520#1 F07",
       "server": "tw07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/3 DELLC6520#2 F08",
-      "type": "shadowsocks",
+      "tag": "Taiwan Taipei Xinyi 10GE0/0/3 DELLC6520#2 F08",
       "server": "tw08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/4 DELLC6520#3 F09",
-      "type": "shadowsocks",
+      "tag": "Taiwan Taipei Xinyi 10GE0/0/4 DELLC6520#3 F09",
       "server": "tw09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Taipei Xinyi 10GE0/0/5 DELLC6520#4 F10",
-      "type": "shadowsocks",
+      "tag": "Taiwan Taipei Xinyi 10GE0/0/5 DELLC6520#4 F10",
       "server": "tw10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/0 DL360G11 F11",
-      "type": "shadowsocks",
+      "tag": "Taiwan Zhongli Renmei 10GE0/0/0 DL360G11 F11",
       "server": "tw11.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/1 DL360G11 F12",
-      "type": "shadowsocks",
+      "tag": "Taiwan Zhongli Renmei 10GE0/0/1 DL360G11 F12",
       "server": "tw12.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/2 DL360G11 F13",
-      "type": "shadowsocks",
+      "tag": "Taiwan Zhongli Renmei 10GE0/0/2 DL360G11 F13",
       "server": "tw13.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/3 DL360G11 F14",
-      "type": "shadowsocks",
+      "tag": "Taiwan Zhongli Renmei 10GE0/0/3 DL360G11 F14",
       "server": "tw14.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/4 DL360G11 F15",
-      "type": "shadowsocks",
+      "tag": "Taiwan Zhongli Renmei 10GE0/0/4 DL360G11 F15",
       "server": "tw15.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇹🇼 Taiwan Zhongli Renmei 10GE0/0/5 DL360G11 F16",
-      "type": "shadowsocks",
+      "tag": "Taiwan Zhongli Renmei 10GE0/0/5 DL360G11 F16",
       "server": "tw16.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/10 DELLR640 F01",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 10GE0/0/10 DELLR640 F01",
       "server": "uk01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/11 DELLR640 F02",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 10GE0/0/11 DELLR640 F02",
       "server": "uk02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/12 DELLR640 F03",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 10GE0/0/12 DELLR640 F03",
       "server": "uk03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/13 DELLR640 F04",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 10GE0/0/13 DELLR640 F04",
       "server": "uk04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/14 DELLR640 F05",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 10GE0/0/14 DELLR640 F05",
       "server": "uk05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/15 DELLR650 F06",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 10GE0/0/15 DELLR650 F06",
       "server": "uk06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 10GE0/0/16 DELLR650 F07",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 10GE0/0/16 DELLR650 F07",
       "server": "uk07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
       "server": "uk08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
       "server": "uk09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10",
-      "type": "shadowsocks",
+      "tag": "United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10",
       "server": "uk10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/0 DELLR660 F01",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/0 DELLR660 F01",
       "server": "us01.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/1 DELLR660 F02",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/1 DELLR660 F02",
       "server": "us02.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/2 DELLR660 F03",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/2 DELLR660 F03",
       "server": "us03.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/3 DELLR660 F04",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/3 DELLR660 F04",
       "server": "us04.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/4 DELLR660 F05",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/4 DELLR660 F05",
       "server": "us05.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/5 DELLR660 F06",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/5 DELLR660 F06",
       "server": "us06.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/6 DELLR650 F07",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/6 DELLR650 F07",
       "server": "us07.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
       "server": "us08.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
       "server": "us09.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
-      "tag": "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
-      "type": "shadowsocks",
+      "tag": "United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
       "server": "us10.kkp.wtf",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
       "tag": "目前暂不提供试用接入 请付费后使用",
-      "type": "shadowsocks",
       "server": "59.43.23.14",
       "server_port": 49308,
+      "type": "shadowsocks",
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     },
     {
       "tag": "纯IPV6接入",
+      "server": "2001",
+      "server_port": null,
       "type": "shadowsocks",
-      "server": "2001:e42:102:1513:160:16:74:189",
-      "server_port": 49308,
       "method": "aes-256-cfb",
-      "password": "vkw3hk"
+      "password": "vkw3hk",
+      "plugin": "",
+      "plugin_opts": ""
     }
-  ],
-  "route": {
-    "auto_detect_interface": true,
-    "final": "Proxy",
-    "rules": [
-      {
-        "type": "logical",
-        "mode": "or",
-        "rules": [
-          {
-            "port": 53
-          },
-          {
-            "protocol": "dns"
-          }
-        ],
-        "outbound": "dns-out"
-      },
-      {
-        "rule_set": "geosite-category-ads-all",
-        "outbound": "AdBlock"
-      },
-      {
-        "clash_mode": "direct",
-        "outbound": "direct"
-      },
-      {
-        "clash_mode": "global",
-        "outbound": "Proxy"
-      },
-      {
-        "domain": [
-          "clash.razord.top",
-          "yacd.metacubex.one",
-          "yacd.haishan.me",
-          "d.metacubex.one"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "rule_set": "geosite-openai",
-        "outbound": "OpenAI"
-      },
-      {
-        "rule_set": [
-          "geosite-youtube",
-          "geoip-google",
-          "geosite-google",
-          "geosite-github"
-        ],
-        "outbound": "Google"
-      },
-      {
-        "rule_set": [
-          "geoip-telegram",
-          "geosite-telegram"
-        ],
-        "outbound": "Telegram"
-      },
-      {
-        "rule_set": [
-          "geoip-twitter",
-          "geosite-twitter"
-        ],
-        "outbound": "Twitter"
-      },
-      {
-        "rule_set": [
-          "geoip-facebook",
-          "geosite-facebook"
-        ],
-        "outbound": "Facebook"
-      },
-      {
-        "rule_set": [
-          "geoip-bilibili",
-          "geosite-bilibili"
-        ],
-        "outbound": "BiliBili"
-      },
-      {
-        "rule_set": "geosite-bahamut",
-        "outbound": "Bahamut"
-      },
-      {
-        "rule_set": "geosite-spotify",
-        "outbound": "Spotify"
-      },
-      {
-        "rule_set": "geosite-tiktok",
-        "outbound": "TikTok"
-      },
-      {
-        "rule_set": [
-          "geoip-netflix",
-          "geosite-netflix"
-        ],
-        "outbound": "NETFLIX"
-      },
-      {
-        "rule_set": "geosite-disney",
-        "outbound": "Disney+"
-      },
-      {
-        "rule_set": [
-          "geoip-apple",
-          "geosite-apple",
-          "geosite-amazon"
-        ],
-        "outbound": "Apple"
-      },
-      {
-        "rule_set": "geosite-microsoft",
-        "outbound": "Microsoft"
-      },
-      {
-        "rule_set": "geosite-category-games",
-        "outbound": "Games"
-      },
-      {
-        "rule_set": [
-          "geosite-hbo",
-          "geosite-primevideo"
-        ],
-        "outbound": "Streaming"
-      },
-      {
-        "rule_set": "geosite-geolocation-!cn",
-        "outbound": "Global"
-      },
-      {
-        "rule_set": "geosite-private",
-        "outbound": "direct"
-      },
-      {
-        "ip_is_private": true,
-        "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "geoip-cn",
-          "geosite-cn"
-        ],
-        "outbound": "China"
-      }
-    ],
-    "rule_set": [
-      {
-        "tag": "geoip-google",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/google.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-telegram",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/telegram.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-twitter",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/twitter.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-facebook",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/facebook.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-netflix",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/netflix.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-apple",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/apple.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-bilibili",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/bilibili.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geoip-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-private",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-openai",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-youtube",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/youtube.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-google",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/google.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-github",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/github.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-telegram",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/telegram.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-twitter",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/twitter.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-facebook",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/facebook.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-bilibili",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/bilibili.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-bahamut",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/bahamut.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-spotify",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/spotify.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-tiktok",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/tiktok.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-netflix",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/netflix.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-disney",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/disney.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-apple",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-amazon",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/amazon.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-microsoft",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-category-games",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-hbo",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/hbo.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-primevideo",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/primevideo.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-geolocation-!cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "geosite-category-ads-all",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
-        "download_detour": "direct"
-      }
-    ]
-  }
+  ]
 }
