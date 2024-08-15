@@ -4,7 +4,7 @@ AppData
 scoop
 Documents/PowerShell
 
-{{ if eq .chezmoi.os "windows" }}
+{{ else }}
 .config/*
 !.config/starship.toml
 !.config/wezterm
