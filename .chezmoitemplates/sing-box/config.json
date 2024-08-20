@@ -37,12 +37,58 @@
         "detour": "direct"
       },
       {
-        "tag": "fakeip-dns",
-        "address": "fakeip"
-      },
-      {
         "tag": "block-dns",
         "address": "rcode://success"
+      },
+      {
+        "tag": "Directdns",
+        "address": "8.8.8.8",
+        "detour": "Direct"
+      },
+      {
+        "tag": "vpsdns",
+        "address": "8.8.8.8",
+        "detour": "vps"
+      },
+      {
+        "tag": "blockdns",
+        "address": "8.8.8.8",
+        "detour": "block"
+      },
+      {
+        "tag": "Gamesdns",
+        "address": "8.8.8.8",
+        "detour": "Games"
+      },
+      {
+        "tag": "Githubdns",
+        "address": "8.8.8.8",
+        "detour": "Github"
+      },
+      {
+        "tag": "Youtubedns",
+        "address": "8.8.8.8",
+        "detour": "Youtube"
+      },
+      {
+        "tag": "Openaidns",
+        "address": "8.8.8.8",
+        "detour": "Openai"
+      },
+      {
+        "tag": "Telegramdns",
+        "address": "8.8.8.8",
+        "detour": "Telegram"
+      },
+      {
+        "tag": "Netflixdns",
+        "address": "8.8.8.8",
+        "detour": "Netflix"
+      },
+      {
+        "tag": "Googledns",
+        "address": "8.8.8.8",
+        "detour": "Google"
       }
     ],
     "rules": [
@@ -52,49 +98,9 @@
       },
       {
         "rule_set": [
-          "Youtube0"
-        ],
-        "server": "fakeip-dns"
-      },
-      {
-        "rule_set": [
-          "Telegram1"
-        ],
-        "server": "fakeip-dns"
-      },
-      {
-        "rule_set": [
-          "Github0"
-        ],
-        "server": "fakeip-dns"
-      },
-      {
-        "rule_set": [
-          "Openai0"
-        ],
-        "server": "fakeip-dns"
-      },
-      {
-        "rule_set": [
-          "Games0"
-        ],
-        "server": "fakeip-dns"
-      },
-      {
-        "rule_set": [
-          "Netflix0"
-        ],
-        "server": "fakeip-dns"
-      },
-      {
-        "rule_set": [
-          "Google0"
-        ],
-        "server": "fakeip-dns"
-      },
-      {
-        "rule_set": [
-          "Direct1"
+          "Direct1",
+          "Direct2",
+          "Direct3"
         ],
         "server": "local-dns"
       },
@@ -106,18 +112,62 @@
         "server": "local-dns"
       },
       {
+        "rule_set": [
+          "block0"
+        ],
+        "server": "blockdns"
+      },
+      {
+        "rule_set": [
+          "Games0"
+        ],
+        "server": "Gamesdns"
+      },
+      {
+        "rule_set": [
+          "Github0"
+        ],
+        "server": "Githubdns"
+      },
+      {
+        "rule_set": [
+          "Youtube0"
+        ],
+        "server": "Youtubedns"
+      },
+      {
+        "rule_set": [
+          "Openai0"
+        ],
+        "server": "Openaidns"
+      },
+      {
+        "rule_set": [
+          "Telegram1"
+        ],
+        "server": "Telegramdns"
+      },
+      {
+        "rule_set": [
+          "Netflix0"
+        ],
+        "server": "Netflixdns"
+      },
+      {
+        "rule_set": [
+          "Google0"
+        ],
+        "server": "Googledns"
+      },
+      {
         "query_type": [
           "A"
         ],
         "rewrite_ttl": 1,
-        "server": "fakeip-dns"
+        "server": "fallback"
       }
     ],
-    "strategy": "ipv4_only",
-    "fakeip": {
-      "enabled": true,
-      "inet4_range": "198.18.0.0/15"
-    }
+    "strategy": "prefer_ipv6"
   },
   "inbounds": [
     {
@@ -125,14 +175,6 @@
       "tag": "mixed-in",
       "listen": "::",
       "listen_port": 8888,
-      "sniff": true
-    },
-    {
-      "type": "tproxy",
-      "tag": "tproxy-in",
-      "listen": "::",
-      "listen_port": 9888,
-      "sniff_override_destination": true,
       "sniff": true
     },
     {
@@ -148,79 +190,100 @@
       {
         "type": "remote",
         "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Youtube0",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/youtube.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Telegram0",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/telegram.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Telegram1",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/telegram.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Github0",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/github.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Openai0",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/openai.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Games0",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-games.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Netflix0",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/netflix.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Netflix1",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo-lite/geoip/netflix.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
-        "tag": "Google0",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/google.srs"
-      },
-      {
-        "type": "remote",
-        "format": "binary",
-        "download_detour": "🇭🇰 香港",
+        "download_detour": "Proxy",
         "tag": "Direct0",
         "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/cn.srs"
       },
       {
         "type": "remote",
         "format": "binary",
-        "download_detour": "🇭🇰 香港",
+        "download_detour": "Proxy",
         "tag": "Direct1",
         "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/cn.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Direct2",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/blob/sing/geo/geosite/category-games%40cn.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Direct3",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/blob/sing/geo/geosite/steam%40cn.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "block0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/cn.srs/category-ads-all.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Games0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/blob/sing/geo/geosite/category-games%40!cn.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Github0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/github.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Youtube0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/youtube.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Openai0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/openai.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Telegram0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/telegram.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Telegram1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/telegram.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Netflix0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/netflix.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Netflix1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo-lite/geoip/netflix.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Google0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/google.srs"
       }
     ],
     "rules": [
@@ -251,16 +314,31 @@
       },
       {
         "rule_set": [
-          "Youtube0"
+          "Direct0",
+          "Direct1",
+          "Direct2",
+          "Direct3"
         ],
-        "outbound": "Youtube"
+        "outbound": "direct"
+      },
+      {
+        "ip_cidr": [
+          "149.104.27.157",
+          "154.91.255.63"
+        ],
+        "outbound": "direct"
       },
       {
         "rule_set": [
-          "Telegram0",
-          "Telegram1"
+          "block0"
         ],
-        "outbound": "Telegram"
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "Games0"
+        ],
+        "outbound": "Games"
       },
       {
         "rule_set": [
@@ -270,15 +348,22 @@
       },
       {
         "rule_set": [
+          "Youtube0"
+        ],
+        "outbound": "Youtube"
+      },
+      {
+        "rule_set": [
           "Openai0"
         ],
         "outbound": "Openai"
       },
       {
         "rule_set": [
-          "Games0"
+          "Telegram0",
+          "Telegram1"
         ],
-        "outbound": "Games"
+        "outbound": "Telegram"
       },
       {
         "rule_set": [
@@ -292,20 +377,6 @@
           "Google0"
         ],
         "outbound": "Google"
-      },
-      {
-        "rule_set": [
-          "Direct0",
-          "Direct1"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "ip_cidr": [
-          "149.104.27.157",
-          "154.91.255.63"
-        ],
-        "outbound": "direct"
       },
       {
         "ip_is_private": true,
@@ -337,7 +408,7 @@
       "type": "selector"
     },
     {
-      "tag": "Youtube",
+      "tag": "block",
       "outbounds": [
         "Proxy",
         "🇭🇰 香港",
@@ -358,7 +429,7 @@
       "type": "selector"
     },
     {
-      "tag": "Telegram",
+      "tag": "Games",
       "outbounds": [
         "Proxy",
         "🇭🇰 香港",
@@ -400,6 +471,27 @@
       "type": "selector"
     },
     {
+      "tag": "Youtube",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇰🇷韩国",
+        "🇹🇼台湾",
+        "🇺🇸 美国",
+        "🇸🇬新加坡",
+        "🇦🇺澳大利亚",
+        "🇷🇺俄罗斯",
+        "🇬🇧英国",
+        "🇨🇦加拿大",
+        "🇫🇷法国",
+        "🇩🇪德国",
+        "🇮🇳印度"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
       "tag": "Openai",
       "outbounds": [
         "Proxy",
@@ -421,7 +513,7 @@
       "type": "selector"
     },
     {
-      "tag": "Games",
+      "tag": "Telegram",
       "outbounds": [
         "Proxy",
         "🇭🇰 香港",
