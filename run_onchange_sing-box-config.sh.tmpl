@@ -1,0 +1,25 @@
+{{- if eq .chezmoi.os "windows" }}
+
+#!/bin/bash
+
+# sing-box_config.json hash: {{ include ".chezmoitemplates/sing-box/config.json" | sha256sum }}
+
+#!/bin/bash
+
+# 定义源和目标路径
+SOURCE_PATH="$HOME/scoop/persist/sing-box/config.json"
+DEST_PATH="$HOME/scoop/apps/sing-box/current/config.json"
+
+# 检查源文件是否存在
+if [[ -f "$SOURCE_PATH" ]]; then
+    # 创建目标目录（如果不存在）
+    mkdir -p "$(dirname "$DEST_PATH")"
+    
+    # 复制文件
+    cp "$SOURCE_PATH" "$DEST_PATH"
+    echo "File copied successfully from $SOURCE_PATH to $DEST_PATH."
+else
+    echo "Source file does not exist: $SOURCE_PATH"
+fi
+
+{{- end }}
