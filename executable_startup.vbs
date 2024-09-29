@@ -18,7 +18,8 @@ End If
 command1 = "cscript """ & runVbs & """"
 command2 = "powershell -Command ""& {sudo scoop update * -g}"""
 command3 = "powershell -Command ""& {aria2c --conf-path=" & scoopPersist & "\aria2\aria2.conf --async-dns=false}"""
-command4 = "powershell -Command ""& {rclone mount alist: S: --volname alist --multi-thread-streams 1024 --multi-thread-cutoff 128M --network-mode --vfs-cache-mode full --vfs-cache-max-size 100G --vfs-cache-max-age 240h --vfs-read-chunk-size-limit off --buffer-size 64K --vfs-read-chunk-size 64K --vfs-read-wait 0ms -v -vv}"""
+command4 = "powershell -Command ""& {rclone mount alist: S: --volname alist --multi-thread-streams 64 --network-mode --vfs-cache-mode full --vfs-cache-max-size 1G --vfs-cache-max-age 10m --buffer-size 128M -v -vv}"""
+command5 = "powershell -Command ""& {rclone mount pikpak: P: --volname pikpak --multi-thread-streams 64 --network-mode --vfs-cache-mode full --vfs-cache-max-size 1G --vfs-cache-max-age 10m --buffer-size 128M -v -vv}"""
 
 objShell.CurrentDirectory = singBoxDir
 objShell.Run command1, 0, False
@@ -27,3 +28,4 @@ WScript.Sleep 3000
 objShell.Run command2, 1, False
 objShell.Run command3, 0, False
 objShell.Run command4, 0, False
+objShell.Run command5, 0, False

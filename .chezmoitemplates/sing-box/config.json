@@ -66,6 +66,23 @@
     "strategy": "prefer_ipv6"
   },
   "inbounds": [
+    // {
+    //   "type": "tun",
+    //   "inet4_address": "172.19.0.1/30",
+    //   "mtu": 9000,
+    //   "auto_route": true,
+    //   "strict_route": true,
+    //   "sniff": true,
+    //   "endpoint_independent_nat": false,
+    //   "stack": "system",
+    //   "platform": {
+    //     "http_proxy": {
+    //       "enabled": true,
+    //       "server": "127.0.0.1",
+    //       "server_port": 2080
+    //     }
+    //   }
+    // },
     {
       "type": "mixed",
       "listen": "127.0.0.1",
@@ -81,7 +98,7 @@
       "outbounds": [
         "auto",
         "direct",
-        "剩余流量：856.07GB",
+        "剩余流量：143.29GB",
         "过期时间：2024-12-01",
         "1 忘记登录需联系客服",
         "1 此计划禁止工作室使用 禁止任何商业使用",
@@ -647,7 +664,7 @@
       "tag": "Others",
       "type": "selector",
       "outbounds": [
-        "剩余流量：856.07GB",
+        "剩余流量：143.29GB",
         "过期时间：2024-12-01",
         "1 忘记登录需联系客服",
         "1 此计划禁止工作室使用 禁止任何商业使用",
@@ -923,7 +940,7 @@
       "tag": "block"
     },
     {
-      "tag": "剩余流量：856.07GB",
+      "tag": "剩余流量：143.29GB",
       "type": "shadowsocks",
       "server": "ace-taffy.com",
       "server_port": 10086,
@@ -2449,7 +2466,7 @@
         "outbound": "Proxy"
       },
       {
-        "source_ip_cidr": [
+        "ip_cidr": [
           "149.104.27.157",
           "154.91.255.63"
         ],
