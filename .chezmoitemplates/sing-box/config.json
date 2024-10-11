@@ -98,8 +98,8 @@
       "outbounds": [
         "auto",
         "direct",
-        "剩余流量：204.8GB",
-        "过期时间：2024-11-03",
+        "剩余流量：307.2GB",
+        "过期时间：2024-11-11",
         "1 忘记登录需联系客服",
         "1 此计划禁止工作室使用 禁止任何商业使用",
         "1 请使用全局代理访问官网，非全局会拦截报1020",
@@ -282,7 +282,16 @@
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 01",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 02",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 03",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 04",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 05",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 06",
+        "🇩🇪 南极 1GE0/0/27 DELLXR5610 F01",
         "山东联通临时接入",
+        "🇰🇵 朝鲜平壤 1GE0/0/10 HuaweiRH1288V3 F01",
+        "🇲🇴 澳门 10GE0/0/2 DELLR6515 F01",
         "目前暂不提供试用接入 请付费后使用",
         "纯IPV6接入"
       ]
@@ -553,7 +562,13 @@
         "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/14 DELLR6515 F17",
         "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/15 DELLR6515 F18",
         "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/16 DELLR6515 F19",
-        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20"
+        "🇭🇰 Hong Kong Tsuen Wan EQHK1 25GE0/0/17 DELLR6515 F20",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 01",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 02",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 03",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 04",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 05",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 06"
       ]
     },
     {
@@ -664,8 +679,8 @@
       "tag": "Others",
       "type": "selector",
       "outbounds": [
-        "剩余流量：204.8GB",
-        "过期时间：2024-11-03",
+        "剩余流量：307.2GB",
+        "过期时间：2024-11-11",
         "1 忘记登录需联系客服",
         "1 此计划禁止工作室使用 禁止任何商业使用",
         "1 请使用全局代理访问官网，非全局会拦截报1020",
@@ -728,7 +743,10 @@
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/2 DELLR650 F08",
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/3 DELLR6515 F09",
         "🇬🇧 United Kingdom London Borough of Bexley Erith 25GE0/0/4 DELLR6515 F10",
+        "🇩🇪 南极 1GE0/0/27 DELLXR5610 F01",
         "山东联通临时接入",
+        "🇰🇵 朝鲜平壤 1GE0/0/10 HuaweiRH1288V3 F01",
+        "🇲🇴 澳门 10GE0/0/2 DELLR6515 F01",
         "目前暂不提供试用接入 请付费后使用",
         "纯IPV6接入"
       ]
@@ -919,7 +937,16 @@
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/7 DELLR650 F08",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/8 DELLR650 F09",
         "🇺🇸 United States Washington Seattle EQSE2 100GE0/0/9 DELLR650 F10",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 01",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 02",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 03",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 04",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 05",
+        "🇭🇰 VIP6专属 香港 QAT - Accelerate 06",
+        "🇩🇪 南极 1GE0/0/27 DELLXR5610 F01",
         "山东联通临时接入",
+        "🇰🇵 朝鲜平壤 1GE0/0/10 HuaweiRH1288V3 F01",
+        "🇲🇴 澳门 10GE0/0/2 DELLR6515 F01",
         "目前暂不提供试用接入 请付费后使用",
         "纯IPV6接入"
       ],
@@ -940,7 +967,7 @@
       "tag": "block"
     },
     {
-      "tag": "剩余流量：204.8GB",
+      "tag": "剩余流量：307.2GB",
       "type": "shadowsocks",
       "server": "ace-taffy.com",
       "server_port": 10086,
@@ -948,7 +975,7 @@
       "password": "vkw3hk"
     },
     {
-      "tag": "过期时间：2024-11-03",
+      "tag": "过期时间：2024-11-11",
       "type": "shadowsocks",
       "server": "ace-taffy.com",
       "server_port": 10086,
@@ -2412,9 +2439,81 @@
       "password": "vkw3hk"
     },
     {
+      "tag": "🇭🇰 VIP6专属 香港 QAT - Accelerate 01",
+      "type": "shadowsocks",
+      "server": "qat01.kkp.wtf",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "🇭🇰 VIP6专属 香港 QAT - Accelerate 02",
+      "type": "shadowsocks",
+      "server": "qat02.kkp.wtf",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "🇭🇰 VIP6专属 香港 QAT - Accelerate 03",
+      "type": "shadowsocks",
+      "server": "qat03.kkp.wtf",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "🇭🇰 VIP6专属 香港 QAT - Accelerate 04",
+      "type": "shadowsocks",
+      "server": "qat04.kkp.wtf",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "🇭🇰 VIP6专属 香港 QAT - Accelerate 05",
+      "type": "shadowsocks",
+      "server": "qat05.kkp.wtf",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "🇭🇰 VIP6专属 香港 QAT - Accelerate 06",
+      "type": "shadowsocks",
+      "server": "qat06.kkp.wtf",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "🇩🇪 南极 1GE0/0/27 DELLXR5610 F01",
+      "type": "shadowsocks",
+      "server": "an01.kkp.wtf",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
       "tag": "山东联通临时接入",
       "type": "shadowsocks",
       "server": "118.184.189.146",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "🇰🇵 朝鲜平壤 1GE0/0/10 HuaweiRH1288V3 F01",
+      "type": "shadowsocks",
+      "server": "nk01.kkp.wtf",
+      "server_port": 49308,
+      "method": "aes-256-cfb",
+      "password": "vkw3hk"
+    },
+    {
+      "tag": "🇲🇴 澳门 10GE0/0/2 DELLR6515 F01",
+      "type": "shadowsocks",
+      "server": "mo01.kkp.wtf",
       "server_port": 49308,
       "method": "aes-256-cfb",
       "password": "vkw3hk"
