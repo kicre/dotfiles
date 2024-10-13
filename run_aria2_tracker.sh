@@ -30,6 +30,7 @@
 #
 
 cd ~/.local/share/chezmoi/.chezmoitemplates/aria2
+touch btTracker.conf
 
 RED_FONT_PREFIX="\033[31m"
 GREEN_FONT_PREFIX="\033[32m"
