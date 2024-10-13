@@ -7,11 +7,6 @@ Host github.com
 	Hostname ssh.github.com
 	Port 443
 
-Host Megalayer
-	Hostname 154.91.255.63
-	Port 19080
-	User kicre
-	
 Host hk-2c4g
 	Hostname 149.104.27.157
 	User kicre
@@ -20,7 +15,3 @@ Host tenc-bk
 	Hostname 101.42.4.219
 	User kicre
 
-Host Oneplus8Pro
-	Hostname 2408:8226:6610:5480:3C6A:3D37:5073:EE7
-	Port 8022
-	User u0_318
