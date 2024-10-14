@@ -26,9 +26,8 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-	{ run = 'hx "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'hx "%*"', block = true, desc = "helix",         for = "windows" },
-	# { run = 'code -w "%*"', block = true,  desc = "code (block)", for = "windows" },
+	{ run = 'hx "$@"', block = true, for = "unix" },
+	{ run = 'hx "%*"', block = true, for = "windows" },
 ]
 open = [
 	{ run = 'xdg-open "$@"',                desc = "Open", for = "linux" },
