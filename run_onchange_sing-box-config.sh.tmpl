@@ -1,6 +1,8 @@
-{{- if eq .chezmoi.os "windows" }}
-
 #!/bin/bash
+
+touch .chezmoitemplates/sing-box/config.json
+
+{{- if eq .chezmoi.os "windows" }}
 
 # sing-box_config.json hash: {{ include ".chezmoitemplates/sing-box/config.json" | sha256sum }}
 
