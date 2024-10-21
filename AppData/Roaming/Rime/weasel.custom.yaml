@@ -18,6 +18,8 @@ patch:
     ascii_mode: true
   "app_options/wox.exe":
     ascii_mode: true
+  "app_options/powertoys.powerlauncher.exe":
+    ascii_mode: true
   "app_options/code.exe":
     ascii_mode: true
 
