@@ -1,2 +1,3 @@
 !.chezmoi*
 .chezmoitemplates/aria2/btTracker.conf
+*sing-box/config.json
