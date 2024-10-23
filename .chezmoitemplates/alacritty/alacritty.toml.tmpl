@@ -1,3 +1,4 @@
+[general]
 import = [
 {{- if eq .chezmoi.os "windows" }}
 	"~/AppData/Roaming/alacritty/flexoki.toml"
@@ -6,7 +7,7 @@ import = [
 {{- end }}
 ]
 
-[shell]
+[terminal.shell]
 {{- if eq .chezmoi.os "windows" }}
 program = "pwsh"
 {{- else }}
