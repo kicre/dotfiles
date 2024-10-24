@@ -22,6 +22,8 @@ patch:
     ascii_mode: true
   "app_options/code.exe":
     ascii_mode: true
+  "app_options/run.exe":
+    ascii_mode: true
 
   "style/color_scheme": lost_temple
   "style/display_tray_ico": false
