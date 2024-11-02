@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd ~/.local/share/chezmoi
+mkdir .chezmoitemplates/sing-box
 touch .chezmoitemplates/sing-box/config.json
 
 {{- if eq .chezmoi.os "windows" }}
