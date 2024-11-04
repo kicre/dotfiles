@@ -4,11 +4,11 @@
     "height": 24,
     "spacing": 5,
 
-    "modules-left": ["wlr/workspaces", "cpu", "memory", "temperature"],
+    "modules-left": ["sway/workspaces", "cpu", "memory", "temperature"],
     "modules-center": ["sway/window"],
     "modules-right": ["wireplumber", "backlight", "battery", "network", "bluetooth", "tray","clock"],
 
-    "wlr/workspaces": {
+    "sway/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
         "icon-size": 50,
