@@ -4,11 +4,11 @@
     "height": 24,
     "spacing": 5,
 
-    "modules-left": ["sway/workspaces", "cpu", "memory", "temperature"],
-    "modules-center": ["sway/window"],
+    "modules-left": ["hyprland/workspaces", "cpu", "memory", "temperature"],
+    "modules-center": ["hyprland/window"],
     "modules-right": ["wireplumber", "backlight", "battery", "network", "bluetooth", "tray","clock"],
 
-    "sway/workspaces": {
+    "hyprland/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
         "icon-size": 50,
@@ -23,7 +23,7 @@
         },
     },
 
-    "sway/window": {
+    "hyprland/window": {
         "format": "👉 {}",
         "rewrite": {
             "(.*) — Mozilla Firefox": "🌎 $1",
@@ -104,7 +104,7 @@
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
-        // "on-click": "nm-applet"
+        "on-click": "iwgtk"
     },
 
     "bluetooth": {
