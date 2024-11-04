@@ -8,15 +8,23 @@ set $down j
 set $up k
 set $right l
 
+# Your pro env
+set $LANG zh_CNUTF-8
+set $LC_ALL zh_CN.UTF-8
+
 # Your preferred
 set $term alacritty
 set $menu wofi --shown=drun
 set $browser firefox
-set $input fcitx5
+set $input fcitx5 --replace -d
+set $clip clipman
+set $notice mako
 
 # Gaps and Border
 gaps inner 2
 default_border none
+default_floating_border pixel 1
+
 # Change borders
 bindsym $mod+u border none
 bindsym $mod+y border pixel 1
@@ -85,7 +93,15 @@ input type:touchpad {
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    # Other exec
+    bindsym $mod+F2 exec $browser
 #
+#Startup
+#
+    exec wl-paste -t text --watch clipman store --no-persist
+    exec --no-startup-id $input
+    exec --no-startup-id $notice
+
 # Moving around:
 #
     # Move your focus around
