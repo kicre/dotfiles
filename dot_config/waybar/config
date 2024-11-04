@@ -4,11 +4,11 @@
     "height": 24,
     "spacing": 5,
 
-    "modules-left": ["hyprland/workspaces", "cpu", "memory", "temperature"],
-    "modules-center": ["hyprland/window"],
+    "modules-left": ["wlr/workspaces", "cpu", "memory", "temperature"],
+    "modules-center": ["sway/window"],
     "modules-right": ["wireplumber", "backlight", "battery", "network", "bluetooth", "tray","clock"],
 
-    "hyprland/workspaces": {
+    "wlr/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
         "icon-size": 50,
@@ -23,7 +23,7 @@
         },
     },
 
-    "hyprland/window": {
+    "sway/window": {
         "format": "👉 {}",
         "rewrite": {
             "(.*) — Mozilla Firefox": "🌎 $1",
