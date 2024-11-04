@@ -1,14 +1,25 @@
 {{ if ne .chezmoi.os "windows" }}
 [".config/zsh/plugins/zsh-syntax-highlighting"]
-type = "git-repo"
-url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
-exact = true
-striComponents = 1
-refreshPeriod = "168h"
+	type = "git-repo"
+	url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+	exact = true
+	striComponents = 1
+	refreshPeriod = "168h"
 [".config/zsh/plugins/zsh-autosuggestions"]
-type = "git-repo"
-url = "https://github.com/zsh-users/zsh-autosuggestions.git"
-exact = true
-striComponents = 1
-refreshPeriod = "168h"
+	type = "git-repo"
+	url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+	exact = true
+	striComponents = 1
+	refreshPeriod = "168h"
+[".config/Kvantum"]
+	type = "git-repo"
+	url = "https://github.com/GabePoel/KvLibadwaita"
+	exact = true
+	striComponents = 1
+	refreshPeriod = "168h"
+	[".config/Kvantum".clone]
+		args = ["filter=blob:none", "--sparse"]
+		[".config/Kvantum".filter]
+			command = "git"
+			args = ["sparse-checkout", "set", "src/KvLibadwaita"]
 {{ end }}
