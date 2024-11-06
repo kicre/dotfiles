@@ -11,15 +11,4 @@
 	exact = true
 	striComponents = 1
 	refreshPeriod = "168h"
-[".config/Kvantum"]
-	type = "git-repo"
-	url = "https://github.com/GabePoel/KvLibadwaita"
-	exact = true
-	striComponents = 1
-	refreshPeriod = "168h"
-	[".config/Kvantum".clone]
-		args = ["filter=blob:none", "--sparse"]
-		[".config/Kvantum".filter]
-			command = "git"
-			args = ["sparse-checkout", "set", "src/KvLibadwaita"]
 {{ end }}
