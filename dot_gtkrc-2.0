@@ -1,1 +1,0 @@
-{{- template "gtk/Settings.ini" .}}
