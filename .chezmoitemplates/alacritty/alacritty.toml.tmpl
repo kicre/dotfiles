@@ -17,7 +17,9 @@ args = ["-l"]
 
 [font]
 size = 12
+{{- if eq .chezmoi.os "windows" -}}
 normal = {family = "Sarasa Fixed SC Nerd Font", style = "Regular"}
+{{- end}}
 
 [scrolling]
 history = 10000

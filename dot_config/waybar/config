@@ -37,7 +37,7 @@
     "clock": {
         "format": "{:%H:%M}",
         "format-alt": "{:L%A, %Y %B %d (%R)} 󱛡 ",
-        "tooltip-format": "\n<span size='9pt'>{calendar}</span>",
+        "tooltip-format": "\n<span size='9pt' font='monospace'>{calendar}</span>",
         "calendar": {
             "mode"          : "year",
             "mode-mon-col"  : 3,
@@ -120,7 +120,7 @@
         // "tooltip-format": "{controller_alias}\t{controller_address}",
         // "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
         // "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        // "on-click":
+        "on-click": "overskride"
     },
 
     "tray": {
