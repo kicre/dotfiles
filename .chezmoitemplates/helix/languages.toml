@@ -48,3 +48,10 @@ name = "source"
 request = "launch"
 completion = [ { name = "entrypoint", completion = "filename", default = "." } ]
 args = { mode = "debug", program = "{0}" }
+
+# hyprlang
+[[language]]
+name = "hyprlang"
+language-servers = [ "hyprls" ]
+[language-server.hyprls]
+command = "hyprls"
