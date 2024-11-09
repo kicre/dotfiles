@@ -1,0 +1,15 @@
+patch:
+  show_notifications_via_notification_center: true
+  
+  "app_options/Alacritty":
+    ascii_mode: true
+  "app_options/wofi":
+    ascii_mode: true
+  "app_options/mpv":
+    ascii_mode: true
+  "app_options/vscode":
+    ascii_mode: true
+  "app_options/zed":
+    ascii_mode: true
+  "app_options/kate":
+    ascii_mode: true
