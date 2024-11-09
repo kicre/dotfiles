@@ -79,17 +79,17 @@
         // "bat": "BAT1",
         "interval": 60,
         "format": "{icon} {capacity}%",
-        "format-icons": [" ", " ", " ", " ", " "]
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
     "backlight": {
-        "format": "{icon} {percent}%",
+        "format": "{icon}{percent}%",
         "format-icons": ["󰃞 ","󰃟 ","󰃝 ","󰃠 "]
     },
 
     "cpu": { 
       "interval": 10, 
-      "format": "  {usage}%" 
+      "format": " {usage}%" 
     },
 
     "memory": {
@@ -103,10 +103,10 @@
 
     "network": {
         "format": "",
-        "format-ethernet": "󰈀 ",
+        "format-ethernet": "󰈀",
         "format-wifi": "{icon}",
-        "format-disconnected": "󰤫 ",
-        "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
+        "format-disconnected": "󰤫",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
@@ -117,7 +117,7 @@
         "format": "󰂯",
         "format-disabled": "󰂲",
         "format-connected": "󰂱 {device_alias}",
-        "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+        "format-connected-battery": "󰂱{device_alias} {device_battery_percentage}%",
         // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
         "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
