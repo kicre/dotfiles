@@ -48,6 +48,7 @@ window#waybar.empty #window {
 #cpu,
 #memory,
 #temperature,
+#weather,
 #wireplumber,
 #backlight,
 #battery,
