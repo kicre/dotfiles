@@ -4,9 +4,9 @@
     "height": 24,
     "spacing": 5,
 
-    "modules-left": ["hyprland/workspaces", "cpu", "memory", "temperature","custom/weather"],
+    "modules-left": ["hyprland/workspaces", "cpu", "memory", "temperature", "battery", "custom/weather"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["wireplumber", "backlight", "battery", "network", "bluetooth", "tray","clock"],
+    "modules-right": ["wireplumber", "backlight", "network", "bluetooth", "tray", "clock"],
 
     "hyprland/workspaces": {
         "format": "{icon}",

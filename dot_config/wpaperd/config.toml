@@ -1,0 +1,4 @@
+[default]
+path = "~/Pictures/wallpaper/"
+duration = "10m"
+mode = "center"

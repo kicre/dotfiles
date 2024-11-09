@@ -1,26 +1,29 @@
 @import "flexoki-full.css";
 
 * {
+  border: none;
+  border-radius: 0;
   font-family: sans;
   font-size: 16px;
+  min-height: 0;
 }
 
 #waybar {
-  color: @paper;
-  background-color: @base-900;
+  color: @theme_text_color;
+  background-color: alpha(@theme_base_color , 0.6);
 }
 
 #workspaces button {
   margin: 0 0;
-  padding: 0 0.3em;
+  padding: 0 0;
 }
 
 #workspaces button.empty {
-  color: @base-500;
+  color: alpha(@theme_unfocused_borders_color, 0.8);
 }
 
 #workspaces button.active {
-  background-color: @base-850;
+  background-color: alpha(@insensitive_fg_color, 0.9);
   border-radius: 3px;
 }
 
@@ -30,17 +33,6 @@
   padding-right: 10px;
 }
 
-/* window#waybar.wezterm { */
-/* background-color: @purple-600; */
-/* color: @paper; */
-/* } */
-
-/* window#waybar.firefox { */
-/* background-color: @red-600; */
-/* color: @black; */
-/* } */
-
-/* make window module transparent when no windows present */
 window#waybar.empty #window {
   background-color: transparent;
 }
@@ -55,7 +47,7 @@ window#waybar.empty #window {
 #network,
 #bluetooth,
 #tray {
-  background-color: @base-800;
+  background-color: alpha(@borders, 0.9);
   margin: 0 0.1em;
   padding: 0 0.5em;
   border-radius: 5px;
