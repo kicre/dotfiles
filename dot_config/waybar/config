@@ -33,7 +33,13 @@
         },
         "separate-outputs": true
     },
-
+    "custom/weather": {
+        "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Xinzhou+China",
+        "return-type": "json",
+        "format": "{}",
+        "tooltip": true,
+        "interval": 3600
+    },
     "clock": {
         "format": "{:%H:%M}",
         "format-alt": "{:L%A, %Y %B %d (%R)} 󱛡 ",
