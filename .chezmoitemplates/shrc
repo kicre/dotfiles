@@ -1,11 +1,6 @@
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
-alias ls='lsd'      # ls ==> lsd
-alias cat='bat'     # bat ==> cat
-alias ssh='tssh'     # tssh ==> ssh
-alias hx='helix'     # helix ==> hx
-
 # yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

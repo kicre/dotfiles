@@ -2,11 +2,6 @@ Invoke-Expression (&starship init powershell)
 
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
-Set-Alias -Name ls -Value lsd
-Set-Alias -Name cat -Value bat
-Set-Alias -Name ssh -Value tssh
-Set-Alias -Name mpv -Value mpvnet
-
 # Set yazi
 function y {
     $tmp = [System.IO.Path]::GetTempFileName()
