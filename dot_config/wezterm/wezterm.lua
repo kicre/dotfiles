@@ -77,14 +77,21 @@ config.window_padding = {
 }
 
 --- Default config settings
-config.font = wezterm.font('Sarasa Fixed SC Nerd Font',{weight = "Regular"})
+if wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
+    config.font = wezterm.font('monospace',{weight = "Regular"})
+else
+    config.font = wezterm.font('Sarasa Fixed SC Nerd Font',{weight = "Regular"})
+end
+
 config.font_size = 12
 config.launch_menu = launch_menu
 config.default_cursor_style = 'SteadyUnderline'
 config.enable_tab_bar = false
 --- window size
+if not wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
 config.initial_cols = 96
 config.initial_rows = 32
+end
 
 return config
 
