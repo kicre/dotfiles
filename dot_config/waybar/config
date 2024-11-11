@@ -34,7 +34,7 @@
         "separate-outputs": true
     },
     "custom/weather": {
-        "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Xinzhou+China",
+        "exec": "${HOME}/.config/waybar/scripts/get_weather.sh",
         "return-type": "json",
         "format": "{}",
         "tooltip": true,
