@@ -15,14 +15,14 @@ If Not objFSO.FileExists(configJson) Then
     objFSO.CopyFile scoopPersist & "\sing-box\config.json", configJson
 End If
 
-sing-box = "cscript """ & runVbs & """"
-scoop-up = "powershell -Command ""& {sudo scoop update * -g}"""
-mount-1 = "powershell -Command ""& {rclone mount alist: S: --volname alist --multi-thread-streams 64 --network-mode --vfs-cache-mode full --vfs-cache-max-size 1G --vfs-cache-max-age 10m --buffer-size 128M -v -vv}"""
-mount-2 = "powershell -Command ""& {rclone mount pikpak: P: --volname pikpak --multi-thread-streams 64 --network-mode --vfs-cache-mode full --vfs-cache-max-size 1G --vfs-cache-max-age 10m --buffer-size 128M -v -vv}"""
+sing_box = "cscript """ & runVbs & """"
+scoop_up = "powershell -Command ""& {sudo scoop update * -g}"""
+mount_1 = "powershell -Command ""& {rclone mount alist: S: --volname alist --multi-thread-streams 64 --network-mode --vfs-cache-mode full --vfs-cache-max-size 1G --vfs-cache-max-age 10m --buffer-size 128M -v -vv}"""
+mount_2 = "powershell -Command ""& {rclone mount pikpak: P: --volname pikpak --multi-thread-streams 64 --network-mode --vfs-cache-mode full --vfs-cache-max-size 1G --vfs-cache-max-age 10m --buffer-size 128M -v -vv}"""
 
 objShell.CurrentDirectory = singBoxDir
-objShell.Run sing-box, 0, False
+objShell.Run sing_box, 0, False
 WScript.Sleep 3000
-objShell.Run scoop-up, 1, False
-objShell.Run mount-1, 0, False
-objShell.Run mount-2, 0, False
+objShell.Run scoop_up, 1, False
+objShell.Run mount_1, 0, False
+objShell.Run mount_2, 0, False
