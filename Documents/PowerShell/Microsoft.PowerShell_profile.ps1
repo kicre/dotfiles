@@ -13,4 +13,14 @@ function y {
     Remove-Item -Path $tmp
 }
 
-fastfetch
+#Proxy
+function proxy {
+    $env:HTTP_PROXY = "http://127.0.0.1:2080"
+    $env:HTTPS_PROXY = "http://127.0.0.1:2080"
+    Write-Host "Http Proxy Set"
+}
+function noproxy {
+    $env:HTTP_PROXY = ""
+    $env:HTTPS_PROXY = ""
+    Write-Host "Unset Proxy"
+}
