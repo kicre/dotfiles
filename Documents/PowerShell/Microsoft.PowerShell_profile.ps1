@@ -3,6 +3,7 @@ Invoke-Expression (&starship init powershell)
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
 # Set yazi
+$env:YAZI_FILE_ONE = "C:/Users/kicre/scoop/apps/git/current/usr/bin/file.exe"
 function y {
     $tmp = [System.IO.Path]::GetTempFileName()
     yazi $args --cwd-file="$tmp"
