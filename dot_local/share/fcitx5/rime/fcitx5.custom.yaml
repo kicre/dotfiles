@@ -3,6 +3,8 @@ patch:
   
   "app_options/Alacritty":
     ascii_mode: true
+  "app_options/wezterm_gui":
+    ascii_mode: true
   "app_options/wofi":
     ascii_mode: true
   "app_options/mpv":
