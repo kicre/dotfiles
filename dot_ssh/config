@@ -2,10 +2,7 @@ Host *
 	ServerAliveInterval 30
 	#!!EnableDragFile Yes
 	#!!EnableZmodem Yes
-
-Host github.com
-	Hostname ssh.github.com
-	Port 443
+	#!!EnableOSC52
 
 Host hk-2c4g
 	Hostname 149.104.27.157
