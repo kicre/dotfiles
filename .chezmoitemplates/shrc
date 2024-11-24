@@ -1,3 +1,7 @@
+# Language
+export LANG=zh_CN.UTF-8
+export LANGUAGE=zh_CN:en_SG
+
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
@@ -23,5 +27,5 @@ noproxy(){
 	unset http_proxy
 	unset https_proxy
 	unset socks5_proxy
-	echo "HTTP Proxy on"
+	echo "HTTP Proxy off"
 }
