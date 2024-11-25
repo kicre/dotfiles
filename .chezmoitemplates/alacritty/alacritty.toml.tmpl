@@ -1,10 +1,7 @@
 [general]
 import = [
-{{- if eq .chezmoi.os "windows" }}
-	"~/AppData/Roaming/alacritty/flexoki.toml"
-{{- else }}
-	"~/.config/alacritty/flexoki.toml"
-{{- end }}
+	"~/.local/share/chezmoi/.chezmoitemplates/alacritty/theme/penumbra-light.toml"
+	
 ]
 
 [terminal.shell]

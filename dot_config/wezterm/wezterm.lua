@@ -48,25 +48,7 @@ else
     config.default_prog = { 'zsh', '-l' }
 end
 
--- Theme
--- function get_appearance()
---   if wezterm.gui then
---     return wezterm.gui.get_appearance()
---   end
---   return 'Light'
--- end
-
--- function scheme_for_appearance(appearance)
---   if appearance:find 'Light' then
---     return 'Flexoki Light'
---   else
---     return 'Flexoki Dark'
--- 	end
--- end
-
--- config.color_scheme = scheme_for_appearance(get_appearance())
-
-config.color_scheme = 'Flexoki Dark'
+config.color_scheme = 'Catppuccin Latte'
 config.window_background_opacity = 0.9
 -- config.enable_wayland = false
 config.window_padding = {
