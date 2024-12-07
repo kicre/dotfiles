@@ -4,6 +4,12 @@ Host *
 	#!!EnableZmodem Yes
 	#!!EnableOSC52
 
+Host github.com
+	Hostname ssh.github.com
+	ForwardAgent yes
+	Port 443
+	User git
+
 Host hk-2c4g
 	Hostname 149.104.27.157
 	User kicre
