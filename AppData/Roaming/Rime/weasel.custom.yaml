@@ -8,6 +8,10 @@ customization:
 patch:
   "app_options/alacritty.exe":
     ascii_mode: true
+  "app_options/mpv.exe":
+    ascii_mode: true
+  "app_options/mpv.net.exe":
+    ascii_mode: true
   "app_options/nvim-qt.exe":
     ascii_mode: true
   "app_options/putty.exe":
