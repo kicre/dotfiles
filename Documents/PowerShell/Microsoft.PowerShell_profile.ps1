@@ -14,6 +14,12 @@ function y {
     Remove-Item -Path $tmp
 }
 
+# uv (python package manager) completion
+if (!(Test-Path -Path $PROFILE)) {
+  New-Item -ItemType File -Path $PROFILE -Force
+}
+Add-Content -Path $PROFILE -Value '(& uv generate-shell-completion powershell) | Out-String | Invoke-Expression'
+
 #Proxy
 function proxy {
     $env:HTTP_PROXY = "http://127.0.0.1:2080"
