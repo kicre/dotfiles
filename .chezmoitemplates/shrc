@@ -6,7 +6,8 @@ export LANGUAGE=zh_CN:en_SG
 eval "$(fzf --bash)"
 
 # uv (python package manager) completion.
-eval "$(uv generate-shell-completion zsh)"
+eval "$(uv    generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
 
 # yazi
 function y() {

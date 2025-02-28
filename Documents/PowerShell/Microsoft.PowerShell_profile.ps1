@@ -15,10 +15,8 @@ function y {
 }
 
 # uv (python package manager) completion
-if (!(Test-Path -Path $PROFILE)) {
-  New-Item -ItemType File -Path $PROFILE -Force
-}
-Add-Content -Path $PROFILE -Value '(& uv generate-shell-completion powershell) | Out-String | Invoke-Expression'
+(& uv    generate-shell-completion powershell) | Out-String | Invoke-Expression
+(& uvx --generate-shell-completion powershell) | Out-String | Invoke-Expression
 
 #Proxy
 function proxy {
