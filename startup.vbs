@@ -21,7 +21,7 @@ mount_1 = "powershell -Command ""& {rclone mount alist: S: --volname alist --mul
 mount_2 = "powershell -Command ""& {rclone mount pikpak: P: --volname pikpak --multi-thread-streams 64 --network-mode --vfs-cache-mode full --vfs-cache-max-size 1G --vfs-cache-max-age 10m --buffer-size 128M -v -vv}"""
 
 objShell.CurrentDirectory = singBoxDir
-objShell.Run sing_box, 0, False
+# objShell.Run sing_box, 0, False
 WScript.Sleep 3000
 objShell.Run scoop_up, 1, False
 objShell.Run mount_1, 0, False
