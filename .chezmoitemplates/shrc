@@ -21,9 +21,9 @@ function y() {
 
 # Proxy
 proxy(){
-	export http_proxy="http://127.0.0.1:2080"
-	export https_proxy="http://127.0.0.1:2080"
-	export socks5_proxy="socks5://127.0.0.1:2080"
+	export http_proxy="http://127.0.0.1:7890"
+	export https_proxy="http://127.0.0.1:7890"
+	export socks5_proxy="socks5://127.0.0.1:7890"
 	echo "HTTP Proxy on"
 }
 

@@ -20,8 +20,8 @@ function y {
 
 #Proxy
 function proxy {
-    $env:HTTP_PROXY = "http://127.0.0.1:2080"
-    $env:HTTPS_PROXY = "http://127.0.0.1:2080"
+    $env:HTTP_PROXY = "http://127.0.0.1:7890"
+    $env:HTTPS_PROXY = "http://127.0.0.1:7890"
     Write-Host "Http Proxy Set"
 }
 function noproxy {
