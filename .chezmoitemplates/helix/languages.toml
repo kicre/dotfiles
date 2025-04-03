@@ -1,7 +1,10 @@
-#markdown
+# Markdown
 
 [[language]]
 name = "markdown"
+soft-warp.enable = true
+text-width = 80
+soft-wrap.wrap-at-text-width = true
 language-servers = [ "marksman", "zk", "mdpls", "ltex-ls" ]
 
 [language-server.zk]
@@ -12,9 +15,18 @@ command = "mdpls"
 config = { markdown.preview.auto = false, markdown.preview.browser = "firefox" }
 
 [language-server.ltex-ls.config.ltex.dictionary]
-"zh-CN" = ["Tp-Note","Zettelkasten"]
+"zh-CN" = ["Tp-Note", "Zettelkasten"]
 
-#matlab
+# Typst
+
+[[language]]
+name = "typst"
+text-width = 80
+soft-wrap.wrap-at-text-width = true
+soft-warp.enable = true
+language-servers = [ "tinymist", "ltex-ls" ]
+
+# MatLab
 
 [language-server.matlab-ls]
 command = "matlab-language-server"
@@ -35,7 +47,7 @@ comment-token = "%"
 shebangs = ["octave-cli", "matlab"]
 indent = { tab-width = 2, unit = "  " }
 
-#python
+# Python
 [[language]]
 name = "python"
 [language.debugger]
@@ -49,7 +61,7 @@ request = "launch"
 completion = [ { name = "entrypoint", completion = "filename", default = "." } ]
 args = { mode = "debug", program = "{0}" }
 
-# hyprlang
+# Hyprlang
 [[language]]
 name = "hyprlang"
 language-servers = [ "hyprls" ]
