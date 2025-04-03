@@ -2,7 +2,7 @@
 
 [[language]]
 name = "markdown"
-soft-warp.enable = true
+soft-wrap.enable = true
 text-width = 80
 soft-wrap.wrap-at-text-width = true
 language-servers = [ "marksman", "zk", "mdpls", "ltex-ls" ]
@@ -23,7 +23,7 @@ config = { markdown.preview.auto = false, markdown.preview.browser = "firefox" }
 name = "typst"
 text-width = 80
 soft-wrap.wrap-at-text-width = true
-soft-warp.enable = true
+soft-wrap.enable = true
 language-servers = [ "tinymist", "ltex-ls" ]
 
 # MatLab
