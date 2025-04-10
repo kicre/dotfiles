@@ -19,7 +19,7 @@ markdown.file_extensions = ["md", "markdown"]
 text_sync = "full"
 # Use incremental resolution of project-wide references.
 # This is much more efficient but is currently experimental
-incremental_references = false
+incremental_references = true
 # For debugging only! Enables extra validation checks around
 # incremental state updates. SIGNIFICANTLY IMPACTS PERFORMANCE
 paranoid = false
