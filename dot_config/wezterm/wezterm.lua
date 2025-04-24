@@ -25,8 +25,8 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
         args = { 'wsl', '--cd', "/home/" }
      } )
     table.insert( launch_menu, {
-        label = 'PWSH',
-        args = { 'pwsh', '-l'}
+        label = 'Git Bash',
+        args = { 'bash', '-l'}
      } )
     config.default_prog = { 'pwsh', '-l' }
     config.color_scheme_dirs = {'~/.config/wezterm/colors'}
@@ -60,9 +60,14 @@ config.window_padding = {
 
 --- Default config settings
 if wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
-    config.font = wezterm.font('monospace',{weight = "Regular"})
+    config.font = wezterm.font ( 'monospace' )
 else
-    config.font = wezterm.font('Sarasa Fixed SC Nerd Font',{weight = "Regular"})
+    config.font = wezterm.font_with_fallback{
+        'Iosevka Fixed',
+        'Noto Sans CJK SC',
+        'Symbols Nerd Font Mono',
+        'Twitter color Emoji',
+    }
 end
 
 config.font_size = 12
@@ -70,7 +75,7 @@ config.launch_menu = launch_menu
 config.default_cursor_style = 'SteadyUnderline'
 config.enable_tab_bar = false
 --- window size
-if not wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
+if wezterm.target_triple ~= 'x86_64-unknown-linux-gnu' then
 config.initial_cols = 96
 config.initial_rows = 32
 end
