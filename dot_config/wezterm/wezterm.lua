@@ -29,7 +29,6 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
         args = { 'bash', '-l'}
      } )
     config.default_prog = { 'pwsh', '-l' }
-    config.color_scheme_dirs = {'~/.config/wezterm/colors'}
 elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
     table.insert( launch_menu, {
         label = 'Bash',
@@ -48,9 +47,9 @@ else
     config.default_prog = { 'zsh', '-l' }
 end
 
-config.color_scheme = 'Catppuccin Latte'
+config.color_scheme_dirs = {'~/.config/wezterm/colors'}
+config.color_scheme = 'Penumbra Light'
 config.window_background_opacity = 0.9
--- config.enable_wayland = false
 config.window_padding = {
     left = '0',
     right = '0',
@@ -81,4 +80,3 @@ config.initial_rows = 32
 end
 
 return config
-

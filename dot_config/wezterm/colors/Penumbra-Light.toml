@@ -1,0 +1,32 @@
+[colors]
+background = "#EFEFEF"
+foreground = "#131313"
+
+# text =   "#24272B"
+cursor_bg = "#AEAEAE"
+
+ansi = [
+  "#BEBEBE",
+  "#CB7459",
+  "#46A473",
+  "#A38F2D",
+  "#7E87D6",
+  "#BD728A",
+  "#00A0BE",
+  "#3E4044"
+]
+
+brights = [
+  "#9E9E9E",
+  "#A25A3E",
+  "#2B825C",
+  "#7F711A",
+  "#6568AD",
+  "#995746",
+  "#0D7E9B",
+  "#0D0F13"
+]
+
+[metadata]
+aliases = ["Penumbra Light"]
+name = "Penumbra Light"

@@ -1,0 +1,33 @@
+[colors]
+background = "#2B2B2B"
+foreground = "#F2F2F2"
+
+# Cursor colors
+# text = "#FFFDFB"
+cursor_bg = "#636363"
+
+ansi = [
+  "#383838",
+  "#CB7459",
+  "#46A473",
+  "#A38F2D",
+  "#7E87D6",
+  "#BD728A",
+  "#00A0BE",
+  "#DEDEDE"
+]
+
+brights = [
+  "#636363",
+  "#F48E74",
+  "#61C68A",
+  "#C7AD40",
+  "#97A6FF",
+  "#E18DCE",
+  "#1AC2E1",
+  "#FFFFFF"
+]
+
+[metadata]
+aliases = ["Penumbra Dark"]
+name = "Penumbra Dark"
