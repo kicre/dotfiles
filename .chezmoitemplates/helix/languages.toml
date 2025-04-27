@@ -5,11 +5,7 @@ name = "markdown"
 soft-wrap.enable = true
 text-width = 80
 soft-wrap.wrap-at-text-width = true
-language-servers = [ "markdown-oxide", "mdpls", "ltex-ls-plus" ]
-
-[language-server.mdpls]
-command = "mdpls"
-config = { markdown.preview.auto = false, markdown.preview.browser = "firefox" }
+language-servers = [ "marksman", "ltex-ls-plus" ]
 
 [language-server.ltex-ls-plus.config]
 ltex.dictionary = { "zh-CN" = ["Tp-Note", "Zettelkasten"] }
