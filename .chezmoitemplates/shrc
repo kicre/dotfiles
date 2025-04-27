@@ -6,8 +6,10 @@ export LANGUAGE=zh_CN:en_SG
 eval "$(fzf --bash)"
 
 # uv (python package manager) completion.
+if hash uv 2>/dev/null; then
 eval "$(uv    generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
+fi
 
 # yazi
 function y() {

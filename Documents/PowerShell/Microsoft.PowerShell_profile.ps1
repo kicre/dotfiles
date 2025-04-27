@@ -15,8 +15,10 @@ function y {
 }
 
 # uv (python package manager) completion
+if (Get-Command uv -ErrorAction SilentlyContinue) {
 (& uv    generate-shell-completion powershell) | Out-String | Invoke-Expression
 (& uvx --generate-shell-completion powershell) | Out-String | Invoke-Expression
+}
 
 #Proxy
 function proxy {
@@ -33,7 +35,7 @@ function noproxy {
 # Aliases
 # ls
 if (Get-Command eza -ErrorAction SilentlyContinue) {
- Remove-Item Alias:ls -Force -ErrorAction SilentlyContinue
+    Remove-Item Alias:ls -Force -ErrorAction SilentlyContinue
     function ls { eza --icons --git @args }
     function l { eza --icons --git @args }
     function la { eza --icons --all --group-directories-first --git @args }
