@@ -4,8 +4,8 @@
     "height": 24,
     "spacing": 5,
 
-    "modules-left": ["hyprland/workspaces", "cpu", "memory", "temperature", "battery", "custom/weather"],
-    "modules-center": ["hyprland/window"],
+    "modules-left": ["niri/workspaces", "hyprland/workspaces", "cpu", "memory", "temperature", "battery", "custom/weather"],
+    "modules-center": ["niri/window", "hyprland/window"],
     "modules-right": ["wireplumber", "backlight", "network", "bluetooth", "tray", "clock"],
 
     "hyprland/workspaces": {
@@ -33,6 +33,33 @@
         },
         "separate-outputs": true
     },
+
+    "niri/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "icon-size": 50,
+        "sort-by-number": true,
+        "window-rewrite-default": " ",
+        "window-rewrite": {
+            "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+            "class<firefox>": "", // Windows whose classes are "firefox"
+            "class<firefox> title<.*github.*>": "", // Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+            "foot": "", // Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+            "code": "󰨞",
+        },
+    },
+
+    "niri/window": {
+        "format": "👉 {}",
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "🌎 $1",
+            "(.*) - fish": "> [$1]",
+            "(.*) - bash": "> [$1]",
+            "(.*) - zsh": "> [$1]"
+        },
+        "separate-outputs": true
+    },
+
     "custom/weather": {
         "exec": "${HOME}/.config/waybar/scripts/get_weather.sh",
         "return-type": "json",
