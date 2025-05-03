@@ -3,7 +3,9 @@ patch:
   
   "app_options/Alacritty":
     ascii_mode: true
-  "app_options/wezterm_gui":
+  "app_options/org.wezfurlong.wezterm":
+    ascii_mode: true
+  "app_options/com.mitchellh.ghostty":
     ascii_mode: true
   "app_options/wofi":
     ascii_mode: true
@@ -11,7 +13,7 @@ patch:
     ascii_mode: true
   "app_options/vscode":
     ascii_mode: true
-  "app_options/zed":
+  "app_options/dev.zed.Zed":
     ascii_mode: true
   "app_options/kate":
     ascii_mode: true
