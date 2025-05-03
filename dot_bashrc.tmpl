@@ -1,4 +1,10 @@
+{{- template "shrc" . }}
+
+# uv (python package manager) completion.
+if hash uv 2>/dev/null; then
+eval "$(uv    generate-shell-completion bash)"
+eval "$(uvx --generate-shell-completion bash)"
+fi
+
 # Set starship
 eval "$(starship init bash)"
-
-{{- template "shrc" . -}}

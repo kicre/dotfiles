@@ -5,12 +5,6 @@ export LANGUAGE=zh_CN:en_SG
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
-# uv (python package manager) completion.
-if hash uv 2>/dev/null; then
-eval "$(uv    generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion zsh)"
-fi
-
 # yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -40,7 +34,7 @@ noproxy(){
 #ls
 if hash eza 2>/dev/null; then
         alias ls='eza --icons --git'
-        alias l='eza -l --all --group-directories-first --git'
+        alias l='eza --group-directories-first --git'
         alias la='eza --all --group-directories-first --git'
         alias ll='eza -l --all --all --group-directories-first --git'
         alias lt='eza -T --git-ignore --level=2 --group-directories-first'
@@ -48,7 +42,7 @@ if hash eza 2>/dev/null; then
         alias lT='eza -T --git-ignore --level=4 --group-directories-first'
 elif hash lsd 2>/dev/null; then
         alias ls='lsd'
-        alias l='lsd -l --all --group-directories-first'
+        alias l='lsd --group-directories-first'
         alias la='lsd --all --group-directories-first'
         alias ll='lsd -l --all --group-directories-first'
         alias lt='lsd --tree --depth=2 --group-directories-first'

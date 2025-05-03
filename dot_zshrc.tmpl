@@ -14,7 +14,13 @@ compinit
 source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+{{ template "shrc" . }}
+
+# uv (python package manager) completion.
+if hash uv 2>/dev/null; then
+eval "$(uv    generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
+fi
+
 # Set starship
 eval "$(starship init zsh)"
-
-{{ template "shrc" . -}}
