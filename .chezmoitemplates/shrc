@@ -33,7 +33,7 @@ noproxy(){
 }
 
 # Aliases
-#ls
+# ls
 if hash eza 2>/dev/null; then
         alias ls='eza --group-directories-first --icons --git'
         alias l='eza --group-directories-first --icons --git'
@@ -54,4 +54,9 @@ else
         alias l='ls -lah'
         alias ll='ls -alF'
         alias la='ls -A'
+fi
+
+# ssh
+if hash tssh 2>/dev/null; then
+        alias ssh=tssh
 fi
