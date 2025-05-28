@@ -41,7 +41,7 @@ if (Get-Command eza -ErrorAction SilentlyContinue) {
     function la { eza --icons --all --group-directories-first --git @args }
     function ll { eza -l --icons --all --all --group-directories-first --git @args }
     function lt { eza -T --icons --git-ignore --level=2 --group-directories-first @args }
-    function llt { eza -lT--icons  --git-ignore --level=2 --group-directories-first @args }
+    function llt { eza -lT --icons --git-ignore --level=2 --group-directories-first @args }
     function lT { eza -T --icons --git-ignore --level=4 --group-directories-first @args }
 }
 elseif (Get-Command lsd -ErrorAction SilentlyContinue) {
@@ -62,3 +62,4 @@ else {
 # ssh
 if (Get-Command eza -ErrorAction SilentlyContinue) {
     function ssh { tssh @args }
+}
