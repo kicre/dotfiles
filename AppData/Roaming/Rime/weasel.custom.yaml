@@ -20,6 +20,8 @@ patch:
     ascii_mode: true
   "app_options/windowsterminal.exe":
     ascii_mode: true
+  "app_options/rio.exe":
+    ascii_mode: true
   "app_options/wox.exe":
     ascii_mode: true
   "app_options/powertoys.powerlauncher.exe":
@@ -36,6 +38,7 @@ patch:
   app_options/windowsterminal.exe/vim_mode: true
   app_options/wezterm-gui.exe/vim_mode: true
   app_options/alacritty.exe/vim_mode: true
+  app_options/rio.exe/vim_mode: true
   app_options/nvim-qt.exe/vim_mode: true
   app_options/goneovim.exe/vim_mode: true
   app_options/neovide.exe/vim_mode: true
