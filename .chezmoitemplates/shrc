@@ -3,11 +3,6 @@ export TZ=Asia/Shanghai
 export LANG=zh_CN.UTF-8
 export LANGUAGE=zh_CN:en_SG
 
-# Set up fzf key bindings and fuzzy completion
-if hash fzf 2>/dev/null; then
-eval "$(fzf --bash)"
-fi
-
 # yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

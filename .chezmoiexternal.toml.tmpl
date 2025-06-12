@@ -1,16 +1,4 @@
 {{ if ne .chezmoi.os "windows" }}
-[".config/zsh/plugins/zsh-syntax-highlighting"]
-	type = "git-repo"
-	url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
-	exact = true
-	striComponents = 1
-	refreshPeriod = "168h"
-[".config/zsh/plugins/zsh-autosuggestions"]
-	type = "git-repo"
-	url = "https://github.com/zsh-users/zsh-autosuggestions.git"
-	exact = true
-	striComponents = 1
-	refreshPeriod = "168h"
 [".config/nvim"]
 {{ else }}
 ["AppData/Local/nvim"]
