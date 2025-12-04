@@ -2,6 +2,12 @@ Invoke-Expression (&starship init powershell)
 
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
+# vim
+if (Get-Command nvim -ErrorAction SilentlyContinue) {
+    function vim { nvim @args }
+    function vi  { nvim @args }
+}
+
 # Set yazi
 $env:YAZI_FILE_ONE = "C:/Users/kicre/scoop/apps/git/current/usr/bin/file.exe"
 function y {
@@ -60,6 +66,6 @@ else {
     function la { Get-ChildItem -Force -Hidden | Format-Table -AutoSize }
 }
 # ssh
-if (Get-Command eza -ErrorAction SilentlyContinue) {
+if (Get-Command tssh -ErrorAction SilentlyContinue) {
     function ssh { tssh @args }
 }
