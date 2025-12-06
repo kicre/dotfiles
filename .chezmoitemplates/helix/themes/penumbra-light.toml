@@ -1,0 +1,18 @@
+inherits = "onedark"
+"ui.background" = {}
+
+[palette]
+yellow = "#92963a"
+blue = "#6e8dd5"
+red = "#ca7081"
+purple = "#ac78bd"
+green = "#3ea57b"
+gold = "#c27d40"
+cyan = "#00a0ba"
+white = "#0d0f13"
+black = "#fffdfb"
+light-black = "#fff7ed"
+gray = "#aeaeae"
+faint-gray = "#dedede"
+light-gray = "#9e9e9e"
+linenr = "#aeaeae"
