@@ -1,10 +1,10 @@
 [opener]
 edit = [
-	{ run = '$EDITOR $s', desc = "$EDITOR", block = true, for = "unix" },
+	{ run = '$EDITOR %s', desc = "$EDITOR", block = true, for = "unix" },
 	{ run = "hx %s"     , desc = "hx"     , block = true, for = "windows" },
 ]
 play = [
-	{ run = 'mpv "$s"', orphan = true, for = "unix" },
+	{ run = 'mpv "%s"', orphan = true, for = "unix" },
 	{ run = 'mpv "%s"', orphan = true, for = "windows" },
 	{ run = "mediainfo %s1; echo 'Press enter to exit'; read _", block = true, desc = "Show media info", for = "unix" },
 	{ run = "mediainfo %s1 & pause", block = true, desc = "Show media info", for = "windows" },]
