@@ -147,7 +147,7 @@ for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 
-{{ template "shrc" . }}
+{{ template "shrc.sh" . }}
 
 # Set up fzf key bindings and fuzzy completion
 if hash fzf 2>/dev/null; then
