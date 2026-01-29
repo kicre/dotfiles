@@ -44,8 +44,8 @@ noproxy(){
 if hash eza 2>/dev/null; then
         alias ls='eza --group-directories-first --icons --git'
         alias l='eza --group-directories-first --icons --git'
-        alias la='eza --all --group-directories-first --git'
-        alias ll='eza -l --all --all --group-directories-first --git'
+        alias la='eza --all --group-directories-first --icons --git'
+        alias ll='eza -l --all --all --group-directories-first --icons --git'
         alias lt='eza -T --git-ignore --level=2 --group-directories-first'
         alias llt='eza -lT --git-ignore --level=2 --group-directories-first'
         alias lT='eza -T --git-ignore --level=4 --group-directories-first'
