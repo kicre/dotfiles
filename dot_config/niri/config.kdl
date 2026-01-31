@@ -15,17 +15,16 @@ include "animation.kdl"
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "zsh"
-spawn-at-startup "alacritty" "-e"
 // spawn-at-startup "wpka"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "waybar"
 // spawn-at-startup "fcitx5" "--replace" "-d"
-spawn-at-startup "swww-daemon"
+spawn-at-startup "awww-daemon"
 spawn-at-startup "mako"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "~/.config/scripts/swayidle.sh"
-spawn-at-startup "~/.config/scripts/swww_randomize.sh" "~/Pictures/wallpapers"
+spawn-at-startup "~/.config/scripts/awww_randomize.sh" "~/Pictures/wallpapers"
 
 // Environments
 environment {
