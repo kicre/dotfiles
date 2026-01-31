@@ -6,9 +6,10 @@
 include "binds.kdl"
 include "rules.kdl"
 include "input.kdl"
-include "output.kdl"
+include "outputs.kdl"
 include "layout.kdl"
 include "animation.kdl"
+
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
