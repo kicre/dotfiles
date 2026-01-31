@@ -46,3 +46,5 @@ command = zsh
 theme = light:penumbra-light,dark:penumbra-dark
 background-opacity = 0.9
 cursor-style = underline
+
+shell-integration-features = ssh-terminfo
