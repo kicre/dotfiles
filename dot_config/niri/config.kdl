@@ -24,7 +24,7 @@ spawn-at-startup "mako"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "~/.config/scripts/swayidle.sh"
-spawn-at-startup "~/.config/scripts/awww_randomize.sh" "~/Pictures/wallpapers"
+spawn-at-startup "~/.config/scripts/awww_randomize.sh"
 
 // Environments
 environment {
@@ -33,15 +33,16 @@ environment {
     LANGUAGE "zh_CN:en_US"
     EDITOR "helix"
     GSK_RENDERER "gl"
+    XMODIFIERS "@im=fcitx"
     QT_IM_MODULES "wayland;fcitx"
     QT_IM_MODULE "fcitx"
+    GSK_RENDERER "gl"
     // theme
     // GTK_THEME "Orchis-Compact"
-    // QT_QPA_PLATFORMTHEME "qt6ct" // change to qt6ct if you have that
+    QT_QPA_PLATFORMTHEME "qt6ct" // change to qt6ct if you have that
     QT_QPA_PLATFORMTHEME "gtk3"
 
     ELECTRON_OZONE_PLATFORM_HINT "auto"
-    // DISPLAY null
 }
 
 // Cursor
@@ -65,5 +66,3 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
-
-
