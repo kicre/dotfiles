@@ -1,4 +1,6 @@
 patch:
+  __include: wanxiang_suggestion:/
+
   "ascii_composer/switch_key":
     Caps_Lock: commit_code
     Control_L: noop
@@ -6,11 +8,6 @@ patch:
     Shift_L: commit_code
     Shift_R: inline_ascii
   
-  "menu/page_size": 9
-  
-  schema_list:
-    - {schema: rime_ice}
-    
   "switcher/hotkeys": "Control+grave"
   "translator/enable_user_dict": true
   "translator/enable_correction": false
