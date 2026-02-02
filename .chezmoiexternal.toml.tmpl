@@ -1,4 +1,14 @@
 {{ if ne .chezmoi.os "windows" }}
+
+[".config/matugen"]
+    type = "archive"
+    url = "https://github.com/InioX/matugen-themes/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+    include = ["*/templates/**"]
+
+
 [".config/nvim"]
 {{ else }}
 ["AppData/Local/nvim"]

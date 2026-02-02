@@ -26,6 +26,7 @@ while true; do
 	| sort -n | cut -d':' -f2- \
 	| while read -r img; do
 		awww img --resize="$RESIZE_TYPE" "$img"
+		matugen image "$img" -m light
 		sleep "${2:-$DEFAULT_INTERVAL}"
 	done
 done
