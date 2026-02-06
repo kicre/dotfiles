@@ -19,17 +19,18 @@ include "animation.kdl"
 // spawn-at-startup "wpka"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "waybar"
-// spawn-at-startup "fcitx5" "--replace" "-d"
+spawn-at-startup "fcitx5" "--replace" "-d"
 spawn-at-startup "awww-daemon"
 spawn-at-startup "mako"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+spawn-at-startup "wl-paste" "--type" "--watch" "xclip" "-selection" "clipboard"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "~/.config/scripts/swayidle.sh"
 spawn-at-startup "~/.config/scripts/awww_randomize.sh"
 
 // Environments
 environment {
-    TZ "Asiz/Shanghai"
+    TZ "Asia/Shanghai"
     LANG "zh_CN.UTF-8"
     LANGUAGE "zh_CN:en_US"
     EDITOR "helix"
@@ -50,6 +51,8 @@ environment {
 cursor {
     xcursor-theme "Bibata-Modern-Ice"
     xcursor-size 20
+    hide-when-typing
+    hide-after-inactive-ms 15000
 }
 
 
@@ -67,3 +70,7 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
+
+clipboard {
+    disable-primary
+}
