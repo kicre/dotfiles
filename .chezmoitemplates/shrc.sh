@@ -6,12 +6,7 @@ export LANGUAGE=zh_CN:en_SG
 # nvim 
 if hash nvim 2>/dev/null; then
         alias vim=nvim
-        alias vi =nvim
-fi
-
-# Set up fzf key bindings and fuzzy completion
-if hash fzf 2>/dev/null; then
-eval "$(fzf --bash)"
+        alias vi=nvim
 fi
 
 # yazi
