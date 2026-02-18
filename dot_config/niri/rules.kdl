@@ -41,3 +41,81 @@ window-rule {
     clip-to-geometry true
 }
 
+window-rule {
+    match title=r#"(?i)图片|查看|预览|相册|媒体|设置|偏好|settings|preferences|media|viewer|photo|image"#
+    open-floating true
+}
+
+// ========== Telegram 相关 ==========
+
+// 官方 Telegram 桌面版媒体查看器
+window-rule {
+    match app-id=r#"^org\.telegram\.desktop$"# title=r#"(?i)media viewer|媒体查看器|图片查看"#
+    open-floating true
+}
+
+// AyuGram 媒体查看器
+window-rule {
+    match app-id=r#"^com\.ayugram\.desktop$"# title=r#"(?i)media viewer|媒体查看器"#
+    open-floating true
+}
+
+// ========== QQ 相关 ==========
+
+// QQ (Linux 版) 图片查看器
+window-rule {
+    match app-id=r#"^qq$"# title=r#"(?i)图片|查看|预览|viewer"#
+    open-floating true
+}
+
+// QQ (Flatpak 版)
+window-rule {
+    match app-id=r#"^com\.qq\.im$"# title=r#"(?i)图片|查看|预览"#
+    open-floating true
+}
+
+// ========== 微信相关 ==========
+
+// 微信 (Linux 原生版) 图片查看
+window-rule {
+    match app-id=r#"^wechat$"# title=r#"(?i)图片|查看|预览|photo|image"#
+    open-floating true
+}
+
+// 微信 (Flatpak 版)
+window-rule {
+    match app-id=r#"^com\.tencent\.wechat$"# title=r#"(?i)图片|查看|预览"#
+    open-floating true
+}
+
+// 微信 (Wayland 版)
+window-rule {
+    match app-id=r#"^wxwork$|^wechat-universal$"# title=r#"(?i)图片|查看|预览"#
+    open-floating true
+}
+
+// ========== 其他常见即时通讯应用 ==========
+
+// 钉钉
+window-rule {
+    match app-id=r#"^dingtalk$|^com\.alibaba\.dingtalk$"# title=r#"(?i)图片|查看|预览"#
+    open-floating true
+}
+
+// 飞书
+window-rule {
+    match app-id=r#"^lark$|^com\.bytedance\.lark$"# title=r#"(?i)图片|查看|预览|photo"#
+    open-floating true
+}
+
+// Discord 图片预览
+window-rule {
+    match app-id=r#"^discord$|^com\.discordapp\.Discord$"# title=r#"(?i)image|media|preview"#
+    open-floating true
+}
+
+// Element / Matrix 客户端
+window-rule {
+    match app-id=r#"^element$|^im\.element\.Element$"# title=r#"(?i)image|media|photo"#
+    open-floating true
+}
