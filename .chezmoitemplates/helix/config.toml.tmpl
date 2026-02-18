@@ -51,7 +51,7 @@ wrap-at-text-width = false
 
 [keys.normal]
 C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
-{{- if eq .chezmoi.os "linux" }} 
+{{- if (and (eq .chezmoi.os "linux") (ne .chezmoi.username "root")) }} 
 "i" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "insert_mode"]
 "a" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "append_mode"]
 "c" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "change_selection"]
