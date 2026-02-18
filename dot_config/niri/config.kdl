@@ -36,13 +36,18 @@ environment {
     EDITOR "helix"
     GSK_RENDERER "gl"
     XMODIFIERS "@im=fcitx"
-    QT_IM_MODULES "wayland;fcitx"
+    GTK_IM_MODULE "fcitx"
     QT_IM_MODULE "fcitx"
-    GSK_RENDERER "gl"
+    QT_IM_MODULES "wayland;fcitx"
+    SDL_IM_MODULE "fcitx"
+    GLFW_IM_MODULE "ibus"
     // theme
-    // GTK_THEME "Orchis-Compact"
+    GTK_THEME "Orchis-Light-Compact"
+    QT_AUTO_SCREEN_SCALE_FACTOR "1"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    QT_STYLE_OVERRIDE "kvantum"
+    QT_QPA_PLATFORM "wayland;xcb"
     QT_QPA_PLATFORMTHEME "qt6ct" // change to qt6ct if you have that
-    QT_QPA_PLATFORMTHEME "gtk3"
 
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
