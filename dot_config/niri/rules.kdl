@@ -42,7 +42,12 @@ window-rule {
 }
 
 window-rule {
-    match title=r#"(?i)图片|查看|预览|相册|媒体|设置|偏好|settings|preferences|media|viewer|photo|image"#
+    match title=r#"(?i)图片|查看|预览|相册|媒体|设置|配置|偏好|好友|settings|preferences|media|viewer|photo|image"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"(?i)iwgtk"#
     open-floating true
 }
 
