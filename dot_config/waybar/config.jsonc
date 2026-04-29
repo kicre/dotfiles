@@ -5,9 +5,7 @@
   "modules-left": [
     "niri/workspaces",
     "hyprland/workspaces",
-    "cpu",
-    "memory",
-    "temperature",
+    "group/hwinfo",
     "battery",
     "custom/weather"
   ],
@@ -26,6 +24,9 @@
     "clock",
     "custom/power"
   ],
+  "tray": {
+    "spacing": 5
+  },
   "hyprland/workspaces": {
     "format": "{icon}",
     "on-click": "activate",
@@ -68,37 +69,47 @@
     },
     "separate-outputs": true
   },
+  "group/hwinfo": {
+    "orientation": "horizontal",
+    "modules": [
+      "cpu",
+      "memory",
+      "temperature"
+    ]
+  },
+  "cpu": {
+    "interval": 10,
+    "format": " {usage}%"
+  },
+  "memory": {
+    "interval": 30,
+    "format": " {percentage}%"
+  },
+  "temperature": {
+    "format": " {temperatureC}°C"
+  },
+  "battery": {
+    // "bat": "BAT1",
+    "interval": 60,
+    "format": "{icon} {capacity}%",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰁹"
+    ]
+  },
   "custom/weather": {
     "exec": "${HOME}/.config/waybar/scripts/get_weather.sh",
     "return-type": "json",
     "format": "{}",
     "tooltip": true,
     "interval": 3600
-  },
-  "clock": {
-    "format": "{:%H:%M}",
-    "format-alt": "{:L%A, %Y %B %d (%R)} 󱛡 ",
-    "tooltip-format": "\n<span size='9pt' font='monospace'>{calendar}</span>",
-    "calendar": {
-      "mode": "year",
-      "mode-mon-col": 3,
-      "weeks-pos": "right",
-      "on-scroll": 1,
-      "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-      }
-    },
-    "actions": {
-      "on-click-right": "mode",
-      "on-click-forward": "tz_up",
-      "on-click-backward": "tz_down",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
-    }
   },
   "wireplumber": {
     "format": "{icon} {volume}%",
@@ -126,22 +137,6 @@
     "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
     "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%"
   },
-  "battery": {
-    // "bat": "BAT1",
-    "interval": 60,
-    "format": "{icon} {capacity}%",
-    "format-icons": [
-      "󰂎",
-      "󰁺",
-      "󰁻",
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰁹"
-    ]
-  },
   "backlight": {
     "format": "{icon}{percent}%",
     "format-icons": [
@@ -150,17 +145,6 @@
       "󰃝 ",
       "󰃠 "
     ]
-  },
-  "cpu": {
-    "interval": 10,
-    "format": " {usage}%"
-  },
-  "memory": {
-    "interval": 30,
-    "format": " {percentage}%"
-  },
-  "temperature": {
-    "format": " {temperatureC}°C"
   },
   "network": {
     "format": "",
@@ -201,6 +185,31 @@
       "performance": "",
       "balanced": "",
       "power-saver": ""
+    }
+  },
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:L%A, %Y %B %d (%R)} 󱛡 ",
+    "tooltip-format": "\n<span size='9pt' font='monospace'>{calendar}</span>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
     }
   },
   "custom/power": {

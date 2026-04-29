@@ -8,7 +8,7 @@
 
 #waybar {
   color: @theme_text_color;
-  background-color: alpha(@theme_base_color , 0.6);
+  background-color: alpha(@theme_bg_color, 0.2);
 }
 
 #workspaces button {
@@ -21,7 +21,7 @@
 }
 
 #workspaces button.active {
-  background-color: alpha(@insensitive_fg_color, 0.9);
+  background-color: alpha(@theme_unfocused_bg_color, 0.7);
   border-radius: 3px;
 }
 
@@ -45,9 +45,17 @@ window#waybar.empty #window {
 #battery,
 #network,
 #bluetooth,
-#tray {
-  background-color: alpha(@borders, 0.9);
+#tray{
+  background-color: alpha(@insensitive_bg_color, 0.4);
   margin: 0 0.1em;
   padding: 0 0.5em;
-  border-radius: 5px;
+  border-radius: 8px;
+}
+#clock {
+  background-color: alpha(@insensitive_bg_color, 0.5);
+  padding: 0 0.5em;
+  border-radius: 8px;
+}
+#custom-power {
+  padding: 0 0.3em;
 }
