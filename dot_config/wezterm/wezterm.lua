@@ -58,16 +58,12 @@ config.window_padding = {
 }
 
 --- Default config settings
-if wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
-    config.font = wezterm.font ( 'monospace' )
-else
     config.font = wezterm.font_with_fallback{
         'Iosevka Fixed',
         'Noto Sans CJK SC',
         'Symbols Nerd Font Mono',
         'Twitter color Emoji',
     }
-end
 
 config.font_size = 12
 config.launch_menu = launch_menu
