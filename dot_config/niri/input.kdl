@@ -52,7 +52,7 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    focus-follows-mouse max-scroll-amount="0%"
+    focus-follows-mouse // max-scroll-amount="0%"
 
     //Normally, switching to the same workspace by index twice will do nothing (since you're already on that workspace). If this flag is enabled, switching to the same workspace by index twice will switch back to the previous workspace.
     workspace-auto-back-and-forth

@@ -1,6 +1,8 @@
-// Window rules let you adjust behavior for individual windows.
-// Find more information on the wiki:
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+// Put swaybg inside the overview backdrop.
+layer-rule {
+    // match namespace="^awww-daemonoverlay$"
+    place-within-backdrop true
+}
 
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
@@ -48,6 +50,11 @@ window-rule {
 
 window-rule {
     match app-id=r#"(?i)iwgtk"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"XEyes"#
     open-floating true
 }
 

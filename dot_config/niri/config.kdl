@@ -1,30 +1,21 @@
-// This config is in the KDL format: https://kdl.dev
-// "/-" comments out the following node.
-// Check the wiki for a full description of the configuration:
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
-
 include "binds.kdl"
 include "rules.kdl"
 include "input.kdl"
 include "outputs.kdl"
-include "layout.kdl"
 include "colors.kdl"
+include "layout.kdl"
 include "animation.kdl"
 
-// Add lines like this to spawn processes at startup.
-// Note that running niri as a session supports xdg-desktop-autostart,
-// which may be more convenient to use.
-// See the binds section below for more spawn examples.
-// spawn-at-startup "alacritty" "-e" "zsh"
 // spawn-at-startup "wpka"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "waybar"
+spawn-at-startup "xwayland-satellite"
 spawn-at-startup "fcitx5" "--replace" "-d"
 spawn-at-startup "awww-daemon"
 spawn-at-startup "mako"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "--watch" "xclip" "-selection" "clipboard"
-spawn-at-startup "xwayland-satellite"
+spawn-at-startup "udiskie"
 spawn-at-startup "~/.config/scripts/swayidle.sh"
 spawn-at-startup "~/.config/scripts/awww_randomize.sh"
 
@@ -36,13 +27,16 @@ environment {
     EDITOR "helix"
     GSK_RENDERER "gl"
     XMODIFIERS "@im=fcitx"
-    GTK_IM_MODULE "fcitx"
-    QT_IM_MODULE "fcitx"
-    QT_IM_MODULES "wayland;fcitx"
-    SDL_IM_MODULE "fcitx"
-    GLFW_IM_MODULE "ibus"
+    // GTK_IM_MODULE "fcitx"
+    // QT_IM_MODULE "fcitx"
+    // QT_IM_MODULES "wayland;fcitx"
+    // SDL_IM_MODULE "fcitx"
+    // GLFW_IM_MODULE "fcitx"
     // theme
     GTK_THEME "Orchis-Light-Compact"
+    // qt主题
+    // QT_QPA_PLATFORMTHEME "gtk3"
+    // QT_QPA_PLATFORMTHEME_QT6 "gtk3"
     QT_AUTO_SCREEN_SCALE_FACTOR "1"
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
     QT_STYLE_OVERRIDE "kvantum"
@@ -61,21 +55,19 @@ cursor {
 }
 
 
-// Uncomment this line to ask the clients to omit their client-side decorations if possible.
-// If the client will specifically ask for CSD, the request will be honored.
-// Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
-// This option will also fix border/focus ring drawing behind some semitransparent windows.
-// After enabling or disabling this, you need to restart the apps for this to take effect.
+// 取消启动niri时自动开启快捷键教程
+hotkey-overlay {
+     skip-at-startup
+}
+
 prefer-no-csd
-
-// You can change the path where screenshots are saved.
-// A ~ at the front will be expanded to the home directory.
-// The path is formatted with strftime(3) to give you the screenshot date and time.
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
-
-// You can also set this to null to disable saving screenshots to disk.
-// screenshot-path null
 
 clipboard {
     disable-primary
+}
+
+overview {
+    workspace-shadow {
+        off
+    }
 }
