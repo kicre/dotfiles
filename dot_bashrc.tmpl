@@ -12,4 +12,6 @@ eval "$(uvx --generate-shell-completion bash)"
 fi
 
 # Set starship
+if hash starship 2>/dev/null; then
 eval "$(starship init bash)"
+fi

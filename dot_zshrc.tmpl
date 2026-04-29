@@ -4,24 +4,51 @@ HISTSIZE=1000
 SAVEHIST=1000
 bindkey -v
 
+# 加载 terminfo（必须在所有绑定之前）
+zmodload -F zsh/terminfo +p:terminfo
+
+# ── 补全 ──
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # 忽略大小写
+
 # Plugins
 
-source ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-
-source ~/.config/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 autoload -U compinit; compinit
 
 source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
 
-fpath=(~/.config/zsh/plugins/zsh-completions/src $fpath)
-rm -f ~/.zcompdump; compinit
+source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
+# ── 潜艇式历史搜索 ──
+source ~/.config/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+# terminfo（SS3，zsh 通过 DECCKM 切换模式后的标准序列）
+# + CSI   （部分终端不响应 DECCKM，始终发送 CSI，如 Ghostty）
+for key in "$terminfo[kcuu1]" '^[[A'; do bindkey "$key" history-substring-search-up;   done
+for key in "$terminfo[kcud1]" '^[[B'; do bindkey "$key" history-substring-search-down; done
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+fpath=(~/.config/zsh/plugins/zsh-completions/src $fpath)
+
+# ── 功能键绑定 ──
+# Home/End：SS3（terminfo） + CSI（兼容不响应 DECCKM 的终端）
+for key in "$terminfo[khome]" '^[[H'; do bindkey "$key" beginning-of-line; done
+for key in "$terminfo[kend]"  '^[[F'; do bindkey "$key" end-of-line;       done
+bindkey '^[[3~' delete-char
+[[ -n "${terminfo[kich1]}" ]] && bindkey "${terminfo[kich1]}" overwrite-mode
+# PageUp / PageDown（本身就是 CSI，无需 fallback）
+[[ -n "${terminfo[kpp]}" ]] && bindkey "${terminfo[kpp]}" up-line-or-history
+[[ -n "${terminfo[knp]}" ]] && bindkey "${terminfo[knp]}" down-line-or-history
+# Backspace
+[[ -n "${terminfo[kbs]}" ]] && bindkey "${terminfo[kbs]}" backward-delete-char
+# Ctrl+← / Ctrl+→（多序列覆盖不同终端）
+bindkey '\e[1;5D' backward-word
+bindkey '\e[1;5C' forward-word
+bindkey '\e[5D'    backward-word
+bindkey '\e[5C'    forward-word
+bindkey '\e\e[D'   backward-word
+bindkey '\e\e[C'   forward-word
 
 {{ template "shrc.sh" . }}
 
@@ -37,4 +64,6 @@ eval "$(uvx --generate-shell-completion zsh)"
 fi
 
 # Set starship
+if hash starship 2>/dev/null; then
 eval "$(starship init zsh)"
+fi

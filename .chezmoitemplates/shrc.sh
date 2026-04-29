@@ -3,10 +3,12 @@ export TZ=Asia/Shanghai
 export LANG=zh_CN.UTF-8
 export LANGUAGE=zh_CN:en_SG
 
-# nvim 
+# vim 
+if hash vim 2>/dev/null; then
+        alias vi=vim
+fi
 if hash nvim 2>/dev/null; then
-        alias vim=nvim
-        alias vi=nvim
+        alias nv=nvim
 fi
 
 # yazi
@@ -40,7 +42,7 @@ if hash eza 2>/dev/null; then
         alias ls='eza --group-directories-first --icons --git'
         alias l='eza --group-directories-first --icons --git'
         alias la='eza --all --group-directories-first --icons --git'
-        alias ll='eza -l --all --all --group-directories-first --icons --git'
+        alias ll='eza -l --all --group-directories-first --icons --git'
         alias lt='eza -T --git-ignore --level=2 --group-directories-first'
         alias llt='eza -lT --git-ignore --level=2 --group-directories-first'
         alias lT='eza -T --git-ignore --level=4 --group-directories-first'
@@ -56,9 +58,4 @@ else
         alias l='ls -lah'
         alias ll='ls -alF'
         alias la='ls -A'
-fi
-
-# ssh
-if hash tssh 2>/dev/null; then
-        alias ssh=tssh
 fi
