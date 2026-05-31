@@ -65,7 +65,3 @@ else {
     function ll { Get-ChildItem -Force -Detailed | Format-Table -AutoSize }
     function la { Get-ChildItem -Force -Hidden | Format-Table -AutoSize }
 }
-# ssh
-if (Get-Command tssh -ErrorAction SilentlyContinue) {
-    function ssh { tssh @args }
-}
