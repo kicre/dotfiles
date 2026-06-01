@@ -3,6 +3,8 @@ export TZ=Asia/Shanghai
 export LANG=zh_CN.UTF-8
 export LANGUAGE=zh_CN:en_SG
 
+export PATH="/home/kicre/.local/bin:$PATH"
+
 # vim 
 if hash vim 2>/dev/null; then
         alias vi=vim
