@@ -51,16 +51,21 @@ wrap-at-text-width = false
 
 [keys.normal]
 C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
-{{- if (and (eq .chezmoi.os "linux") (ne .chezmoi.username "root")) }} 
-"i" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "insert_mode"]
-"a" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "append_mode"]
-"c" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "change_selection"]
-"o" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "open_below"]
-"I" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "insert_at_line_start"]
-"A" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "insert_at_line_end"]
-"O" = [":sh if [ -e \"/tmp/rime-state\" ] && [ \"$(cat /tmp/rime-state)\" = \"b false\" ]; then busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b false; fi", "open_above"]
+{{- if (and (eq .chezmoi.os "linux") (ne .chezmoi.username "root")) }}
+"i" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" enter >/dev/null 2>&1; fi", "insert_mode"]
+"a" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" enter >/dev/null 2>&1; fi", "append_mode"]
+"c" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" enter >/dev/null 2>&1; fi", "change_selection"]
+"A-c" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" enter >/dev/null 2>&1; fi", "change_selection_noyank"]
+"o" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" enter >/dev/null 2>&1; fi", "open_below"]
+"I" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" enter >/dev/null 2>&1; fi", "insert_at_line_start"]
+"A" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" enter >/dev/null 2>&1; fi", "insert_at_line_end"]
+"O" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" enter >/dev/null 2>&1; fi", "open_above"]
 
 [keys.insert]
-"esc" = [":sh echo $(busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode) > /tmp/rime-state; busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b true", "normal_mode"]
-
-{{ end }}
+"esc" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" exit >/dev/null 2>&1; fi", "normal_mode"]
+"C-c" = [":sh if [ -x \"$HOME/.config/scripts/rime-ctl.sh\" ]; then \"$HOME/.config/scripts/rime-ctl.sh\" exit >/dev/null 2>&1; fi", "normal_mode"]
+{{- else if eq .chezmoi.os "windows" }}
+[keys.insert]
+"esc" = [":sh if exist \"%APPDATA%\\helix\\rime-ctl.cmd\" \"%APPDATA%\\helix\\rime-ctl.cmd\" exit >nul 2>nul", "normal_mode"]
+"C-c" = [":sh if exist \"%APPDATA%\\helix\\rime-ctl.cmd\" \"%APPDATA%\\helix\\rime-ctl.cmd\" exit >nul 2>nul", "normal_mode"]
+{{- end }}
