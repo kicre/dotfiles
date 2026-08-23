@@ -168,9 +168,9 @@
     "interval": 10,
     "exec-on-event": true,
     "signal": 3,
-    "exec": "~/.config/waybar/scripts/brightness.sh sync >/dev/null 2>&1; ~/.config/waybar/scripts/brightness.sh get",
-    "on-scroll-up": "~/.config/waybar/scripts/brightness.sh up",
-    "on-scroll-down": "~/.config/waybar/scripts/brightness.sh down"
+    "exec": "~/.config/scripts/brightness.sh sync >/dev/null 2>&1; ~/.config/scripts/brightness.sh get",
+    "on-scroll-up": "~/.config/scripts/brightness.sh up",
+    "on-scroll-down": "~/.config/scripts/brightness.sh down"
   },
   "network": {
     "format": "",
