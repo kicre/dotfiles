@@ -11,3 +11,6 @@ patch:
   "switcher/hotkeys": "Control+grave"
   "translator/enable_user_dict": true
   "translator/enable_correction": false
+
+  schema_list/+:
+    - schema: ascii
