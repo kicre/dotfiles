@@ -1,31 +1,32 @@
 {
   "layer": "top",
   "position": "top",
-  "spacing": 5,
+  "height": 20,
+  "spacing": 3,
   "modules-left": [
     "niri/workspaces",
     "hyprland/workspaces",
     "group/hwinfo",
     "battery",
-    "custom/weather"
-  ],
-  "modules-center": [
+    "custom/weather",
     "niri/window",
     "hyprland/window"
   ],
+  "modules-center": [
+    "clock"
+  ],
   "modules-right": [
-    "wireplumber",
-    "custom/mic",
+    "group/audio",
     "backlight",
+    "custom/ddcutil",
     "bluetooth",
     "network",
     "tray",
     "power-profiles-daemon",
-    "clock",
-    "custom/power"
+    "group/power"
   ],
   "tray": {
-    "spacing": 5
+    "spacing": 3
   },
   "hyprland/workspaces": {
     "format": "{icon}",
@@ -105,35 +106,45 @@
     ]
   },
   "custom/weather": {
-    "exec": "${HOME}/.config/waybar/scripts/get_weather.sh",
+    "exec": "${HOME}/.config/waybar/scripts/weather.sh",
+    "exec-on-event": true,
     "return-type": "json",
     "format": "{}",
     "tooltip": true,
-    "interval": 3600
+    "interval": 3600,
+    "on-click-right": "${HOME}/.config/waybar/scripts/weather.sh --refresh"
   },
-  "wireplumber": {
-    "format": "{icon} {volume}%",
-    "format-muted": "󰝟",
-    "format-icons": [
-      "󰝟",
-      "󰕿",
-      "󰖀",
-      "󰕾"
-    ],
-    "max-volume": 100,
-    "scroll-step": 5,
-    "on-click": "${HOME}/.config/waybar/scripts/audio_cycle.sh",
-    "on-click-right": "helvum",
-    "tooltip-format": "{node_name}\nVolume: {volume}%\nClick to cycle device"
+  "group/audio": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/audio",
+      "custom/mic"
+    ]
   },
-  "custom/mic": {
-    "exec": "${HOME}/.config/waybar/scripts/mic_status.sh",
+  "custom/audio": {
+    "exec": "${HOME}/.config/waybar/scripts/audio.sh",
     "return-type": "json",
     "format": "{}",
     "tooltip": true,
     "interval": 2,
-    "on-click": "${HOME}/.config/waybar/scripts/mic_status.sh --toggle",
-    "on-click-right": "${HOME}/.config/waybar/scripts/mic_cycle.sh",
+    "on-click": "helvum",
+    "on-click-right": "${HOME}/.config/waybar/scripts/audio.sh --toggle",
+    "on-click-middle": "${HOME}/.config/waybar/scripts/audio.sh --cycle",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+  },
+  "custom/mic": {
+    "exec": "${HOME}/.config/waybar/scripts/mic.sh",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 2,
+    "on-click": "pavucontrol",
+    "on-click-right": "${HOME}/.config/waybar/scripts/mic.sh --toggle",
+    "on-click-middle": "${HOME}/.config/waybar/scripts/mic.sh --cycle",
     "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
     "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%"
   },
@@ -145,6 +156,21 @@
       "󰃝 ",
       "󰃠 "
     ]
+  },
+  "custom/ddcutil": {
+    "format": "{icon}{text}%",
+    "format-icons": [
+      "󰃞 ",
+      "󰃟 ",
+      "󰃝 ",
+      "󰃠 "
+    ],
+    "interval": 10,
+    "exec-on-event": true,
+    "signal": 3,
+    "exec": "~/.config/waybar/scripts/brightness.sh sync >/dev/null 2>&1; ~/.config/waybar/scripts/brightness.sh get",
+    "on-scroll-up": "~/.config/waybar/scripts/brightness.sh up",
+    "on-scroll-down": "~/.config/waybar/scripts/brightness.sh down"
   },
   "network": {
     "format": "",
@@ -188,20 +214,20 @@
     }
   },
   "clock": {
-    "format": "{:%H:%M}",
-    "format-alt": "{:L%A, %Y %B %d (%R)} 󱛡 ",
+    "format": "󱑂  {:L%m-%d  %R  %a}",
+    "format-alt": "{:%H:%M}",
     "tooltip-format": "\n<span size='9pt' font='monospace'>{calendar}</span>",
     "calendar": {
-      "mode": "year",
+      "mode": "month",
       "mode-mon-col": 3,
       "weeks-pos": "right",
       "on-scroll": 1,
       "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        "months": "<span color='#3F51B5'><b>{}</b></span>",
+        "days": "<span color='#1A73E8'><b>{}</b></span>",
+        "weeks": "<span color='#0F9D58'><b>W{}</b></span>",
+        "weekdays": "<span color='#666666'><b>{}</b></span>",
+        "today": "<span color='#E53935'><b><u>{}</u></b></span>"
       }
     },
     "actions": {
@@ -212,10 +238,44 @@
       "on-scroll-down": "shift_down"
     }
   },
-  "custom/power": {
-    "format": "〇",
-    "tooltip": false,
-    "on-click": "fuzzel",
-    "on-click-right": "${HOME}/.config/waybar/scripts/power_menu.sh"
+  "group/power": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/wlogout",
+      "custom/reboot",
+      "custom/logout",
+      "custom/lockscreen"
+    ]
+  },
+  "custom/wlogout": {
+    "tooltip-format": "左键：关机",
+    "format": "󰐥",
+    "on-click": "~/.config/waybar/scripts/session.sh poweroff",
+    "on-scroll-up": "true",
+    "on-scroll-down": "true"
+  },
+  "custom/lockscreen": {
+    "tooltip-format": "左键：锁屏",
+    "format": "",
+    "on-click": "~/.config/waybar/scripts/session.sh lock",
+    "on-scroll-up": "true",
+    "on-scroll-down": "true"
+  },
+  "custom/reboot": {
+    "tooltip-format": "左键：重启",
+    "format": "",
+    "on-click": "~/.config/waybar/scripts/session.sh reboot",
+    "on-scroll-up": "true",
+    "on-scroll-down": "true"
+  },
+  "custom/logout": {
+    "tooltip-format": "左键：登出",
+    "format": "󰈆",
+    "on-click": "~/.config/waybar/scripts/session.sh logout",
+    "on-scroll-up": "true",
+    "on-scroll-down": "true"
   }
 }
