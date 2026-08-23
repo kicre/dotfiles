@@ -9,40 +9,37 @@ include "animation.kdl"
 // spawn-at-startup "wpka"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "waybar"
+// spawn-at-startup "qs" "-c" "noctalia-shell"
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "fcitx5" "--replace" "-d"
 spawn-at-startup "awww-daemon"
 spawn-at-startup "mako"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
-spawn-at-startup "wl-paste" "--type" "--watch" "xclip" "-selection" "clipboard"
+spawn-at-startup "wl-pasteh" "--watch" "xclip" "-selection" "clipboard" "-i"
 spawn-at-startup "udiskie"
 spawn-at-startup "~/.config/scripts/swayidle.sh"
 spawn-at-startup "~/.config/scripts/awww_randomize.sh"
+spawn-at-startup "fcitx5" "--replace" "-d"
 
 // Environments
 environment {
     TZ "Asia/Shanghai"
     LANG "zh_CN.UTF-8"
-    LANGUAGE "zh_CN:en_US"
-    EDITOR "helix"
-    GSK_RENDERER "gl"
+    LANGUAGE "zh_CN:en_SG:en_US:en:C"
+    EDITOR "nvim"
     XMODIFIERS "@im=fcitx"
-    // GTK_IM_MODULE "fcitx"
-    // QT_IM_MODULE "fcitx"
-    // QT_IM_MODULES "wayland;fcitx"
     // SDL_IM_MODULE "fcitx"
     // GLFW_IM_MODULE "fcitx"
     // theme
     GTK_THEME "Orchis-Light-Compact"
     // qt主题
-    // QT_QPA_PLATFORMTHEME "gtk3"
-    // QT_QPA_PLATFORMTHEME_QT6 "gtk3"
     QT_AUTO_SCREEN_SCALE_FACTOR "1"
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
     QT_STYLE_OVERRIDE "kvantum"
     QT_QPA_PLATFORM "wayland;xcb"
     QT_QPA_PLATFORMTHEME "qt6ct" // change to qt6ct if you have that
 
+    PROTON_ENABLE_WAYLAND "1"
+    GSK_RENDERER "gl"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 
