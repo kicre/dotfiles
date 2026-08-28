@@ -4,12 +4,14 @@
 
 set -euo pipefail
 
-CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/waybar/weather.cache"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/waybar"
 CACHE_TTL=1800   # 30 分钟缓存
+mkdir -p "$CACHE_DIR"
 
-# ── --refresh: 清除缓存（供 waybar 右键刷新用） ──
+# ── --refresh: 清除所有地点缓存（供 waybar 右键刷新用） ──
 if [[ "${1:-}" == "--refresh" ]]; then
-    rm -f "$CACHE_FILE"
+    rm -f "$CACHE_DIR"/weather-*.cache "$CACHE_DIR"/weather-*.cache.tmp \
+          "$CACHE_DIR"/weather.cache "$CACHE_DIR"/weather.cache.tmp
     exit 0
 fi
 
@@ -22,7 +24,16 @@ if [[ -f "$ENV_FILE" ]]; then
 fi
 
 # 优先级: 命令行参数 > .env > 自动定位
-LOCATION="${1:-${WEATHER_LOCATION:-}}"
+# 用 "$*" 拼接所有参数，这样 `weather.sh xinfu xinzhou` 不加引号也能整句搜索
+if [[ $# -gt 0 ]]; then
+    LOCATION="$*"
+else
+    LOCATION="$WEATHER_LOCATION"
+fi
+
+# 每个地点用独立缓存，避免改了位置后仍读到上一个地点的旧数据
+CACHE_ID=$(printf '%s' "$LOCATION" | md5sum | cut -d' ' -f1)
+CACHE_FILE="$CACHE_DIR/weather-${CACHE_ID}.cache"
 
 # ── 读取缓存（用 tab 分隔，避免空格歧义） ──
 if [[ -f "$CACHE_FILE" ]]; then
@@ -35,14 +46,15 @@ fi
 
 # ── 获取 JSON 数据 ──
 data=""
+enc=""
 for i in 1 2 3; do
     if [[ -n "$LOCATION" ]]; then
         # 路径方式 + URL 编码（wttr.in 只认路径，忽略 ?location= 参数）
         enc=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe=','))" "$LOCATION" 2>/dev/null)
-        data=$(curl -sf --connect-timeout 5 --max-time 10 \
+        data=$(curl -sfL --connect-timeout 5 --max-time 10 \
             "https://wttr.in/${enc}?format=j1" 2>/dev/null) && break
     else
-        data=$(curl -sf --connect-timeout 5 --max-time 10 \
+        data=$(curl -sfL --connect-timeout 5 --max-time 10 \
             "https://wttr.in/?format=j1" 2>/dev/null) && break
     fi
     sleep $(( i * 2 ))
@@ -59,11 +71,23 @@ done
     exit 0
 }
 
+# ── 获取 wttr.in 实际解析出的显示名 ──
+# JSON API 的 nearest_area 对小地点会返回错误的附近地名（如 xinfu 返回 Hesuo），
+# 但普通文本输出的 "Location:" 行是 wttr.in 真正解析出的地点，优先使用它。
+LOCATION_DISPLAY=""
+if [[ -n "$LOCATION" && -n "$enc" ]]; then
+    LOCATION_DISPLAY=$(curl -sfL --connect-timeout 5 --max-time 10 \
+        "https://wttr.in/${enc}" 2>/dev/null | grep -m1 '^Location:' | \
+        sed 's/^Location: //; s/ \[.*\]$//') || true
+fi
+
 # ── 解析 JSON 并输出 ──
-python3 - "$data" <<'PYEOF' > "$CACHE_FILE.tmp"
+python3 - "$data" "$LOCATION_DISPLAY" "$LOCATION" <<'PYEOF' > "$CACHE_FILE.tmp"
 import json, sys
 
 d = json.loads(sys.argv[1])
+loc_display = sys.argv[2]
+loc_input = sys.argv[3]
 cur = d["current_condition"][0]
 area = d["nearest_area"][0]
 
@@ -123,7 +147,13 @@ ic = icon(code)
 zh = desc_zh(code)
 wz = wind_zh(winddir)
 
-loc = f"{city}, {region} {country}" if region else f"{city}, {country}"
+if loc_display:
+    loc = loc_display
+elif loc_input:
+    # 拿不到解析名时，至少显示用户输入的地点，避免显示 JSON 里错误的 nearest_area
+    loc = f"{loc_input}, {country}"
+else:
+    loc = f"{city}, {region} {country}" if region else f"{city}, {country}"
 text = f"{ic} {temp}°C"
 tooltip = (f"{loc}\n"
            f"{ic} {zh} {temp}°C (体感 {feels}°C)\n"
