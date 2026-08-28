@@ -15,11 +15,11 @@ fi
 
 # Helix 输入法控制：启动/进入时先切到英文，避免普通模式按键被中文输入法拦截
 helix() {
-	{{ .chezmoi.homeDir }}/.config/helix/rime-ctl.sh start >/dev/null 2>&1 || true
+	{{ .chezmoi.homeDir }}/.config/scripts/rime-ctl.sh start >/dev/null 2>&1 || true
 	command helix "$@"
 }
 hx() {
-	{{ .chezmoi.homeDir }}/.config/helix/rime-ctl.sh start >/dev/null 2>&1 || true
+	{{ .chezmoi.homeDir }}/.config/scripts/rime-ctl.sh start >/dev/null 2>&1 || true
 	command helix "$@"
 }
 
