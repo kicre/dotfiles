@@ -5,6 +5,9 @@ export LANGUAGE=zh_CN:en_SG
 
 export PATH="/home/kicre/.local/bin:$PATH"
 
+export EDITOR="hx"
+export SUDO_EDITOR="hx"
+
 # vim 
 if hash vim 2>/dev/null; then
         alias vi=vim
