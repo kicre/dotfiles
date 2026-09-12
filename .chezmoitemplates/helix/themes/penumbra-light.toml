@@ -101,8 +101,8 @@
 "diff.delta.moved" = { fg = "cyan" }
 "diff.delta.conflict" = {fg = "blue"}
 
-"ui.background" = { bg = "white" }
-"ui.background.separator" = { bg = "white" }
+"ui.background" = { bg = "default" }
+"ui.background.separator" = { bg = "default" }
 
 "ui.cursor" = { fg = "white", bg = "black" }
 "ui.cursor.normal" = { fg = "white", bg = "black" }
