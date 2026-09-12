@@ -1,0 +1,6 @@
+[install]
+# where `bun add --global` installs packages
+# globalDir = "~/.bun/install/global"
+
+# where globally-installed package bins are linked
+globalBinDir = "/home/kicre/.local/bin/"
