@@ -1,0 +1,175 @@
+" 最小 Vim 配置：纯内置功能，零插件，兼容 Vim 8+ / Neovim
+" 与 ~/.config/nvim 的 lua/config/* 保持同步
+
+" 基础 ------------------------------------------------------------------
+set nocompatible
+filetype plugin indent on
+syntax enable
+set encoding=utf-8
+set fileencoding=utf-8
+
+" 通用 ------------------------------------------------------------------
+if empty($SSH_CONNECTION) && has('clipboard')
+  set clipboard=unnamedplus
+endif
+set confirm
+set mouse=a
+if exists('+termguicolors')
+  set termguicolors
+endif
+
+" 撤销 ------------------------------------------------------------------
+set noswapfile
+set undofile
+set undolevels=10000
+if has('nvim')
+  let &undodir = stdpath('data') . '/undo'
+else
+  let &undodir = expand('~/.local/share/vim/undo')
+endif
+silent! call mkdir(&undodir, 'p')
+
+" 缩进 ------------------------------------------------------------------
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set autoindent
+set smartindent
+set shiftround
+set backspace=indent,eol,start
+if exists('+jumpoptions')
+  silent! set jumpoptions=view
+endif
+
+" 界面 ------------------------------------------------------------------
+set number
+set relativenumber
+set cursorline
+set signcolumn=yes
+set scrolloff=8
+set sidescrolloff=8
+set splitbelow
+set splitright
+set showcmd
+set title
+set laststatus=2
+set noruler
+if exists('+pumblend')
+  set pumblend=10
+endif
+set pumheight=10
+set list
+set listchars=tab:»\ ,trail:·,nbsp:␣
+set fillchars+=eob:\ 
+set conceallevel=2
+
+" 搜索 ------------------------------------------------------------------
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+endif
+
+" 编辑 ------------------------------------------------------------------
+set completeopt=menu,menuone,noselect
+set formatoptions-=cro
+set timeoutlen=400
+set updatetime=200
+if exists('+inccommand')
+  set inccommand=split
+endif
+
+" 命令行补全 ------------------------------------------------------------
+set wildmode=longest:full,full
+set wildignorecase
+set wildignore=*.o,*.obj,*.so,*.a,*.pyc,__pycache__/*,.git/*,node_modules/*,.venv/*,dist/*,build/*,target/*
+if exists('+wildoptions')
+  silent! set wildoptions=pum,fuzzy,tagfile
+endif
+
+" 长文本（Markdown / note）---------------------------------------------
+augroup minimal_prose
+  autocmd!
+  autocmd FileType markdown,text setlocal wrap linebreak
+augroup END
+
+" 键位（与 nvim 配置同步）----------------------------------------------
+let mapleader = " "
+
+" 保存 / 退出 / 新文件
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>fn <cmd>enew<cr>
+nnoremap <leader>qq <cmd>qa<cr>
+inoremap <C-s> <cmd>w<cr><esc>
+xnoremap <C-s> <cmd>w<cr><esc>
+nnoremap <C-s> <cmd>w<cr><esc>
+snoremap <C-s> <cmd>w<cr><esc>
+
+" 清搜索高亮（仍能退出插入模式）
+function! s:ClearHl() abort
+  nohlsearch
+  return "\<Esc>"
+endfunction
+inoremap <expr> <Esc> <SID>ClearHl()
+nnoremap <expr> <Esc> <SID>ClearHl()
+snoremap <expr> <Esc> <SID>ClearHl()
+
+" 屏幕行移动（长行更自然）
+nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+xnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+xnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+nnoremap <expr> <Down> v:count == 0 ? 'gj' : 'j'
+xnoremap <expr> <Down> v:count == 0 ? 'gj' : 'j'
+nnoremap <expr> <Up> v:count == 0 ? 'gk' : 'k'
+xnoremap <expr> <Up> v:count == 0 ? 'gk' : 'k'
+
+" 移动行
+nnoremap <A-j> <cmd>execute 'move .+' . v:count1<cr>==
+nnoremap <A-k> <cmd>execute 'move .-' . (v:count1 + 1)<cr>==
+inoremap <A-j> <esc><cmd>m .+1<cr>==gi
+inoremap <A-k> <esc><cmd>m .-2<cr>==gi
+xnoremap <A-j> :<C-u>execute "'<,'>move '>+" . v:count1<cr>gv=gv
+xnoremap <A-k> :<C-u>execute "'<,'>move '<-" . (v:count1 + 1)<cr>gv=gv
+
+" 搜索方向修正
+nnoremap <expr> n 'Nn'[v:searchforward] . 'zv'
+xnoremap <expr> n 'Nn'[v:searchforward]
+onoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward] . 'zv'
+xnoremap <expr> N 'nN'[v:searchforward]
+onoremap <expr> N 'nN'[v:searchforward]
+
+" 插入模式撤销断点
+inoremap , ,<C-g>u
+inoremap . .<C-g>u
+inoremap ; ;<C-g>u
+
+" 窗口导航 / 大小
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-Up> <cmd>resize +2<cr>
+nnoremap <C-Down> <cmd>resize -2<cr>
+nnoremap <C-Left> <cmd>vertical resize -2<cr>
+nnoremap <C-Right> <cmd>vertical resize +2<cr>
+nnoremap <leader>- <C-w>s
+nnoremap <leader><Bar> <C-w>v
+nnoremap <leader>wd <C-w>c
+
+" 缓冲区
+nnoremap <S-h> <cmd>bprevious<cr>
+nnoremap <S-l> <cmd>bnext<cr>
+nnoremap [b <cmd>bprevious<cr>
+nnoremap ]b <cmd>bnext<cr>
+nnoremap <leader>bb <cmd>e #<cr>
+
+" 可视模式缩进保持选区
+xnoremap < <gv
+xnoremap > >gv
