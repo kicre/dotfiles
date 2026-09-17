@@ -10,6 +10,5 @@ file-types = [
   "tmpl",
   { glob = ".chezmoiignore" },
   { glob = ".chezmoiremove" },
-  { glob = "**/.chezmoitemplates/**" },
 ]
 language-servers = ["gopls"]
