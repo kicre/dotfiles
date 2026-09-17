@@ -18,15 +18,24 @@ LOCK="${TMPDIR:-/tmp}/brightness.lock"
 STEP=5
 FRESH_CACHE=600     # 亮度 cache 新鲜窗口（秒）
 FRESH_METHOD=3600   # 检测方式 cache 新鲜窗口（秒）
+FRESH_METHOD_NONE=30 # 检测失败(none)只缓存 30 秒，避免显示器休眠/启动竞态导致长时间失效
 SYNC_FRESH_GUARD=5  # cache 刚被手动更新时，sync 跳过写硬件（秒）
 
 # ── 检测控制方式（结果缓存，避免每次慢查询 ddcutil detect） ──
 detect_method() {
-  local mt m
-  if [[ -f "$METHOD_CACHE" ]] && mt=$(stat -c %Y "$METHOD_CACHE" 2>/dev/null) \
-     && (( $(date +%s) - mt < FRESH_METHOD )); then
-    cat "$METHOD_CACHE"
-    return
+  local mt m cached ttl
+  if [[ -f "$METHOD_CACHE" ]] && mt=$(stat -c %Y "$METHOD_CACHE" 2>/dev/null); then
+    cached=$(cat "$METHOD_CACHE" 2>/dev/null)
+    ttl=$FRESH_METHOD
+    [[ "$cached" == "none" ]] && ttl=$FRESH_METHOD_NONE
+    # backlight 缓存需设备仍存在，否则视为失效
+    if [[ "$cached" == "backlight" ]] && ! ls -A /sys/class/backlight 2>/dev/null | grep -q .; then
+      cached=""
+    fi
+    if [[ -n "$cached" ]] && (( $(date +%s) - mt < ttl )); then
+      echo "$cached"
+      return
+    fi
   fi
   m=none
   if [[ -d /sys/class/backlight ]] && ls -A /sys/class/backlight 2>/dev/null | grep -q .; then
@@ -51,7 +60,14 @@ get_hardware() {
       echo $((cur * 100 / max))
       ;;
     ddc)
-      ddcutil getvcp 10 --brief 2>/dev/null | awk 'NR==1 {print $4}'
+      local val
+      val=$(ddcutil getvcp 10 --brief 2>/dev/null | awk 'NR==1 {print $4}') || true
+      if [[ "$val" =~ ^[0-9]+$ ]]; then
+        echo "$val"
+      else
+        rm -f "$METHOD_CACHE"
+        return 1
+      fi
       ;;
     none)
       return 1
@@ -68,7 +84,10 @@ set_hardware() {
       [[ -n "$dev" ]] && brightnessctl --device="$dev" set "${val}%" 2>/dev/null
       ;;
     ddc)
-      ddcutil setvcp 10 "$val" 2>/dev/null
+      if ! ddcutil setvcp 10 "$val" 2>/dev/null; then
+        rm -f "$METHOD_CACHE"
+        return 1
+      fi
       ;;
   esac
 }
@@ -121,7 +140,8 @@ main() {
         flock 9
         sleep 0.15
         if v=$(read_cache); then
-          set_hardware "$v"
+          # 写硬件失败则丢弃 cache，让下次 get 重新从硬件校准，避免 UI 与实际长期不一致
+          set_hardware "$v" || rm -f "$CACHE"
         fi
       ) 9>"$LOCK" </dev/null >/dev/null 2>&1 &
       disown

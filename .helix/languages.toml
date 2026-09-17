@@ -1,0 +1,15 @@
+# <chezmoi source>/.helix/languages.toml
+
+[language-server.gopls.config]
+templateExtensions = ["tmpl", "gotmpl"]
+
+[[language]]
+name = "gotmpl"
+file-types = [
+  "gotmpl",
+  "tmpl",
+  { glob = ".chezmoiignore" },
+  { glob = ".chezmoiremove" },
+  { glob = "**/.chezmoitemplates/**" },
+]
+language-servers = ["gopls"]

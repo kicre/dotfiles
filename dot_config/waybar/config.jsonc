@@ -168,6 +168,7 @@
     "interval": 10,
     "exec-on-event": true,
     "signal": 3,
+    "exec-if": "sh -c 'ls -A /sys/class/backlight 2>/dev/null | grep -q . && exit 1 || exit 0'",
     "exec": "~/.config/scripts/brightness.sh sync >/dev/null 2>&1; ~/.config/scripts/brightness.sh get",
     "on-scroll-up": "~/.config/scripts/brightness.sh up",
     "on-scroll-down": "~/.config/scripts/brightness.sh down"
