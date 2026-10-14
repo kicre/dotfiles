@@ -23,7 +23,7 @@ helix() {
 }
 hx() {
 	{{ .chezmoi.homeDir }}/.config/scripts/rime-ctl.sh start >/dev/null 2>&1 || true
-	command helix "$@"
+	command hx "$@"
 }
 
 # yazi
