@@ -52,6 +52,11 @@ bindkey '\e\e[C'   forward-word
 
 {{ template "shrc.sh" . }}
 
+# zoxide
+if hash zoxide 2>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
 # Set up fzf key bindings and fuzzy completion
 if hash fzf 2>/dev/null; then
 eval "$(fzf --zsh)"

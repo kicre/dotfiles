@@ -1,7 +1,6 @@
 font-family = monospace
 window-padding-x = 2
 
-command = zsh
 theme = light:penumbra-light,dark:penumbra-dark
 background-opacity = 0.9
 cursor-style = underline

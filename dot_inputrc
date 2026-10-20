@@ -1,0 +1,18 @@
+# case insensitive tab completion
+set completion-ignore-case On
+
+# show all available completions
+set show-all-if-ambiguous on
+
+# set menu-complete-display-prefix on
+# TAB:menu-complete
+
+set mark-symlinked-directories on
+
+# vim mode in bash
+# set show-mode-in-prompt on
+# set vi-ins-mode-string ""
+# set vi-cmd-mode-string ""
+
+# Useful key bindings
+Control-l:clear-screen

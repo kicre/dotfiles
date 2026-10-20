@@ -1,5 +1,21 @@
 {{ if ne .chezmoi.os "windows" }}
 
+# ble.sh：Bash 交互式语法高亮 / 自动补全 / 自动建议
+[".config/bash/plugins/ble.sh"]
+    type = "archive"
+    url = "https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+# bash-completion：不依赖系统包，由 chezmoi 管理到 ~/.config/bash/plugins/bash-completion
+[".config/bash/plugins/bash-completion"]
+    type = "archive"
+    url = "https://github.com/scop/bash-completion/archive/main.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
 [".config/zsh/plugins/zsh-syntax-highlighting"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"

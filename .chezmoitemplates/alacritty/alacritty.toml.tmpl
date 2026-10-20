@@ -7,10 +7,8 @@ import = [
 [terminal.shell]
 {{- if eq .chezmoi.os "windows" }}
 program = "pwsh"
-{{- else }}
-program = "zsh"
-{{end}}
 args = ["-l"]
+{{end}}
 
 [font]
 size = 12

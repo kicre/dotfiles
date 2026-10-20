@@ -10,42 +10,42 @@ local launch_menu = {}
 
 local haswork,work = pcall(require,"work")
 
--- Shell
-if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-    table.insert( launch_menu, {
-        label = 'Git Bash',
-        args = { 'bash', '-l'}
-     } )
-    table.insert( launch_menu, {
-        label = 'NuShell',
-        args = { 'nu', '-l'}
-     } )
-    table.insert( launch_menu, {
-        label = 'WSL',
-        args = { 'wsl', '--cd', "/home/" }
-     } )
-    table.insert( launch_menu, {
-        label = 'Git Bash',
-        args = { 'bash', '-l'}
-     } )
-    config.default_prog = { 'pwsh', '-l' }
-elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
-    table.insert( launch_menu, {
-        label = 'Bash',
-        args = { 'bash', '-l' }
-     } )
-    table.insert( launch_menu, {
-        label = 'Zsh',
-        args = { 'zsh', '-l' }
-     } )
-      config.default_prog = { 'zsh', '-l' }
-else
-    table.insert( launch_menu, {
-        label = 'Zsh',
-        args = { 'zsh', '-l' }
-     } )
-    config.default_prog = { 'zsh', '-l' }
-end
+-- -- Shell
+-- if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+--     table.insert( launch_menu, {
+--         label = 'Git Bash',
+--         args = { 'bash', '-l'}
+--      } )
+--     table.insert( launch_menu, {
+--         label = 'NuShell',
+--         args = { 'nu', '-l'}
+--      } )
+--     table.insert( launch_menu, {
+--         label = 'WSL',
+--         args = { 'wsl', '--cd', "/home/" }
+--      } )
+--     table.insert( launch_menu, {
+--         label = 'Git Bash',
+--         args = { 'bash', '-l'}
+--      } )
+--     config.default_prog = { 'pwsh', '-l' }
+-- elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
+--     table.insert( launch_menu, {
+--         label = 'Bash',
+--         args = { 'bash', '-l' }
+--      } )
+--     table.insert( launch_menu, {
+--         label = 'Zsh',
+--         args = { 'zsh', '-l' }
+--      } )
+--       config.default_prog = { 'zsh', '-l' }
+-- else
+--     table.insert( launch_menu, {
+--         label = 'Zsh',
+--         args = { 'zsh', '-l' }
+--      } )
+--     config.default_prog = { 'zsh', '-l' }
+-- end
 
 config.color_scheme_dirs = {'~/.config/wezterm/colors'}
 config.color_scheme = 'Penumbra Light'
