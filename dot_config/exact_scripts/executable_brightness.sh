@@ -15,6 +15,7 @@ set -euo pipefail
 CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/waybar/brightness"
 METHOD_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/waybar/brightness-method"
 LOCK="${TMPDIR:-/tmp}/brightness.lock"
+BUS_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/waybar/brightness-bus"
 STEP=5
 FRESH_CACHE=600     # 亮度 cache 新鲜窗口（秒）
 FRESH_METHOD=3600   # 检测方式 cache 新鲜窗口（秒）
@@ -47,6 +48,40 @@ detect_method() {
   echo "$m"
 }
 
+# ── DDC 总线号（缓存起来，避免每次调用都花几秒重新检测显示器） ──
+# 不带 --bus / --display 时，ddcutil 每次都要先"检测一遍显示器是谁"，
+# 这才是 sync 每轮要花好几秒的真正原因。
+ddc_bus() {
+  local b
+  if b=$(cat "$BUS_CACHE" 2>/dev/null) && [[ "$b" =~ ^[0-9]+$ ]]; then
+    echo "$b"
+    return 0
+  fi
+  b=$(ddcutil detect --brief 2>/dev/null | sed -n 's#.*/dev/i2c-\([0-9]\+\).*#\1#p' | head -1)
+  if [[ "$b" =~ ^[0-9]+$ ]]; then
+    mkdir -p "$(dirname "$BUS_CACHE")" 2>/dev/null || true
+    { echo "$b" > "$BUS_CACHE"; } 2>/dev/null || true
+    echo "$b"
+    return 0
+  fi
+  return 1
+}
+
+# ── 所有 ddcutil 调用统一走这里 ──
+# 带上 --bus 后 ddcutil 不必再检测显示器，速度从数秒降到数百毫秒。
+# 万一失败（换了接口、总线号变了）就丢掉缓存，退回自动检测。
+ddc() {
+  local b out
+  if b=$(ddc_bus); then
+    if out=$(ddcutil "$@" --bus "$b" 2>/dev/null); then
+      echo "$out"
+      return 0
+    fi
+    rm -f "$BUS_CACHE"
+  fi
+  ddcutil "$@"
+}
+
 # ── 读硬件亮度（慢查询，仅在校准/初始化时调用） ──
 get_hardware() {
   case "$(detect_method)" in
@@ -61,7 +96,7 @@ get_hardware() {
       ;;
     ddc)
       local val
-      val=$(ddcutil getvcp 10 --brief 2>/dev/null | awk 'NR==1 {print $4}') || true
+      val=$(ddc getvcp 10 --brief 2>/dev/null | awk 'NR==1 {print $4}') || true
       if [[ "$val" =~ ^[0-9]+$ ]]; then
         echo "$val"
       else
@@ -84,7 +119,7 @@ set_hardware() {
       [[ -n "$dev" ]] && brightnessctl --device="$dev" set "${val}%" 2>/dev/null
       ;;
     ddc)
-      if ! ddcutil setvcp 10 "$val" 2>/dev/null; then
+      if ! ddc setvcp 10 "$val" 2>/dev/null; then
         rm -f "$METHOD_CACHE"
         return 1
       fi
@@ -121,7 +156,13 @@ main() {
         echo "$v" > "$CACHE"
         echo "$v"
       else
-        echo ""
+        # 读硬件失败（显示器休眠／切了输入源／刚唤醒／瞬时权限错误）：
+        # 绝不能输出空字符串 —— waybar 收到空输出会隐藏整个亮度模块。
+        # 退回到上次记住的数值，并写回 cache，避免每 10 秒反复去问睡着的显示器。
+        if ! v=$(read_cache); then v=50; fi
+        mkdir -p "$(dirname "$CACHE")" 2>/dev/null || true
+        { echo "$v" > "$CACHE"; } 2>/dev/null || true
+        echo "$v"
       fi
       ;;
     up|down)

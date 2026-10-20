@@ -1,282 +1,230 @@
 {
-  "layer": "top",
-  "position": "top",
-  "height": 20,
-  "spacing": 3,
-  "modules-left": [
-    "niri/workspaces",
-    "hyprland/workspaces",
-    "group/hwinfo",
-    "battery",
-    "custom/weather",
-    "niri/window",
-    "hyprland/window"
-  ],
-  "modules-center": [
-    "clock"
-  ],
-  "modules-right": [
-    "group/audio",
-    "backlight",
-    "custom/ddcutil",
-    "bluetooth",
-    "network",
-    "tray",
-    "power-profiles-daemon",
-    "group/power"
-  ],
-  "tray": {
-    "spacing": 3
-  },
-  "hyprland/workspaces": {
-    "format": "{icon}",
-    "on-click": "activate",
-    "icon-size": 50,
-    "sort-by-number": true,
-    "window-rewrite-default": " ",
-    "window-rewrite": {
-      "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
-      "class<firefox>": "", // Windows whose classes are "firefox"
-      "class<firefox> title<.*github.*>": "", // Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
-      "foot": "", // Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
-      "code": "󰨞"
-    }
-  },
-  "hyprland/window": {
-    "format": "👉 {}",
-    "rewrite": {
-      "(.*) — Mozilla Firefox": "🌎 $1",
-      "(.*) - fish": "> [$1]",
-      "(.*) - bash": "> [$1]",
-      "(.*) - zsh": "> [$1]"
-    },
-    "separate-outputs": true
-  },
-  "niri/workspaces": {
-    "format": "{icon}",
-    "format-icons": {
-      "active": "󰜋",
-      "default": ""
-    },
-    "on-click": "activate"
-  },
-  "niri/window": {
-    "format": "👉 {}",
-    "rewrite": {
-      "(.*) — Mozilla Firefox": "🌎 $1",
-      "(.*) - fish": "> [$1]",
-      "(.*) - bash": "> [$1]",
-      "(.*) - zsh": "> [$1]"
-    },
-    "separate-outputs": true
-  },
-  "group/hwinfo": {
-    "orientation": "horizontal",
-    "modules": [
-      "cpu",
-      "memory",
-      "temperature"
-    ]
-  },
-  "cpu": {
-    "interval": 10,
-    "format": " {usage}%"
-  },
-  "memory": {
-    "interval": 30,
-    "format": " {percentage}%"
-  },
-  "temperature": {
-    "format": " {temperatureC}°C"
-  },
-  "battery": {
-    // "bat": "BAT1",
-    "interval": 60,
-    "format": "{icon} {capacity}%",
-    "format-icons": [
-      "󰂎",
-      "󰁺",
-      "󰁻",
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰁹"
-    ]
-  },
-  "custom/weather": {
-    "exec": "${HOME}/.config/waybar/scripts/weather.sh",
-    "exec-on-event": true,
-    "return-type": "json",
-    "format": "{}",
-    "tooltip": true,
-    "interval": 3600,
-    "on-click-right": "${HOME}/.config/waybar/scripts/weather.sh --refresh"
-  },
-  "group/audio": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-left-to-right": false
-    },
-    "modules": [
-      "custom/audio",
-      "custom/mic"
-    ]
-  },
-  "custom/audio": {
-    "exec": "${HOME}/.config/waybar/scripts/audio.sh",
-    "return-type": "json",
-    "format": "{}",
-    "tooltip": true,
-    "interval": 2,
-    "on-click": "helvum",
-    "on-click-right": "${HOME}/.config/waybar/scripts/audio.sh --toggle",
-    "on-click-middle": "${HOME}/.config/waybar/scripts/audio.sh --cycle",
-    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
-  },
-  "custom/mic": {
-    "exec": "${HOME}/.config/waybar/scripts/mic.sh",
-    "return-type": "json",
-    "format": "{}",
-    "tooltip": true,
-    "interval": 2,
-    "on-click": "pavucontrol",
-    "on-click-right": "${HOME}/.config/waybar/scripts/mic.sh --toggle",
-    "on-click-middle": "${HOME}/.config/waybar/scripts/mic.sh --cycle",
-    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
-    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%"
-  },
-  "backlight": {
-    "format": "{icon}{percent}%",
-    "format-icons": [
-      "󰃞 ",
-      "󰃟 ",
-      "󰃝 ",
-      "󰃠 "
-    ]
-  },
-  "custom/ddcutil": {
-    "format": "{icon}{text}%",
-    "format-icons": [
-      "󰃞 ",
-      "󰃟 ",
-      "󰃝 ",
-      "󰃠 "
-    ],
-    "interval": 10,
-    "exec-on-event": true,
-    "signal": 3,
-    "exec-if": "sh -c 'ls -A /sys/class/backlight 2>/dev/null | grep -q . && exit 1 || exit 0'",
-    "exec": "~/.config/scripts/brightness.sh sync >/dev/null 2>&1; ~/.config/scripts/brightness.sh get",
-    "on-scroll-up": "~/.config/scripts/brightness.sh up",
-    "on-scroll-down": "~/.config/scripts/brightness.sh down"
-  },
-  "network": {
-    "format": "",
-    "format-ethernet": "󰈀",
-    "format-wifi": "{icon}",
-    "format-disconnected": "󰤫",
-    "format-icons": [
-      "󰤯",
-      "󰤟",
-      "󰤢",
-      "󰤥",
-      "󰤨"
-    ],
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-    "tooltip-format-ethernet": "{ifname}",
-    "tooltip-format-disconnected": "Disconnected",
-    "on-click": "iwgtk"
-  },
-  "bluetooth": {
-    "format": "󰂯",
-    "format-disabled": "",
-    "format-off": "",
-    "format-no-controller": "",
-    "format-connected": "󰂱 {device_alias}",
-    "format-connected-battery": "󰂱{device_alias} {device_battery_percentage}%",
-    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-    "on-click": "overskride"
-  },
-  "power-profiles-daemon": {
-    "format": "{icon}",
-    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-    "tooltip": true,
-    "format-icons": {
-      "default": "",
-      "performance": "",
-      "balanced": "",
-      "power-saver": ""
-    }
-  },
-  "clock": {
-    "format": "󱑂  {:L%m-%d  %R  %a}",
-    "format-alt": "{:%H:%M}",
-    "tooltip-format": "\n<span size='9pt' font='monospace'>{calendar}</span>",
-    "calendar": {
-      "mode": "month",
-      "mode-mon-col": 3,
-      "weeks-pos": "right",
-      "on-scroll": 1,
-      "format": {
-        "months": "<span color='#3F51B5'><b>{}</b></span>",
-        "days": "<span color='#1A73E8'><b>{}</b></span>",
-        "weeks": "<span color='#0F9D58'><b>W{}</b></span>",
-        "weekdays": "<span color='#666666'><b>{}</b></span>",
-        "today": "<span color='#E53935'><b><u>{}</u></b></span>"
-      }
-    },
-    "actions": {
-      "on-click-right": "mode",
-      "on-click-forward": "tz_up",
-      "on-click-backward": "tz_down",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
-    }
-  },
-  "group/power": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-left-to-right": false
-    },
-    "modules": [
-      "custom/wlogout",
-      "custom/reboot",
-      "custom/logout",
-      "custom/lockscreen"
-    ]
-  },
-  "custom/wlogout": {
-    "tooltip-format": "左键：关机",
-    "format": "󰐥",
-    "on-click": "~/.config/waybar/scripts/session.sh poweroff",
-    "on-scroll-up": "true",
-    "on-scroll-down": "true"
-  },
-  "custom/lockscreen": {
-    "tooltip-format": "左键：锁屏",
-    "format": "",
-    "on-click": "~/.config/waybar/scripts/session.sh lock",
-    "on-scroll-up": "true",
-    "on-scroll-down": "true"
-  },
-  "custom/reboot": {
-    "tooltip-format": "左键：重启",
-    "format": "",
-    "on-click": "~/.config/waybar/scripts/session.sh reboot",
-    "on-scroll-up": "true",
-    "on-scroll-down": "true"
-  },
-  "custom/logout": {
-    "tooltip-format": "左键：登出",
-    "format": "󰈆",
-    "on-click": "~/.config/waybar/scripts/session.sh logout",
-    "on-scroll-up": "true",
-    "on-scroll-down": "true"
-  }
+	"layer": "top",
+	"position": "top",
+	"height": 20,
+	"spacing": 3,
+	"modules-left": [
+		"niri/workspaces",
+		"hyprland/workspaces",
+		"group/hwinfo",
+		"battery",
+		"custom/weather",
+		"niri/window",
+		"hyprland/window"
+	],
+	"modules-center": ["clock"],
+	"modules-right": [
+		"group/audio",
+		"backlight",
+		"custom/ddcutil",
+		"bluetooth",
+		"network",
+		"custom/singbox",
+		"tray",
+		"power-profiles-daemon",
+		"custom/power"
+	],
+	"tray": {
+		"spacing": 3
+	},
+	"hyprland/workspaces": {
+		"format": "{icon}",
+		"on-click": "activate",
+		"icon-size": 50,
+		"sort-by-number": true,
+		"window-rewrite-default": " ",
+		"window-rewrite": {
+			"title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+			"class<firefox>": "", // Windows whose classes are "firefox"
+			"class<firefox> title<.*github.*>": "", // Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+			"foot": "", // Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+			"code": "󰨞"
+		}
+	},
+	"hyprland/window": {
+		"format": "👉 {}",
+		"rewrite": {
+			"(.*) — Mozilla Firefox": "🌎 $1",
+			"(.*) - fish": "> [$1]",
+			"(.*) - bash": "> [$1]",
+			"(.*) - zsh": "> [$1]"
+		},
+		"separate-outputs": true
+	},
+	"niri/workspaces": {
+		"format": "{icon}",
+		"format-icons": {
+			"active": "󰜋",
+			"default": ""
+		},
+		"on-click": "activate"
+	},
+	"niri/window": {
+		"format": "👉 {}",
+		"rewrite": {
+			"(.*) — Mozilla Firefox": "🌎 $1",
+			"(.*) - fish": "> [$1]",
+			"(.*) - bash": "> [$1]",
+			"(.*) - zsh": "> [$1]"
+		},
+		"separate-outputs": true
+	},
+	"group/hwinfo": {
+		"orientation": "horizontal",
+		"modules": ["cpu", "memory", "temperature"]
+	},
+	"cpu": {
+		"interval": 10,
+		"format": " {usage}%"
+	},
+	"memory": {
+		"interval": 30,
+		"format": " {percentage}%"
+	},
+	"temperature": {
+		"format": " {temperatureC}°C"
+	},
+	"battery": {
+		// "bat": "BAT1",
+		"interval": 60,
+		"format": "{icon} {capacity}%",
+		"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰁹"]
+	},
+	"custom/weather": {
+		"exec": "${HOME}/.config/waybar/scripts/weather.sh",
+		"exec-on-event": true,
+		"return-type": "json",
+		"format": "{}",
+		"tooltip": true,
+		"interval": 3600,
+		"on-click-right": "${HOME}/.config/waybar/scripts/weather.sh --refresh"
+	},
+	"group/audio": {
+		"orientation": "inherit",
+		"drawer": {
+			"transition-left-to-right": false
+		},
+		"modules": ["custom/audio", "custom/mic"]
+	},
+	"custom/audio": {
+		"exec": "${HOME}/.config/waybar/scripts/audio.sh",
+		"return-type": "json",
+		"format": "{}",
+		"tooltip": true,
+		"interval": 2,
+		"on-click": "helvum",
+		"on-click-right": "${HOME}/.config/waybar/scripts/audio.sh --toggle",
+		"on-click-middle": "${HOME}/.config/waybar/scripts/audio.sh --cycle",
+		"on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+		"on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+	},
+	"custom/mic": {
+		"exec": "${HOME}/.config/waybar/scripts/mic.sh",
+		"return-type": "json",
+		"format": "{}",
+		"tooltip": true,
+		"interval": 2,
+		"on-click": "pavucontrol",
+		"on-click-right": "${HOME}/.config/waybar/scripts/mic.sh --toggle",
+		"on-click-middle": "${HOME}/.config/waybar/scripts/mic.sh --cycle",
+		"on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
+		"on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%"
+	},
+	"backlight": {
+		"format": "{icon}{percent}%",
+		"format-icons": ["󰃞 ", "󰃟 ", "󰃝 ", "󰃠 "]
+	},
+	"custom/ddcutil": {
+		"format": "{icon}{text}%",
+		"format-icons": ["󰃞 ", "󰃟 ", "󰃝 ", "󰃠 "],
+		"interval": 5,
+		"exec-on-event": true,
+		"signal": 3,
+		"exec-if": "sh -c 'ls -A /sys/class/backlight 2>/dev/null | grep -q . && exit 1 || exit 0'",
+		"exec": "~/.config/scripts/brightness.sh sync >/dev/null 2>&1; ~/.config/scripts/brightness.sh get",
+		"on-scroll-up": "~/.config/scripts/brightness.sh up; pkill -RTMIN+3 waybar",
+		"on-scroll-down": "~/.config/scripts/brightness.sh down; pkill -RTMIN+3 waybar"
+	},
+	"network": {
+		"format": "",
+		"format-ethernet": "󰈀",
+		"format-wifi": "{icon}",
+		"format-disconnected": "󰤫",
+		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+		"tooltip-format-wifi": "{essid} ({signalStrength}%)",
+		"tooltip-format-ethernet": "{ifname}",
+		"tooltip-format-disconnected": "Disconnected",
+		"on-click": "iwgtk"
+	},
+	"custom/singbox": {
+		"exec": "${HOME}/.config/waybar/scripts/singbox.sh",
+		"return-type": "json",
+		"format": "{}",
+		"tooltip": true,
+		"interval": 5,
+		"exec-on-event": true,
+		"signal": 12,
+		"on-click": "${HOME}/.config/waybar/scripts/singbox.sh menu",
+		"on-click-right": "${HOME}/.config/waybar/scripts/singbox.sh restart",
+		"on-click-middle": "${HOME}/.config/waybar/scripts/singbox.sh toggle",
+		"on-scroll-up": "${HOME}/.config/waybar/scripts/singbox.sh cycle prev",
+		"on-scroll-down": "${HOME}/.config/waybar/scripts/singbox.sh cycle next"
+	},
+	"bluetooth": {
+		"format": "󰂯",
+		"format-disabled": "",
+		"format-off": "",
+		"format-no-controller": "",
+		"format-connected": "󰂱 {device_alias}",
+		"format-connected-battery": "󰂱{device_alias} {device_battery_percentage}%",
+		"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+		"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+		"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+		"on-click": "overskride"
+	},
+	"power-profiles-daemon": {
+		"format": "{icon}",
+		"tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+		"tooltip": true,
+		"format-icons": {
+			"default": "",
+			"performance": "",
+			"balanced": "",
+			"power-saver": ""
+		}
+	},
+	"clock": {
+		"format": "󱑂  {:L%m-%d  %R  %a}",
+		"format-alt": "{:%H:%M}",
+		"tooltip-format": "\n<span size='9pt' font='monospace'>{calendar}</span>",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 3,
+			"weeks-pos": "right",
+			"on-scroll": 1,
+			"format": {
+				"months": "<span color='#3F51B5'><b>{}</b></span>",
+				"days": "<span color='#1A73E8'><b>{}</b></span>",
+				"weeks": "<span color='#0F9D58'><b>W{}</b></span>",
+				"weekdays": "<span color='#666666'><b>{}</b></span>",
+				"today": "<span color='#E53935'><b><u>{}</u></b></span>"
+			}
+		},
+		"actions": {
+			"on-click-right": "mode",
+			"on-click-forward": "tz_up",
+			"on-click-backward": "tz_down",
+			"on-scroll-up": "shift_up",
+			"on-scroll-down": "shift_down"
+		}
+	},
+	"custom/power": {
+		"format": "󰐥",
+		"tooltip-format": "左键：应用启动器\n右键：电源菜单（关机 / 重启 / 登出 / 锁屏）",
+		"on-click": "${HOME}/.config/waybar/scripts/power.sh launcher",
+		"on-click-right": "${HOME}/.config/waybar/scripts/power.sh",
+		"on-scroll-up": "true",
+		"on-scroll-down": "true"
+	}
 }

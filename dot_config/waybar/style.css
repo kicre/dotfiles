@@ -51,6 +51,7 @@ window#waybar.empty #window {
 #battery,
 #network,
 #bluetooth,
+#custom-singbox,
 #tray {
   background-color: alpha(@theme_bg_color, 0.65);
   color: @theme_fg_color;
@@ -66,15 +67,37 @@ window#waybar.empty #window {
   border-radius: 8px;
 }
 
-/* ── 会话操作按钮 ── */
-#custom-wlogout,
-#custom-reboot,
-#custom-lockscreen,
-#custom-logout {
+/* ── 电源 / 启动器按钮（四合一）── */
+#custom-power {
   background-color: alpha(@theme_unfocused_bg_color, 0.7);
   color: @theme_unfocused_fg_color;
   padding: 0 0.56em;
   border-radius: 8px;
+}
+
+/* ── sing-box 模块 ── */
+#custom-singbox.mode-rule {
+  color: @theme_fg_color;
+}
+
+#custom-singbox.mode-global {
+  color: #f9e2af;
+}
+
+#custom-singbox.mode-direct {
+  color: #89dceb;
+}
+
+#custom-singbox.mode-allowAds {
+  color: #cba6f7;
+}
+
+#custom-singbox.off {
+  color: #6c7086;
+}
+
+#custom-singbox.err {
+  color: #f38ba8;
 }
 
 /* ── Tooltip ── */
