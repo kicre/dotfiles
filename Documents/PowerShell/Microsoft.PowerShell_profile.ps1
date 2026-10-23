@@ -59,3 +59,7 @@ else {
     function ll { Get-ChildItem -Force -Detailed | Format-Table -AutoSize }
     function la { Get-ChildItem -Force -Hidden | Format-Table -AutoSize }
 }
+
+if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
+    fastfetch
+}

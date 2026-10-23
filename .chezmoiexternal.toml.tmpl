@@ -1,11 +1,11 @@
 {{ if ne .chezmoi.os "windows" }}
 
-# ble.sh：Bash 交互式语法高亮 / 自动补全 / 自动建议
-[".config/bash/plugins/ble.sh"]
+# Flyline：Bash 行编辑器（语法高亮 / 自动建议 / 补全）
+[".local/lib/flyline"]
     type = "archive"
-    url = "https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz"
+    url = "https://github.com/HalFrgrd/flyline/releases/download/v1.10.0/libflyline-v1.10.0-x86_64-unknown-linux-gnu.tar.gz"
     exact = true
-    stripComponents = 1
+    stripComponents = 0
     refreshPeriod = "168h"
 
 # bash-completion：不依赖系统包，由 chezmoi 管理到 ~/.config/bash/plugins/bash-completion

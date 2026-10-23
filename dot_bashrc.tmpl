@@ -1,58 +1,47 @@
-# 使用 vi/vim 行编辑模式；ble.sh 的 default_keymap=auto 会据此启用增强 Vim 模式
-set -o vi
-
-# ── ble.sh ──
-# 交互式 Bash 才加载；必须在 .bashrc 开头以 --attach=none 加载，
-# 并在文件末尾调用 ble-attach。具体选项见 ~/.blerc（dot_blerc.tmpl）。
-if [[ $- == *i* && -f ~/.config/bash/plugins/ble.sh/ble.sh ]]; then
-  source -- ~/.config/bash/plugins/ble.sh/ble.sh --attach=none
-fi
-
 # ── 推荐的 Bash 设置 ──
 # 历史记录：忽略连续重复/空格开头，并去重
 HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=100000
 HISTFILESIZE=200000
-shopt -s histappend checkwinsize dirspell globstar
-
-# 补全时忽略大小写
-bind 'set completion-ignore-case on' 2>/dev/null
-bind 'set show-all-if-ambiguous on' 2>/dev/null
-
-# 没有 ble.sh 时保留 Readline 的彩色补全；ble.sh 下由 ~/.blerc 控制配色
-if [[ ! ${BLE_VERSION-} ]]; then
-  bind 'set colored-stats on' 2>/dev/null
-  bind 'set colored-completion-prefix on' 2>/dev/null
-fi
+shopt -s histappend checkwinsize dirspell globstar extglob
 
 {{ template "shrc.sh" . }}
 
-# Set up fzf key bindings and fuzzy completion
-# 注意：ble.sh 环境下不能直接 eval "$(fzf --bash)"，
-# 需使用 blesh-contrib 的 fzf 集成（在 ~/.blerc 中加载）。
-if hash fzf 2>/dev/null; then
-  if [[ ! ${BLE_VERSION-} ]]; then
-    eval "$(fzf --bash)"
-  fi
+# ── bash-completion ──
+export BASH_COMPLETION_USER_DIR="$HOME/.config/bash/plugins/bash-completion"
+if [[ -f $BASH_COMPLETION_USER_DIR/bash_completion ]]; then
+  source -- "$BASH_COMPLETION_USER_DIR/bash_completion"
 fi
 
-# zoxide（ble.sh 环境下由 ~/.blerc 的 blesh-contrib 集成负责初始化）
+# ── fzf ──
+if hash fzf 2>/dev/null; then
+  eval "$(fzf --bash)"
+fi
+
+# ── zoxide ──
 if hash zoxide 2>/dev/null; then
-  if [[ ! ${BLE_VERSION-} ]]; then
-    eval "$(zoxide init bash)"
-  fi
+  eval "$(zoxide init bash)"
 fi
 
 # uv (python package manager) completion.
 if hash uv 2>/dev/null; then
-eval "$(uv    generate-shell-completion bash)"
-eval "$(uvx --generate-shell-completion bash)"
+  eval "$(uv    generate-shell-completion bash)"
+  eval "$(uvx --generate-shell-completion bash)"
 fi
 
 # Set starship
 if hash starship 2>/dev/null; then
-eval "$(starship init bash)"
+  eval "$(starship init bash)"
 fi
 
-# ble.sh 必须在交互式 shell 初始化的最后 attach
-[[ ! ${BLE_VERSION-} ]] || ble-attach
+# ── Flyline ──
+# 必须在其他配置之后加载；它会接管交互式行编辑。
+if [[ $- == *i* && -f ~/.local/lib/flyline/libflyline.so.1.10.0 ]]; then
+  enable flyline 2>/dev/null || enable -f ~/.local/lib/flyline/libflyline.so.1.10.0 flyline
+
+  # 保留原来的 fzf 快捷键（Flyline 自己也有 Ctrl-R 模糊历史）
+  if hash fzf 2>/dev/null; then
+    flyline key bind Ctrl+r 'always=runBashCommand(__fzf_history__)' 2>/dev/null || true
+    flyline key bind Ctrl+t 'always=runBashCommand(fzf-file-widget)' 2>/dev/null || true
+  fi
+fi
