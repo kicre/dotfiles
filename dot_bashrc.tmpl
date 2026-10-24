@@ -11,4 +11,9 @@ if [[ $- == *i* ]] && command -v zsh >/dev/null 2>&1; then
   exec zsh -l
 fi
 
+export BASH_COMPLETION_USER_DIR="$HOME/.config/bash/plugins/bash-completion"
+if [[ -f $BASH_COMPLETION_USER_DIR/bash_completion ]]; then
+  source -- "$BASH_COMPLETION_USER_DIR/bash_completion"
+fi
+
 {{ template "shrc.sh" . }}
