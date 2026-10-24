@@ -1,47 +1,18 @@
-# ── 推荐的 Bash 设置 ──
-# 历史记录：忽略连续重复/空格开头，并去重
+# ── Bash 基础设置 ──
+# 历史记录：忽略连续重复/空格开头，并去重（对齐 zsh 的 HIST_IGNORE_*）
 HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=100000
-HISTFILESIZE=200000
+HISTFILESIZE=100000
 shopt -s histappend checkwinsize dirspell globstar extglob
+
+# Readline 配置统一放在 ~/.inputrc
+# 默认 vi 编辑模式，插入模式保留常用 Emacs 快捷键
+set -o vi
 
 {{ template "shrc.sh" . }}
 
-# ── bash-completion ──
-export BASH_COMPLETION_USER_DIR="$HOME/.config/bash/plugins/bash-completion"
-if [[ -f $BASH_COMPLETION_USER_DIR/bash_completion ]]; then
-  source -- "$BASH_COMPLETION_USER_DIR/bash_completion"
-fi
-
-# ── fzf ──
-if hash fzf 2>/dev/null; then
-  eval "$(fzf --bash)"
-fi
-
-# ── zoxide ──
-if hash zoxide 2>/dev/null; then
-  eval "$(zoxide init bash)"
-fi
-
-# uv (python package manager) completion.
-if hash uv 2>/dev/null; then
-  eval "$(uv    generate-shell-completion bash)"
-  eval "$(uvx --generate-shell-completion bash)"
-fi
-
-# Set starship
-if hash starship 2>/dev/null; then
-  eval "$(starship init bash)"
-fi
-
-# ── Flyline ──
-# 必须在其他配置之后加载；它会接管交互式行编辑。
-if [[ $- == *i* && -f ~/.local/lib/flyline/libflyline.so.1.10.0 ]]; then
-  enable flyline 2>/dev/null || enable -f ~/.local/lib/flyline/libflyline.so.1.10.0 flyline
-
-  # 保留原来的 fzf 快捷键（Flyline 自己也有 Ctrl-R 模糊历史）
-  if hash fzf 2>/dev/null; then
-    flyline key bind Ctrl+r 'always=runBashCommand(__fzf_history__)' 2>/dev/null || true
-    flyline key bind Ctrl+t 'always=runBashCommand(fzf-file-widget)' 2>/dev/null || true
-  fi
+# ── 登录到 zsh ──
+# 交互式 Bash 完成初始化后切换到 zsh；没有 zsh 时留在 Bash。
+if [[ $- == *i* ]] && command -v zsh >/dev/null 2>&1; then
+  exec zsh -l
 fi

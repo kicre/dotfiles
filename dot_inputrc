@@ -1,18 +1,62 @@
-# case insensitive tab completion
-set completion-ignore-case On
+# ~/.inputrc — GNU Readline
+# 适用于 Bash、Python REPL 等使用 Readline 的交互程序
 
-# show all available completions
+# 默认使用 vi 编辑模式
+set editing-mode vi
+
+# 补全行为
+set completion-ignore-case on
+set completion-map-case on
 set show-all-if-ambiguous on
-
-# set menu-complete-display-prefix on
-# TAB:menu-complete
-
+set menu-complete-display-prefix on
 set mark-symlinked-directories on
+set colored-stats on
+set colored-completion-prefix on
 
-# vim mode in bash
+# 按 Esc 后快速进入 vi 普通模式
+set keyseq-timeout 50
+
+# 多行粘贴作为整体插入
+set enable-bracketed-paste on
+
+# 可选：在 prompt 里显示 vi 模式
 # set show-mode-in-prompt on
 # set vi-ins-mode-string ""
 # set vi-cmd-mode-string ""
 
-# Useful key bindings
-Control-l:clear-screen
+# ── vi 插入模式：保留常用 Emacs 快捷键 ──
+set keymap vi-insert
+
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+"\C-b": backward-char
+"\C-f": forward-char
+"\C-d": delete-char
+"\C-h": backward-delete-char
+"\C-k": kill-line
+"\C-u": unix-line-discard
+"\C-w": unix-word-rubout
+"\C-y": yank
+"\C-t": transpose-chars
+"\C-l": clear-screen
+"\C-r": reverse-search-history
+"\C-p": previous-history
+"\C-n": next-history
+"\C-v": quoted-insert
+
+# ── vi 普通模式 ──
+set keymap vi-command
+
+"\C-l": clear-screen
+"\C-r": redo
+
+# ── Emacs keymap fallback ──
+set keymap emacs
+
+"\C-l": clear-screen
+"\C-r": reverse-search-history
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+"\C-k": kill-line
+"\C-u": unix-line-discard
+"\C-w": unix-word-rubout

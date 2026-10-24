@@ -43,7 +43,6 @@ proxy(){
 	export socks5_proxy="socks5://127.0.0.1:7890"
 	echo "HTTP Proxy on"
 }
-
 noproxy(){
 	unset http_proxy
 	unset https_proxy
@@ -75,6 +74,46 @@ else
         alias la='ls -A'
 fi
 
-if hash fastfetch 2>/dev/null; then
-				fastfetch
+# zoxide
+if hash zoxide 2>/dev/null; then
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    eval "$(zoxide init zsh)"
+  elif [[ -n ${BASH_VERSION-} ]]; then
+    eval "$(zoxide init bash)"
+  fi
+fi
+
+# fzf
+if hash fzf 2>/dev/null; then
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    eval "$(fzf --zsh)"
+  elif [[ -n ${BASH_VERSION-} ]]; then
+    eval "$(fzf --bash)"
+  fi
+fi
+
+# uv (python package manager) completion
+if hash uv 2>/dev/null; then
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    eval "$(uv    generate-shell-completion zsh)"
+    eval "$(uvx --generate-shell-completion zsh)"
+  elif [[ -n ${BASH_VERSION-} ]]; then
+    eval "$(uv    generate-shell-completion bash)"
+    eval "$(uvx --generate-shell-completion bash)"
+  fi
+fi
+
+# starship
+if hash starship 2>/dev/null; then
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    eval "$(starship init zsh)"
+  elif [[ -n ${BASH_VERSION-} ]]; then
+    eval "$(starship init bash)"
+  fi
+fi
+
+# fastfetch
+if hash fastfetch 2>/dev/null && [[ -z ${_SHRC_FASTFETCH_SHOWN-} ]]; then
+  export _SHRC_FASTFETCH_SHOWN=1
+  fastfetch
 fi

@@ -1,7 +1,13 @@
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zhistory
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
+setopt HIST_IGNORE_DUPS       # 连续重复命令不记录
+setopt HIST_IGNORE_ALL_DUPS   # 删除历史中较旧的重复项，保留最新一次
+setopt HIST_SAVE_NO_DUPS      # 写入历史文件时不保存重复项
+setopt HIST_REDUCE_BLANKS     # 压缩命令中的多余空白
+setopt HIST_IGNORE_SPACE      # 以空格开头的命令不记录
+
 bindkey -v
 
 # 加载 terminfo（必须在所有绑定之前）
@@ -51,24 +57,3 @@ bindkey '\e\e[D'   backward-word
 bindkey '\e\e[C'   forward-word
 
 {{ template "shrc.sh" . }}
-
-# zoxide
-if hash zoxide 2>/dev/null; then
-  eval "$(zoxide init zsh)"
-fi
-
-# Set up fzf key bindings and fuzzy completion
-if hash fzf 2>/dev/null; then
-eval "$(fzf --zsh)"
-fi
-
-# uv (python package manager) completion.
-if hash uv 2>/dev/null; then
-eval "$(uv    generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion zsh)"
-fi
-
-# Set starship
-if hash starship 2>/dev/null; then
-eval "$(starship init zsh)"
-fi
