@@ -113,7 +113,6 @@ if hash starship 2>/dev/null; then
 fi
 
 # fastfetch
-if hash fastfetch 2>/dev/null && [[ -z ${_SHRC_FASTFETCH_SHOWN-} ]]; then
-  export _SHRC_FASTFETCH_SHOWN=1
+if hash fastfetch 2>/dev/null; then
   fastfetch
 fi

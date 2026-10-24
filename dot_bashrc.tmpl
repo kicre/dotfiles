@@ -5,14 +5,10 @@ HISTSIZE=100000
 HISTFILESIZE=100000
 shopt -s histappend checkwinsize dirspell globstar extglob
 
-# Readline 配置统一放在 ~/.inputrc
-# 默认 vi 编辑模式，插入模式保留常用 Emacs 快捷键
 set -o vi
 
-{{ template "shrc.sh" . }}
-
-# ── 登录到 zsh ──
-# 交互式 Bash 完成初始化后切换到 zsh；没有 zsh 时留在 Bash。
 if [[ $- == *i* ]] && command -v zsh >/dev/null 2>&1; then
   exec zsh -l
 fi
+
+{{ template "shrc.sh" . }}
