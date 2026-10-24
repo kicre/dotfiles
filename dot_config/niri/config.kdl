@@ -41,6 +41,13 @@ environment {
     SDL_VIDEO_DRIVER "wayland"
     GSK_RENDERER "gl"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
+
+    // 常用应用集中定义：binds.kdl 中通过 spawn-sh "exec $变量名" 启动。
+    BROWSER "brave"
+    FILE_MANAGER "nautilus"
+    TERMINAL "ghostty"
+    APP_LAUNCHER "fuzzel"
+    SCREEN_LOCKER "hyprlock"
 }
 
 // Cursor

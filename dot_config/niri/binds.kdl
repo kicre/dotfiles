@@ -13,11 +13,12 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T { spawn "ghostty"; }
-    Mod+D { spawn "fuzzel" ; }
-    Mod+E { spawn "nautilus";}
-    Super+Alt+L { spawn "hyprlock"; }
+    // 程序本体在 config.kdl 的 environment 中定义
+    Mod+B hotkey-overlay-title="启动浏览器" { spawn-sh "exec $BROWSER"; }
+    Mod+T hotkey-overlay-title="启动终端" { spawn-sh "exec $TERMINAL"; }
+    Mod+E hotkey-overlay-title="启动文件管理器" { spawn-sh "exec $FILE_MANAGER"; }
+    Mod+D hotkey-overlay-title="启动应用启动器" { spawn-sh "exec $APP_LAUNCHER"; }
+    Super+Alt+L hotkey-overlay-title="锁屏" { spawn-sh "exec $SCREEN_LOCKER"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
