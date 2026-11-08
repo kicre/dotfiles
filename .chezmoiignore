@@ -1,3 +1,5 @@
+AGENTS.md
+
 {{ if not (stat (joinPath .chezmoi.homeDir ".config/chezmoi/key.txt")) }}
 .ssh/*
 {{ end }}
