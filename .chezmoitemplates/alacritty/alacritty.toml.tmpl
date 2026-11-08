@@ -4,8 +4,8 @@ import = [
 	
 ]
 
-[terminal.shell]
 {{- if eq .chezmoi.os "windows" }}
+[terminal.shell]
 program = "pwsh"
 args = ["-l"]
 {{end}}
