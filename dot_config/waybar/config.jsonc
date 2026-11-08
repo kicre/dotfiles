@@ -19,7 +19,6 @@
 		"custom/ddcutil",
 		"bluetooth",
 		"network",
-		"custom/singbox",
 		"tray",
 		"power-profiles-daemon",
 		"custom/power"
@@ -155,20 +154,6 @@
 		"tooltip-format-ethernet": "{ifname}",
 		"tooltip-format-disconnected": "Disconnected",
 		"on-click": "iwgtk"
-	},
-	"custom/singbox": {
-		"exec": "${HOME}/.config/waybar/scripts/singbox.sh",
-		"return-type": "json",
-		"format": "{}",
-		"tooltip": true,
-		"interval": 5,
-		"exec-on-event": true,
-		"signal": 12,
-		"on-click": "${HOME}/.config/waybar/scripts/singbox.sh menu",
-		"on-click-right": "${HOME}/.config/waybar/scripts/singbox.sh restart",
-		"on-click-middle": "${HOME}/.config/waybar/scripts/singbox.sh toggle",
-		"on-scroll-up": "${HOME}/.config/waybar/scripts/singbox.sh cycle prev",
-		"on-scroll-down": "${HOME}/.config/waybar/scripts/singbox.sh cycle next"
 	},
 	"bluetooth": {
 		"format": "󰂯",
