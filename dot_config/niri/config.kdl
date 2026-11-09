@@ -43,7 +43,8 @@ environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 
     // 常用应用集中定义：binds.kdl 中通过 spawn-sh "exec $变量名" 启动。
-    BROWSER "brave"
+    // 不要命名为 BROWSER：xdg-settings 见到 $BROWSER 就拒绝 set default-web-browser
+    DEFAULT_BROWSER "helium-browser"
     FILE_MANAGER "nautilus"
     TERMINAL "ghostty"
     APP_LAUNCHER "fuzzel"
