@@ -222,8 +222,14 @@ main() {
       # 只读硬件亮度（不碰 cache），供外部脚本检测用
       get_hardware
       ;;
+    method)
+      # 当前控制方式：backlight / ddc / none（none 时返回非零，供 waybar exec-if 隐藏模块）
+      m=$(detect_method)
+      [[ "$m" != none ]] || exit 1
+      echo "$m"
+      ;;
     *)
-      echo "用法: $0 {get|up|down|save|restore|sync|hw}" >&2
+      echo "用法: $0 {get|up|down|save|restore|sync|hw|method}" >&2
       exit 1
       ;;
   esac

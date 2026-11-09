@@ -15,8 +15,7 @@
 	"modules-center": ["clock"],
 	"modules-right": [
 		"group/audio",
-		"backlight",
-		"custom/ddcutil",
+		"custom/brightness",
 		"bluetooth",
 		"network",
 		"tray",
@@ -129,17 +128,13 @@
 		"on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
 		"on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%"
 	},
-	"backlight": {
-		"format": "{icon}{percent}%",
-		"format-icons": ["󰃞 ", "󰃟 ", "󰃝 ", "󰃠 "]
-	},
-	"custom/ddcutil": {
+	"custom/brightness": {
 		"format": "{icon}{text}%",
 		"format-icons": ["󰃞 ", "󰃟 ", "󰃝 ", "󰃠 "],
 		"interval": 5,
 		"exec-on-event": true,
 		"signal": 3,
-		"exec-if": "sh -c 'ls -A /sys/class/backlight 2>/dev/null | grep -q . && exit 1 || exit 0'",
+		"exec-if": "sh -c '$HOME/.config/scripts/brightness.sh method >/dev/null 2>&1'",
 		"exec": "~/.config/scripts/brightness.sh sync >/dev/null 2>&1; ~/.config/scripts/brightness.sh get",
 		"on-scroll-up": "~/.config/scripts/brightness.sh up; pkill -RTMIN+3 waybar",
 		"on-scroll-down": "~/.config/scripts/brightness.sh down; pkill -RTMIN+3 waybar"
