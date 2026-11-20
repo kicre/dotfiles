@@ -132,3 +132,12 @@ window-rule {
     match app-id=r#"^element$|^im\.element\.Element$"# title=r#"(?i)image|media|photo"#
     open-floating true
 }
+
+// ========== 邮件客户端 ==========
+
+// 邮件客户端默认打开为 2/3 宽度
+window-rule {
+    match app-id=r#"(?i)mail"#
+    match app-id=r#"^thunderbird$|^org\.mozilla\.Thunderbird$"#
+    default-column-width { proportion 0.667; }
+}
