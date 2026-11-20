@@ -81,3 +81,7 @@ language-servers = [ "kdl-lsp" ]
 
 [language-server.kdl-lsp]
 command = "kdl-lsp"
+
+[[language]]
+name = "hcl"
+file-types = ["hcl", "tf", "dae"]
